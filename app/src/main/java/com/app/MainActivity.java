@@ -8,6 +8,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.app.user.HomeFragment;
+import com.app.user.TopicFragment;
+import com.app.user.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -37,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menuHome:
                 fragment = new HomeFragment();
                 break;
-//            case R.id.menuFavorite:
-//                fragment = new FavoriteFragment();
-//                break;
-//            case R.id.menuSettings:
-//                fragment = new SettingsFragment();
-//                break;
+            case R.id.topic:
+                fragment = new TopicFragment();
+                break;
+            case R.id.user:
+                fragment = new UserFragment();
+                break;
         }
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
