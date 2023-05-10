@@ -4,10 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".user.HomeFragment">
-
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Mới đăng"
+        android:textStyle="bold"
+        android:layout_margin="5dp"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyleView"
+        android:id="@+id/recyleViewNewStory"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Mới cập nhật"
+            android:textStyle="bold"
+            android:layout_margin="5dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyleViewNewUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>
+
 </FrameLayout>
