@@ -38,8 +38,8 @@ public class HomeFragment extends Fragment {
         recyclerViewNewStory = root.findViewById(R.id.recyleViewNewStory);
         recyclerViewNewStory.setLayoutManager(linearLayoutManager);
         truyenListNewStory = new ArrayList<>();
-        truyenListNewStory.add(new Truyen("","title truyen1"));
-        truyenListNewStory.add(new Truyen("","title truyen2"));
+        truyenListNewStory.add(new Truyen("","Căn Nhà Nhỏ Nhỏ Xinh Xinh"));
+        truyenListNewStory.add(new Truyen("","Tổng Tài Bao Nuôi Chim Hoàng Yến Gãy Cánh"));
         truyenListNewStory.add(new Truyen("","title truyen3"));
         truyenListNewStory.add(new Truyen("","title truyen4"));
         truyenAdapter = new TruyenAdapter(truyenListNewStory);
