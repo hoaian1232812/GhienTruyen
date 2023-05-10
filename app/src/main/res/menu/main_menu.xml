@@ -18,4 +18,8 @@
         android:iconTint="@color/black"
         android:id="@+id/user"
         android:icon="@drawable/user"/>
+    <item android:title="Cá nhân"
+        android:iconTint="@color/black"
+        android:id="@+id/user1"
+        android:icon="@drawable/user"/>
 </menu>
