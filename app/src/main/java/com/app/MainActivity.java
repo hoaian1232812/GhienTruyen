@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.ClipData;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.app.user.HomeFragment;
 import com.app.user.TopicFragment;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         switch (id) {
             case R.id.menuHome:
+                
                 fragment = new HomeFragment();
                 break;
             case R.id.topic:
@@ -47,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new UserFragment();
                 break;
         }
-
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content, fragment);
         ft.commit();
