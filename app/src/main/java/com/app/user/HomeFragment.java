@@ -1,4 +1,4 @@
-package com.app;
+package com.app.user;
 
 import android.os.Bundle;
 
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.app.R;
 import com.app.adapter.TruyenAdapter;
 import com.app.model.Truyen;
 
