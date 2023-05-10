@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.app.user.HomeFragment;
 import com.app.user.TopicFragment;
+import com.app.user.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
