@@ -39,8 +39,14 @@ public class TruyenAdapter extends RecyclerView.Adapter<TruyenAdapter.TruyenVH> 
         Truyen truyen = truyenList.get(position);
         holder.textView.setText(truyen.getTitle());
         Glide.with(holder.imageView.getContext())
-                .load("http://139.180.129.238:8080/Untitled.png")
+                .load("http://139.180.129.238:8080/Untitled1.jpg")
                 .into(holder.imageView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
