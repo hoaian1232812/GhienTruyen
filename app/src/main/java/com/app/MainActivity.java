@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.app.user.HomeFragment;
+import com.app.user.SearchFragment;
 import com.app.user.TopicFragment;
 import com.app.user.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,14 +41,20 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         switch (id) {
             case R.id.menuHome:
-                
                 fragment = new HomeFragment();
+                setTitle("Trang Chủ");
                 break;
             case R.id.topic:
                 fragment = new TopicFragment();
+                setTitle("Thể Loại");
+                break;
+            case R.id.search:
+                fragment = new SearchFragment();
+                setTitle("Tìm Truyện");
                 break;
             case R.id.user:
                 fragment = new UserFragment();
+                setTitle("Cá nhân");
                 break;
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
