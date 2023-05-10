@@ -17,7 +17,7 @@
         android:id="@+id/title"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:text="Tạm biệt tình yêu" />
+        android:text="Tạm biệt tình yêu"/>
 
 
 </LinearLayout>
