@@ -10,6 +10,10 @@
         android:iconTint="@color/black"
         android:id="@+id/topic"
         android:icon="@drawable/list"/>
+    <item android:title="Tìm truyện"
+        android:iconTint="@color/black"
+        android:id="@+id/search"
+        android:icon="@drawable/search"/>
     <item android:title="Cá nhân"
         android:iconTint="@color/black"
         android:id="@+id/user"
