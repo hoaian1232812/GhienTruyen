@@ -26,6 +26,11 @@ public class TruyenAdapter extends RecyclerView.Adapter<TruyenAdapter.TruyenVH> 
         this.truyenList = truyenList;
     }
 
+    public void setTruyenList(List<Truyen> newList) {
+        truyenList = newList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public TruyenVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
