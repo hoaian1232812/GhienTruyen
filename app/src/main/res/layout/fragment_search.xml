@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/radius_edittext"
         android:hint="Tìm kiếm"
+        android:singleLine="true"
         android:drawableStart="@drawable/baseline_search_24"
         android:drawablePadding="8dp"
         android:padding="10dp"

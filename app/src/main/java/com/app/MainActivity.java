@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.ClipData;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bnv = findViewById(R.id.bottomNavigationView);
-        bnv.setSelectedItemId(R.id.menuHome);
         display(R.id.menuHome);
         bnv.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -38,27 +38,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void display(int id) {
-        Fragment fragment = null;
-        switch (id) {
-            case R.id.menuHome:
-                fragment = new HomeFragment();
-                setTitle("Trang Chủ");
-                break;
-            case R.id.topic:
-                fragment = new TopicFragment();
-                setTitle("Thể Loại");
-                break;
-            case R.id.search:
-                fragment = new SearchFragment();
-                setTitle("Tìm Truyện");
-                break;
-            case R.id.user:
-                fragment = new UserFragment();
-                setTitle("Cá nhân");
-                break;
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag("" + id);
+        if (fragment == null) {
+            switch (id) {
+                case R.id.menuHome:
+                    fragment = new HomeFragment();
+                    setTitle("Trang Chủ");
+                    break;
+                case R.id.topic:
+                    fragment = new TopicFragment();
+                    setTitle("Thể Loại");
+                    break;
+                case R.id.search:
+                    fragment = new SearchFragment();
+                    setTitle("Tìm Truyện");
+                    break;
+                case R.id.user:
+                    fragment = new UserFragment();
+                    setTitle("Cá nhân");
+                    break;
+            }
         }
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content, fragment);
+        ft.replace(R.id.content, fragment, "" + id);
         ft.commit();
     }
 }

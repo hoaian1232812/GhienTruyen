@@ -7,26 +7,32 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.app.R;
-import com.app.adapter.TruyenAdapter;
-import com.app.model.Truyen;
+import com.app.adapter.StoryAdapter;
+import com.app.model.Story;
+import com.app.service.ApiClient;
+import com.app.service.ApiService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class SearchFragment extends Fragment {
     EditText editText;
-    TruyenAdapter adapter;
+    StoryAdapter adapter;
     RecyclerView recyclerView;
-    List<Truyen> truyens;
+    List<Story> stories;
     GridLayoutManager layout;
 
     @Override
@@ -42,17 +48,22 @@ public class SearchFragment extends Fragment {
         layout = new GridLayoutManager(root.getContext(), 3);
         recyclerView = root.findViewById(R.id.search_recyc);
         recyclerView.setLayoutManager(layout);
-        truyens = new ArrayList<>();
-        truyens.add(new Truyen("", "title truyen1"));
-        truyens.add(new Truyen("", "title truyen2"));
-        truyens.add(new Truyen("", "title truyen3"));
-        truyens.add(new Truyen("", "title truyen4"));
-        truyens.add(new Truyen("", "title truyen5"));
-        truyens.add(new Truyen("", "title truyen6"));
-        truyens.add(new Truyen("", "a"));
-        truyens.add(new Truyen("", "b"));
-        adapter = new TruyenAdapter(truyens);
-        recyclerView.setAdapter(adapter);
+        Call<List<Story>> call = ApiClient.getApiService().getAllStory();
+        call.enqueue(new Callback<List<Story>>() {
+            @Override
+            public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
+                if (response.isSuccessful()) {
+                    stories = response.body();
+                    adapter = new StoryAdapter(stories);
+                    recyclerView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Story>> call, Throwable t) {
+            }
+        });
+
     }
 
     public void setUpEditSearch(View root) {
@@ -67,10 +78,10 @@ public class SearchFragment extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String keywork = charSequence.toString();
                 if (!keywork.isEmpty()) {
-                    List<Truyen> search = search(keywork);
+                    List<Story> search = search(keywork);
                     adapter.setTruyenList(search);
                 } else {
-                    adapter.setTruyenList(truyens);
+                    adapter.setTruyenList(stories);
                 }
             }
 
@@ -81,11 +92,13 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    public List<Truyen> search(String keywork) {
-        List<Truyen> searchs = new ArrayList<>();
-        for (Truyen t : truyens)
-            if (t.getTitle().contains(keywork))
-                searchs.add(t);
+    public List<Story> search(String keywork) {
+        List<Story> searchs = new ArrayList<>();
+        for (Story s : stories) {
+            String title = s.getTitle().toLowerCase();
+            if (title.contains(keywork))
+                searchs.add(s);
+        }
         return searchs;
     }
 }
