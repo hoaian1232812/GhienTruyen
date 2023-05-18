@@ -1,7 +1,9 @@
 package com.app.service;
 
+import com.app.model.Chapter;
 import com.app.model.Story;
 import com.app.model.Topic;
+import com.app.model.User;
 
 import java.util.List;
 
@@ -23,11 +25,27 @@ public interface ApiService {
     Call<List<Story>> getAllStoryByTopic(@Query("idTopic") int idTopic);
 
     @GET("/api/story/newTopic")
-    Call<List<Story>> getNewStoriesByTopic(@Query("idTopic") int idTopic);
+    Call<List<Story>> getNewStoriesByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
 
     @GET("/api/topic/all")
     Call<List<Topic>> getAllTopic();
 
     @GET("/api/story/allNewUpdate")
     Call<List<Story>> getAllStoryNewUpdate();
+
+    @GET("/api/story/allChapter")
+    Call<List<Chapter>> getAllChapterByStory(@Query("idStory") int idStory);
+
+    @GET("/api/users/nameUser")
+    Call<User> getNameById(@Query("idUser") int idUser);
+
+    @GET("/api/story/allCompletedByTopic")
+    Call<List<Story>> getStoriesCompletedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/story/allStoryMostViewed")
+    Call<List<Story>> getStoriesMostViewedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/story/allStoryMostLiked")
+    Call<List<Story>> getStoriesLikedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
+
 }
