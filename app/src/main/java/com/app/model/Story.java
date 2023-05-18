@@ -1,10 +1,20 @@
 package com.app.model;
 
+import android.util.Log;
+
+import com.app.service.ApiClient;
+import com.app.service.ApiService;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Story implements Serializable {
     @SerializedName("id")
@@ -31,21 +41,13 @@ public class Story implements Serializable {
     @SerializedName("createDate")
     @Expose
     private String date;
+
     @SerializedName("topic")
     @Expose
     private List<Topic> topics;
 
 
-    public Story(int id, String title, String image, int author_id, String introduce, int views, int likes, String date) {
-        this.id = id;
-        this.title = title;
-        this.image = image;
-        this.author_id = author_id;
-        this.introduce = introduce;
-        this.views = views;
-        this.likes = likes;
-        this.date = date;
-    }
+
 
     public int getId() {
         return id;
@@ -117,5 +119,57 @@ public class Story implements Serializable {
 
     public void setTopics(List<Topic> topics) {
         this.topics = topics;
+    }
+
+
+    public CompletableFuture<List<Chapter>> getAllChapter() {
+        CompletableFuture<List<Chapter>> future = new CompletableFuture<>();
+        Call<List<Chapter>> call = ApiClient.getApiService().getAllChapterByStory(this.id);
+        call.enqueue(new Callback<List<Chapter>>() {
+            @Override
+            public void onResponse(Call<List<Chapter>> call, Response<List<Chapter>> response) {
+                if (response.isSuccessful()) {
+                    List<Chapter> chapters = response.body();
+                    future.complete(chapters);
+                } else {
+                    future.completeExceptionally(new Exception("Request failed")); // Xử lý khi có lỗi xảy ra
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Chapter>> call, Throwable t) {
+                future.completeExceptionally(t);
+            }
+        });
+
+        return future;
+    }
+
+    public CompletableFuture<User> getNamAuthor() {
+        CompletableFuture<User> future = new CompletableFuture<>();
+        Call<User> call = ApiClient.getApiService().getNameById(this.author_id);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    Log.e("Lỗi", response.body().getName());
+                    future.complete(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
+        return future;
+    }
+
+    public String getListNameTopic() {
+        String result = "";
+        for (Topic t : this.topics) {
+            result += " • " + t.getName();
+        }
+        return result.replaceFirst(" • ", "");
     }
 }
