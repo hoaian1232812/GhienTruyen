@@ -33,8 +33,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-       setUpNewStory(root);
-       setUpNewUpdate(root);
+        setUpNewStory(root);
+        setUpNewUpdate(root);
         return root;
     }
 
@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
         call.enqueue(new Callback<List<Story>>() {
             @Override
             public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     storyAdapter = new StoryAdapter(response.body());
                     recyclerViewNewUpdate.setAdapter(storyAdapter);
                 }
