@@ -1,4 +1,6 @@
 package com.app.admins;
 
-public class HomeFragmentAdmins {
+import androidx.fragment.app.Fragment;
+
+public class HomeFragmentAdmins  extends Fragment {
 }
