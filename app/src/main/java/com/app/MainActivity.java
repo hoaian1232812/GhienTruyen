@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         bnv.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
                 display(item.getItemId());
                 return false;
             }

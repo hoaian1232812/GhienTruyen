@@ -1,6 +1,8 @@
 package com.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.R;
 import com.app.model.Story;
+import com.app.user.StoryDetail;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -43,13 +46,15 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.TruyenVH> {
     public void onBindViewHolder(@NonNull TruyenVH holder, int position) {
         Story story = storyList.get(position);
         holder.textView.setText(story.getTitle());
-        Glide.with(holder.imageView.getContext())
-                .load("http://139.180.129.238:8080/Untitled1.jpg")
-                .into(holder.imageView);
+        Glide.with(holder.imageView.getContext()).load("http://139.180.129.238:8080/Untitled1.jpg").into(holder.imageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(view.getContext(), StoryDetail.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("story", story);
+                intent.putExtra("data", bundle);
+                view.getContext().startActivity(intent);
             }
         });
     }
