@@ -4,16 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".user.SearchFragment">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <EditText
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/radius_edittext"
         android:hint="Tìm kiếm"
+        android:singleLine="true"
         android:drawableStart="@drawable/baseline_search_24"
         android:drawablePadding="8dp"
         android:padding="10dp"
         android:textColorHint="#818181"
         android:layout_marginHorizontal="20dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_recyc"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
 </FrameLayout>

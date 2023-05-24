@@ -11,19 +11,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.R;
-import com.app.model.Truyen;
+import com.app.model.Story;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class TruyenAdapter extends RecyclerView.Adapter<TruyenAdapter.TruyenVH> {
+public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.TruyenVH> {
 
-    List<Truyen> truyenList;
+    List<Story> storyList;
 
     Context context;
 
-    public TruyenAdapter(List<Truyen> truyenList) {
-        this.truyenList = truyenList;
+    public StoryAdapter(List<Story> storyList) {
+        this.storyList = storyList;
+    }
+
+    public void setTruyenList(List<Story> newList) {
+        storyList = newList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -36,8 +41,8 @@ public class TruyenAdapter extends RecyclerView.Adapter<TruyenAdapter.TruyenVH> 
 
     @Override
     public void onBindViewHolder(@NonNull TruyenVH holder, int position) {
-        Truyen truyen = truyenList.get(position);
-        holder.textView.setText(truyen.getTitle());
+        Story story = storyList.get(position);
+        holder.textView.setText(story.getTitle());
         Glide.with(holder.imageView.getContext())
                 .load("http://139.180.129.238:8080/Untitled1.jpg")
                 .into(holder.imageView);
@@ -51,7 +56,7 @@ public class TruyenAdapter extends RecyclerView.Adapter<TruyenAdapter.TruyenVH> 
 
     @Override
     public int getItemCount() {
-        return truyenList.size();
+        return storyList.size();
     }
 
     class TruyenVH extends RecyclerView.ViewHolder {

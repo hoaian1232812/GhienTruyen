@@ -11,15 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.R;
-import com.app.adapter.TruyenAdapter;
-import com.app.model.Truyen;
+import com.app.adapter.StoryAdapter;
+import com.app.model.Story;
+import com.app.service.ApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeFragment extends Fragment {
-    TruyenAdapter truyenAdapter;
-    List<Truyen> truyenListNewStory, truyenListNewUpdate;
+    StoryAdapter storyAdapter;
+    List<Story> storyListNewStory, storyListNewUpdate;
     RecyclerView recyclerViewNewStory;
 
     RecyclerView recyclerViewNewUpdate;
@@ -28,8 +33,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-       setUpNewStory(root);
-       setUpNewUpdate(root);
+        setUpNewStory(root);
+        setUpNewUpdate(root);
         return root;
     }
 
@@ -37,27 +42,30 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewNewStory = root.findViewById(R.id.recyleViewNewStory);
         recyclerViewNewStory.setLayoutManager(linearLayoutManager);
-        truyenListNewStory = new ArrayList<>();
-        truyenListNewStory.add(new Truyen("","Căn Nhà Nhỏ Nhỏ Xinh Xinh"));
-        truyenListNewStory.add(new Truyen("","Tổng Tài Bao Nuôi Chim Hoàng Yến Gãy Cánh"));
-        truyenListNewStory.add(new Truyen("","title truyen3"));
-        truyenListNewStory.add(new Truyen("","title truyen4"));
-        truyenAdapter = new TruyenAdapter(truyenListNewStory);
-        recyclerViewNewStory.setAdapter(truyenAdapter);
+        storyListNewStory = new ArrayList<>();
+        storyAdapter = new StoryAdapter(storyListNewStory);
+        recyclerViewNewStory.setAdapter(storyAdapter);
     }
 
     public void setUpNewUpdate(View root) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewNewUpdate = root.findViewById(R.id.recyleViewNewUpdate);
         recyclerViewNewUpdate.setLayoutManager(linearLayoutManager);
-        truyenListNewUpdate = new ArrayList<>();
-        truyenListNewUpdate.add(new Truyen("","title truyen1"));
-        truyenListNewUpdate.add(new Truyen("","title truyen2"));
-        truyenListNewUpdate.add(new Truyen("","title truyen3"));
-        truyenListNewUpdate.add(new Truyen("","title truyen4"));
-        truyenListNewUpdate.add(new Truyen("","title truyen5"));
-        truyenListNewUpdate.add(new Truyen("","title truyen6"));
-        truyenAdapter = new TruyenAdapter(truyenListNewUpdate);
-        recyclerViewNewUpdate.setAdapter(truyenAdapter);
+        Call<List<Story>> call = ApiClient.getApiService().getAllStoryNewUpdate();
+        call.enqueue(new Callback<List<Story>>() {
+            @Override
+            public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
+                if (response.isSuccessful()) {
+                    storyAdapter = new StoryAdapter(response.body());
+                    recyclerViewNewUpdate.setAdapter(storyAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Story>> call, Throwable t) {
+
+            }
+        });
+
     }
 }
