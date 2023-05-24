@@ -10,5 +10,6 @@ public class UserDashBoardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_dash_board);
+
     }
 }
