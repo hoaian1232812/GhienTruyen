@@ -1,12 +1,15 @@
 package com.app.user;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.R;
+import com.app.adapter.TopicStoryDetailAdapter;
 import com.app.model.Chapter;
 import com.app.model.Story;
 import com.app.model.TimeStory;
@@ -17,19 +20,32 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class StoryDetail extends AppCompatActivity {
+    Story story;
     TextView title, author, status, like, chapter, view, time, intro;
     ImageView img;
+    RecyclerView recyclerView;
+    TopicStoryDetailAdapter adapter;
+    LinearLayoutManager layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Story story = (Story) getIntent().getBundleExtra("data").get("story");
-        setUpView(story);
+        story = (Story) getIntent().getBundleExtra("data").get("story");
+        setUpView();
+        setUpRecyclerView();
     }
 
-    private void setUpView(Story story) {
+    private void setUpRecyclerView() {
+        layout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView = findViewById(R.id.topic);
+        recyclerView.setLayoutManager(layout);
+        adapter = new TopicStoryDetailAdapter(story.getTopics());
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void setUpView() {
         title = findViewById(R.id.title);
         title.setText(story.getTitle());
         author = findViewById(R.id.author);
@@ -66,6 +82,7 @@ public class StoryDetail extends AppCompatActivity {
         intro = findViewById(R.id.introduce);
         intro.setText(story.getIntroduce());
     }
+
 
     @Override
     public void onBackPressed() {
