@@ -13,12 +13,14 @@
         android:orientation="vertical">
 
         <fragment
+            android:id="@+id/fragment_header_dash_board"
             class="com.app.userdashboard.HeaderDashBoardFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_header_dash_board" />
 
         <fragment
+            android:id="@+id/fragment_midle_dash_board"
             class="com.app.userdashboard.MidleDashBoardFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

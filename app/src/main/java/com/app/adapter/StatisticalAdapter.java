@@ -27,8 +27,8 @@ public class StatisticalAdapter extends RecyclerView.Adapter<StatisticalAdapter.
     public StatisticalAdapter() {
         this.statistics = new ArrayList<>();
         statistics.add("Lượt thích");
-        statistics.add("Lượt theo dõi");
         statistics.add("Lượt đọc");
+        statistics.add("Lượt đánh giá");
     }
 
     @NonNull
@@ -44,9 +44,10 @@ public class StatisticalAdapter extends RecyclerView.Adapter<StatisticalAdapter.
         String statisticalName = statistics.get(position);
         holder.text.setText(statisticalName);
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), TopicDetailActivity.class);
+            Intent intent = new Intent(view.getContext(), MenuStatisticalAdapter.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("statisticalName", statisticalName);
+            bundle.putString("statisticalName", statisticalName);
+            bundle.putInt("statisticalId", position);
             intent.putExtra("data", bundle);
             view.getContext().startActivity(intent);
         });
