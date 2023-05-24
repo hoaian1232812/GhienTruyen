@@ -52,4 +52,7 @@ public interface ApiService {
     @GET("/api/story/newUpdateById")
     Call<TimeStory> getTimeUpdateById(@Query("idStory") int idStory);
 
+    @GET("/api/story/storyById")
+    Call<Story> getStoryById(@Query("idStory") int idStory);
+
 }

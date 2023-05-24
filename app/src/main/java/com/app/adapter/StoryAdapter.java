@@ -2,7 +2,9 @@ package com.app.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +52,12 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.TruyenVH> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String deviceId = Settings.Secure.getString(view.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+                String uniqueName = "user_preferences_" + deviceId;
+                SharedPreferences userPreferences = view.getContext().getSharedPreferences(uniqueName, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = userPreferences.edit();
+                editor.putInt("story_" + story.getId()+"_read", story.getId());
+                editor.apply();
                 Intent intent = new Intent(view.getContext(), StoryDetail.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("story", story);

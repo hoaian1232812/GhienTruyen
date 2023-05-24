@@ -28,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String deviceId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        String uniqueName = "user_preferences_" + deviceId;
-        SharedPreferences userPreferences = getSharedPreferences(uniqueName, Context.MODE_PRIVATE);
         bnv = findViewById(R.id.bottomNavigationView);
         display(R.id.menuHome);
         bnv.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
