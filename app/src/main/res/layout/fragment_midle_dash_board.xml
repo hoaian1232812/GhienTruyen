@@ -12,14 +12,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        >
+        android:layout_margin="20dp">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/btn_statistical_all"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            app:cardBackgroundColor="#147fb4">
+            app:cardBackgroundColor="#147fb4"
+            app:cardCornerRadius="20dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -27,31 +28,37 @@
                 android:layout_marginBottom="20dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/dash_board_all_ic"/>
+                    android:src="@drawable/dash_board_all_ic" />
+
                 <View
                     android:layout_width="100dp"
                     android:layout_height="3dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:background="@color/white"/>
+                    android:background="@color/white" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Thống kê chung"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
+            android:id="@+id/btn_statistical_detail"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
             android:layout_marginLeft="20dp"
-            app:cardBackgroundColor="#147fb4">
+            app:cardBackgroundColor="#147fb4"
+            app:cardCornerRadius="20dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,21 +66,24 @@
                 android:layout_marginBottom="20dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_details_24"/>
+                    android:src="@drawable/baseline_details_24" />
+
                 <View
                     android:layout_width="100dp"
                     android:layout_height="3dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:background="@color/white"/>
+                    android:background="@color/white" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Thống kê chi tiết"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
