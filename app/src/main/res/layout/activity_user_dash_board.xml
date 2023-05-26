@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#154F6C"
+    android:background="@color/black"
     tools:context=".UserDashBoardActivity">
 
     <LinearLayout
@@ -25,6 +25,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_midle_dash_board" />
+        <fragment
+            android:id="@+id/fragment_list_feature_dash_board"
+            class="com.app.userdashboard.ListFeatureDashBoardFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_list_feature" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

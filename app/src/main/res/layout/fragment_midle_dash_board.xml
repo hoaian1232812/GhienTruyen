@@ -16,9 +16,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/btn_statistical_all"
-            android:layout_width="170dp"
+            android:layout_width="165dp"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="#147fb4"
+            app:cardBackgroundColor="#3884e0"
             app:cardCornerRadius="20dp">
 
             <LinearLayout
@@ -44,6 +44,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quick_sand"
                     android:text="Thống kê chung"
                     android:textSize="16dp" />
 
@@ -53,10 +54,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/btn_statistical_detail"
-            android:layout_width="170dp"
+            android:layout_width="165dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            app:cardBackgroundColor="#147fb4"
+            app:cardBackgroundColor="#3884e0"
             app:cardCornerRadius="20dp">
 
             <LinearLayout
@@ -81,7 +82,9 @@
 
                 <TextView
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quick_sand"
                     android:text="Thống kê chi tiết"
                     android:textSize="16dp" />
 
