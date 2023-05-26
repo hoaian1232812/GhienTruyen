@@ -5,6 +5,7 @@ import com.app.model.Story;
 import com.app.model.TimeStory;
 import com.app.model.Topic;
 import com.app.model.User;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -43,10 +44,10 @@ public interface ApiService {
     @GET("/api/story/allCompletedByTopic")
     Call<List<Story>> getStoriesCompletedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
 
-    @GET("/api/story/allStoryMostViewed")
+    @GET("/api/story/allStoryMostViewedById")
     Call<List<Story>> getStoriesMostViewedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
 
-    @GET("/api/story/allStoryMostLiked")
+    @GET("/api/story/allStoryMostLikedById")
     Call<List<Story>> getStoriesLikedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
 
     @GET("/api/story/newUpdateById")
@@ -55,4 +56,14 @@ public interface ApiService {
     @GET("/api/story/storyById")
     Call<Story> getStoryById(@Query("idStory") int idStory);
 
+    @GET("/api/story/avgRatingOfStory")
+    Call<JsonObject> getRatingById(@Query("idStory") int idStory);
+
+    @GET("/api/story/allStoryAppreciation")
+    Call<List<Story>> getAllStoryAppreciation(@Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/story/allStoryMostLiked")
+    Call<List<Story>> getAllStoryLiked(@Query("limit") int limit, @Query("page") int page);
+    @GET("/api/story/allStoryMostViewed")
+    Call<List<Story>> getAllStoryViewed(@Query("limit") int limit, @Query("page") int page);
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -81,6 +82,11 @@ public class StoryDetail extends AppCompatActivity {
                 .into(img);
         intro = findViewById(R.id.introduce);
         intro.setText(story.getIntroduce());
+    }
+    public void setClickAuthor(){
+        author.setOnClickListener(view ->{
+            Intent intent = new Intent();
+        });
     }
 
 

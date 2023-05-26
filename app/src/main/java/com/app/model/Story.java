@@ -1,9 +1,13 @@
 package com.app.model;
 
+import android.util.Log;
+
 import com.app.service.ApiClient;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -43,7 +47,6 @@ public class Story implements Serializable {
     @SerializedName("status")
     @Expose
     private int status;
-
 
     public int getId() {
         return id;
@@ -188,6 +191,28 @@ public class Story implements Serializable {
             @Override
             public void onFailure(Call<TimeStory> call, Throwable t) {
 
+            }
+        });
+        return future;
+    }
+
+    public CompletableFuture<Double> getRating() {
+        CompletableFuture<Double> future = new CompletableFuture<>();
+        Call<JsonObject> call = ApiClient.getApiService().getRatingById(this.id);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                if (response.isSuccessful()) {
+                    JsonObject jsonObject = response.body();
+                    double rating = jsonObject.get("rating").getAsDouble();
+                    future.complete(rating);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.e("Lỗi", t.getMessage());
             }
         });
         return future;
