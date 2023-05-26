@@ -18,6 +18,7 @@ import com.app.R;
 import com.app.model.Story;
 import com.app.user.StoryDetail;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -56,7 +57,8 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.TruyenVH> {
                 String uniqueName = "user_preferences_" + deviceId;
                 SharedPreferences userPreferences = view.getContext().getSharedPreferences(uniqueName, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = userPreferences.edit();
-                editor.putInt("story_" + story.getId()+"_read", story.getId());
+                Gson gson = new Gson();
+                editor.putString("story_" + story.getId() + "_read", gson.toJson(story));
                 editor.apply();
                 Intent intent = new Intent(view.getContext(), StoryDetail.class);
                 Bundle bundle = new Bundle();

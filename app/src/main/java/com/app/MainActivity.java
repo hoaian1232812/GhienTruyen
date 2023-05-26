@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,12 +24,16 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bnv;
+    Fragment currentFragment = null;
+
+    private SparseArray<Fragment> fragmentSparseArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bnv = findViewById(R.id.bottomNavigationView);
+        fragmentSparseArray = new SparseArray<>();
         display(R.id.menuHome);
         bnv.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -41,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void display(int id) {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag("" + id);
+        Fragment fragment = fragmentSparseArray.get(id);
         if (fragment == null) {
             switch (id) {
                 case R.id.menuHome:
@@ -61,10 +66,23 @@ public class MainActivity extends AppCompatActivity {
                     setTitle("Cá nhân");
                     break;
             }
+            fragmentSparseArray.put(id, fragment);
         }
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content, fragment, "" + id);
-        ft.commit();
+        if (currentFragment != fragment) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            if (fragment.isAdded()) {
+                ft.show(fragment);
+
+            } else {
+                ft.add(R.id.content, fragment, String.valueOf(id));
+            }
+            if (currentFragment != null) {
+                ft.hide(currentFragment);
+            }
+            currentFragment = fragment;
+            ft.commit();
+        }
     }
+
 }
