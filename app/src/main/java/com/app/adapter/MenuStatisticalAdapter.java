@@ -11,9 +11,9 @@ import com.app.user.FavoriteFragment;
 import com.app.user.FullFragment;
 import com.app.user.MostViewFragment;
 import com.app.user.UpdateFragment;
+import com.app.userdashboard.LikeFragment;
 
 public class MenuStatisticalAdapter extends FragmentStateAdapter {
-    Bundle bundle;
 
     public MenuStatisticalAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
@@ -25,25 +25,13 @@ public class MenuStatisticalAdapter extends FragmentStateAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new UpdateFragment();
-                fragment.setArguments(this.bundle);
-                return fragment;
+                return new LikeFragment();
             case 1:
-                fragment = new FullFragment();
-                fragment.setArguments(this.bundle);
-                return fragment;
+                return new Fragment();
             case 2:
-                fragment = new MostViewFragment();
-                fragment.setArguments(this.bundle);
-                return fragment;
-            case 3:
-                fragment = new FavoriteFragment();
-                fragment.setArguments(this.bundle);
-                return fragment;
+                return new Fragment();
             default:
-                fragment = new UpdateFragment();
-                fragment.setArguments(this.bundle);
-                return fragment;
+                return new Fragment();
         }
     }
 
@@ -52,7 +40,4 @@ public class MenuStatisticalAdapter extends FragmentStateAdapter {
         return 3;
     }
 
-    public void setBundle(Bundle bundle) {
-        this.bundle = bundle;
-    }
 }
