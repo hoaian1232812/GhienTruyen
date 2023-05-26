@@ -2,6 +2,7 @@ package com.app.service;
 
 import com.app.model.Chapter;
 import com.app.model.Story;
+import com.app.model.TimeStory;
 import com.app.model.Topic;
 import com.app.model.User;
 
@@ -47,5 +48,11 @@ public interface ApiService {
 
     @GET("/api/story/allStoryMostLiked")
     Call<List<Story>> getStoriesLikedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/story/newUpdateById")
+    Call<TimeStory> getTimeUpdateById(@Query("idStory") int idStory);
+
+    @GET("/api/story/storyById")
+    Call<Story> getStoryById(@Query("idStory") int idStory);
 
 }
