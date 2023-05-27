@@ -123,4 +123,8 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    public String getTilte() {
+        return "Trang chủ";
+    }
 }

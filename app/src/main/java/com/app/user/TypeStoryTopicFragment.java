@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.app.R;
 import com.app.adapter.StoryTopicAdapter;
@@ -33,15 +34,16 @@ public class TypeStoryTopicFragment extends Fragment {
     boolean isLoading = false;
     int page = 1;
     int limit = 15;
+    View root;
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_full, container, false);
+        root = inflater.inflate(R.layout.fragment_full, container, false);
         bundle = getArguments();
         pb_loading = root.findViewById(R.id.pb_loading_full);
-        setRecyclerView(root);
+        setRecyclerView();
         return root;
     }
 
@@ -63,7 +65,7 @@ public class TypeStoryTopicFragment extends Fragment {
         }
     }
 
-    public void setRecyclerView(View root) {
+    public void setRecyclerView() {
         setCallApi();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView = root.findViewById(R.id.recyle_story_topic_full);
@@ -95,6 +97,7 @@ public class TypeStoryTopicFragment extends Fragment {
                     isLoading = true;
                     pb_loading.setVisibility(View.VISIBLE);
                     page += 1;
+                    Toast.makeText(root.getContext(), "" + page, Toast.LENGTH_SHORT).show();
                     prepareData(page, limit);
                 }
             }

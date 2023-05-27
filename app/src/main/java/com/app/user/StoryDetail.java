@@ -18,6 +18,7 @@ import com.app.model.Story;
 import com.app.model.TimeStory;
 import com.app.model.User;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -33,6 +34,7 @@ public class StoryDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Chi Tiết Truyện");
         setContentView(R.layout.activity_story_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         story = (Story) getIntent().getBundleExtra("data").get("story");
@@ -81,6 +83,7 @@ public class StoryDetail extends AppCompatActivity {
         img = findViewById(R.id.img_story);
         Glide.with(img.getContext())
                 .load("http://139.180.129.238:8080/Untitled1.jpg")
+                .transform(new CircleCrop())
                 .into(img);
         intro = findViewById(R.id.introduce);
         intro.setText(story.getIntroduce());

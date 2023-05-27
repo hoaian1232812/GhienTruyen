@@ -21,6 +21,7 @@ import com.app.model.TimeStory;
 import com.app.model.User;
 import com.app.user.StoryDetail;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class StoryTopicAdapter extends RecyclerView.Adapter<StoryTopicAdapter.St
         });
         CompletableFuture<User> futureName = story.getNameAuthor();
         futureName.thenAccept(user -> {
-            holder.author.setText(user.getName());
+            holder.author.setText(" • "+user.getName());
         }).exceptionally(e -> {
             return null;
         });
@@ -68,6 +69,7 @@ public class StoryTopicAdapter extends RecyclerView.Adapter<StoryTopicAdapter.St
         holder.listType.setText(story.getListNameTopic());
         Glide.with(holder.img.getContext())
                 .load("http://139.180.129.238:8080/Untitled1.jpg")
+                .transform(new CircleCrop())
                 .into(holder.img);
         holder.itemView.setOnClickListener(view -> {
             String deviceId = Settings.Secure.getString(view.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);

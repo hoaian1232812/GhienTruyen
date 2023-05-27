@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bnv;
     Fragment currentFragment = null;
 
-    private SparseArray<Fragment> fragmentSparseArray;
+    SparseArray<Fragment> fragmentSparseArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,20 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             if (fragment.isAdded()) {
                 ft.show(fragment);
-
+                switch (id) {
+                    case R.id.menuHome:
+                        setTitle("Trang Chủ");
+                        break;
+                    case R.id.topic:
+                        setTitle("Thể Loại");
+                        break;
+                    case R.id.search:
+                        setTitle("Tìm Truyện");
+                        break;
+                    case R.id.user:
+                        setTitle("Cá nhân");
+                        break;
+                }
             } else {
                 ft.add(R.id.content, fragment, String.valueOf(id));
             }

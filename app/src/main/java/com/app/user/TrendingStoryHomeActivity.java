@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.app.R;
 import com.app.adapter.StoryGridAdapter;
@@ -64,6 +65,7 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
                     isLoading = true;
                     pb_loading.setVisibility(View.VISIBLE);
                     page += 1;
+                    Toast.makeText(TrendingStoryHomeActivity.this, "" + page, Toast.LENGTH_SHORT).show();
                     prepareData(page, limit);
                 }
             }
