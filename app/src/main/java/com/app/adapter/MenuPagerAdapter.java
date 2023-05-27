@@ -7,12 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.app.user.FavoriteFragment;
-import com.app.user.FullFragment;
-import com.app.user.MostViewFragment;
-import com.app.user.UpdateFragment;
-
-import java.util.List;
+import com.app.user.TypeStoryTopicFragment;
 
 public class MenuPagerAdapter extends FragmentStateAdapter {
     Bundle bundle;
@@ -27,23 +22,28 @@ public class MenuPagerAdapter extends FragmentStateAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new UpdateFragment();
+                fragment = new TypeStoryTopicFragment();
+                this.bundle.putInt("type", 0);
                 fragment.setArguments(this.bundle);
                 return fragment;
             case 1:
-                fragment = new FullFragment();
+                fragment = new TypeStoryTopicFragment();
+                this.bundle.putInt("type", 1);
                 fragment.setArguments(this.bundle);
                 return fragment;
             case 2:
-                fragment = new MostViewFragment();
+                fragment = new TypeStoryTopicFragment();
+                this.bundle.putInt("type", 2);
                 fragment.setArguments(this.bundle);
                 return fragment;
             case 3:
-                fragment = new FavoriteFragment();
+                fragment = new TypeStoryTopicFragment();
+                this.bundle.putInt("type", 3);
                 fragment.setArguments(this.bundle);
                 return fragment;
             default:
-                fragment = new UpdateFragment();
+                fragment = new TypeStoryTopicFragment();
+                this.bundle.putInt("type", 0);
                 fragment.setArguments(this.bundle);
                 return fragment;
         }

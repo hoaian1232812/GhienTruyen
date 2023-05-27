@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ListStoryDashBoard"
+            android:name=".userdashboard.detail.ListStoryDashBoard"
             android:exported="false" />
         <activity
             android:name=".login_register.ForgotPassActivity"
@@ -25,17 +25,10 @@
             android:name=".UserDashBoardActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".login_register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailStatisticalActivity"
-            android:name=".user.MostViewHomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".user.MostLikeHomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".user.ReviewStoryHomeActivity"
+            android:name=".user.TrendingStoryHomeActivity"
             android:exported="false" />
         <activity
             android:name=".user.StoryDetail"

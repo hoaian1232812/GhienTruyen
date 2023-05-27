@@ -1,6 +1,10 @@
 package com.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.R;
 import com.app.model.Chapter;
 import com.app.model.Story;
+import com.app.user.StoryDetail;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -54,6 +60,23 @@ public class StoryGridAdapter extends RecyclerView.Adapter<StoryGridAdapter.Stor
         CompletableFuture<Double> futureRating = story.getRating();
         futureRating.thenAccept(rate -> {
             holder.rate.setText(rate + "");
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String deviceId = Settings.Secure.getString(view.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+                String uniqueName = "user_preferences_" + deviceId;
+                SharedPreferences userPreferences = view.getContext().getSharedPreferences(uniqueName, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = userPreferences.edit();
+                Gson gson = new Gson();
+                editor.putString("story_" + story.getId() + "_read", gson.toJson(story));
+                editor.apply();
+                Intent intent = new Intent(view.getContext(), StoryDetail.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("story", story);
+                intent.putExtra("data", bundle);
+                view.getContext().startActivity(intent);
+            }
         });
     }
 

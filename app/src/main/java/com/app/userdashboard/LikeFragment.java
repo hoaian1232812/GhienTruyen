@@ -71,6 +71,7 @@ public class LikeFragment extends Fragment {
                 }
                 ChartCustome.setUpPieChart(pieChart, entries);
             }
+
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
 
@@ -86,6 +87,7 @@ public class LikeFragment extends Fragment {
                 List<MonthStatistical> monthStatisticals = response.body();
                 ChartCustome.setUpLineChart(lineChart, monthStatisticals);
             }
+
             @Override
             public void onFailure(Call<List<MonthStatistical>> call, Throwable t) {
 

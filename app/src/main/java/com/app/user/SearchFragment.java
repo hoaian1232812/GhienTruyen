@@ -45,11 +45,6 @@ public class SearchFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
         setUpEditSearch(root);
         setUpList(root);
-        if (savedInstanceState != null) {
-            Log.e("Lỗi", "Không lấy lại được");
-            search = savedInstanceState.getParcelableArrayList("search");
-            adapter.setTruyenList(search);
-        }
         return root;
     }
 
@@ -114,6 +109,5 @@ public class SearchFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("search", new ArrayList<>(search));
     }
 }

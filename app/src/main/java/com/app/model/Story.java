@@ -20,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Story implements Serializable, Parcelable {
+public class Story implements Serializable {
     @SerializedName("id")
     @Expose
     private int id;
@@ -52,29 +52,6 @@ public class Story implements Serializable, Parcelable {
     @Expose
     private int status;
 
-    protected Story(Parcel in) {
-        id = in.readInt();
-        title = in.readString();
-        image = in.readString();
-        author_id = in.readInt();
-        introduce = in.readString();
-        views = in.readInt();
-        likes = in.readInt();
-        date = in.readString();
-        status = in.readInt();
-    }
-
-    public static final Creator<Story> CREATOR = new Creator<Story>() {
-        @Override
-        public Story createFromParcel(Parcel in) {
-            return new Story(in);
-        }
-
-        @Override
-        public Story[] newArray(int size) {
-            return new Story[size];
-        }
-    };
 
     public int getId() {
         return id;
@@ -253,23 +230,5 @@ public class Story implements Serializable, Parcelable {
             result += " • " + t.getName();
         }
         return result.replaceFirst(" • ", "");
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(title);
-        parcel.writeString(image);
-        parcel.writeInt(author_id);
-        parcel.writeString(introduce);
-        parcel.writeInt(views);
-        parcel.writeInt(likes);
-        parcel.writeString(date);
-        parcel.writeInt(status);
     }
 }

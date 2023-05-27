@@ -88,7 +88,7 @@ public class StoryDetail extends AppCompatActivity {
 
     public void setClickAuthor() {
         author.setOnClickListener(view -> {
-//            Intent intent = new Intent();
+            Intent intent = new Intent();
         });
     }
 

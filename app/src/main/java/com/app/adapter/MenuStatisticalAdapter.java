@@ -1,16 +1,10 @@
 package com.app.adapter;
 
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.app.user.FavoriteFragment;
-import com.app.user.FullFragment;
-import com.app.user.MostViewFragment;
-import com.app.user.UpdateFragment;
 import com.app.userdashboard.LikeFragment;
 
 public class MenuStatisticalAdapter extends FragmentStateAdapter {

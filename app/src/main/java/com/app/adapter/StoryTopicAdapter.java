@@ -2,7 +2,9 @@ package com.app.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.app.model.TimeStory;
 import com.app.model.User;
 import com.app.user.StoryDetail;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -67,6 +70,13 @@ public class StoryTopicAdapter extends RecyclerView.Adapter<StoryTopicAdapter.St
                 .load("http://139.180.129.238:8080/Untitled1.jpg")
                 .into(holder.img);
         holder.itemView.setOnClickListener(view -> {
+            String deviceId = Settings.Secure.getString(view.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+            String uniqueName = "user_preferences_" + deviceId;
+            SharedPreferences userPreferences = view.getContext().getSharedPreferences(uniqueName, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = userPreferences.edit();
+            Gson gson = new Gson();
+            editor.putString("story_" + story.getId() + "_read", gson.toJson(story));
+            editor.apply();
             Intent intent = new Intent(view.getContext(), StoryDetail.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("story", story);
