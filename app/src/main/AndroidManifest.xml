@@ -16,6 +16,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ListStoryDashBoard"
+            android:exported="false" />
+        <activity
+            android:name=".login_register.ForgotPassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserDashBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailStatisticalActivity"
             android:name=".user.MostViewHomeActivity"
             android:exported="false" />
         <activity

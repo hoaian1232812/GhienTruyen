@@ -8,12 +8,25 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Button
-        android:id="@+id/btnGoToLogin"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:textColor="@color/white"
-        />
+        android:orientation="vertical"
+        >
+        <Button
+            android:id="@+id/btnGoToLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textColor="@color/white"
+            />
+        <Button
+            android:id="@+id/btnGoToUserDashBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dash Board"
+            android:textColor="@color/white"
+            />
+    </LinearLayout>
 
 </FrameLayout>

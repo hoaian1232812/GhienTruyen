@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.app.R;
+import com.app.UserDashBoardActivity;
 import com.app.login_register.LoginActivity;
 
 public class UserFragment extends Fragment {
@@ -21,12 +22,20 @@ public class UserFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_user, container, false);
         Button btnGoToLogin = root.findViewById(R.id.btnGoToLogin);
         btnGoToLogin.setOnClickListener(onGoToLoginButtonClicked());
+        Button btnGoToUserDashBoard = root.findViewById(R.id.btnGoToUserDashBoard);
+        btnGoToUserDashBoard.setOnClickListener(onGoToUserDashBoardButtonClicked());
         return root;
     }
 
     public View.OnClickListener onGoToLoginButtonClicked() {
         return view -> {
             Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+        };
+    }
+    public View.OnClickListener onGoToUserDashBoardButtonClicked() {
+        return view -> {
+            Intent intent = new Intent(getActivity(), UserDashBoardActivity.class);
             startActivity(intent);
         };
     }
