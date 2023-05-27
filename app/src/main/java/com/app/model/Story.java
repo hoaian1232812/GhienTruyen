@@ -1,9 +1,17 @@
 package com.app.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.app.service.ApiClient;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -12,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Story implements Serializable {
+public class Story implements Serializable, Parcelable {
     @SerializedName("id")
     @Expose
     private int id;
@@ -44,6 +52,29 @@ public class Story implements Serializable {
     @Expose
     private int status;
 
+    protected Story(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        image = in.readString();
+        author_id = in.readInt();
+        introduce = in.readString();
+        views = in.readInt();
+        likes = in.readInt();
+        date = in.readString();
+        status = in.readInt();
+    }
+
+    public static final Creator<Story> CREATOR = new Creator<Story>() {
+        @Override
+        public Story createFromParcel(Parcel in) {
+            return new Story(in);
+        }
+
+        @Override
+        public Story[] newArray(int size) {
+            return new Story[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -193,6 +224,28 @@ public class Story implements Serializable {
         return future;
     }
 
+    public CompletableFuture<Double> getRating() {
+        CompletableFuture<Double> future = new CompletableFuture<>();
+        Call<JsonObject> call = ApiClient.getApiService().getRatingById(this.id);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                if (response.isSuccessful()) {
+                    JsonObject jsonObject = response.body();
+                    double rating = jsonObject.get("rating").getAsDouble();
+                    future.complete(rating);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.e("Lỗi", t.getMessage());
+            }
+        });
+        return future;
+    }
+
 
     public String getListNameTopic() {
         String result = "";
@@ -200,5 +253,23 @@ public class Story implements Serializable {
             result += " • " + t.getName();
         }
         return result.replaceFirst(" • ", "");
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(title);
+        parcel.writeString(image);
+        parcel.writeInt(author_id);
+        parcel.writeString(introduce);
+        parcel.writeInt(views);
+        parcel.writeInt(likes);
+        parcel.writeString(date);
+        parcel.writeInt(status);
     }
 }

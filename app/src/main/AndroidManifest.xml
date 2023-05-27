@@ -7,6 +7,7 @@
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,6 +29,16 @@
             android:exported="false" />
         <activity
             android:name=".DetailStatisticalActivity"
+            android:name=".user.MostViewHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.MostLikeHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.ReviewStoryHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.StoryDetail"
             android:exported="false" />
         <activity
             android:name=".login_register.LoginActivity"

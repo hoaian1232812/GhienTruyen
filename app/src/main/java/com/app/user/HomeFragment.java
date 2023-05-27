@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.app.R;
 import com.app.adapter.StoryAdapter;
 import com.app.model.Story;
 import com.app.service.ApiClient;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,12 +61,6 @@ public class HomeFragment extends Fragment {
             storyAdapter = new StoryAdapter(storyListNewUpdate);
             recyclerViewNewUpdate.setAdapter(storyAdapter);
         }
-        if (storyListRead != null) {
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.HORIZONTAL, false);
-            recyclerViewRead.setLayoutManager(linearLayoutManager);
-            storyAdapter = new StoryAdapter(storyListRead);
-            recyclerViewRead.setAdapter(storyAdapter);
-        }
         if (storyListNewStory != null) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.HORIZONTAL, false);
             recyclerViewNewStory.setLayoutManager(linearLayoutManager);
@@ -92,53 +88,22 @@ public class HomeFragment extends Fragment {
     }
 
     public void setUpRead() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewRead.setLayoutManager(linearLayoutManager);
+        storyListRead = new ArrayList<>();
         String deviceId = Settings.Secure.getString(root.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         String uniqueName = "user_preferences_" + deviceId;
         SharedPreferences userPreferences = root.getContext().getSharedPreferences(uniqueName, Context.MODE_PRIVATE);
-        CompletableFuture.runAsync(() -> {
-            Map<String, ?> map = userPreferences.getAll();
-            List<CompletableFuture<Story>> futures = new ArrayList<>();
-
-            for (String s : map.keySet()) {
-                if (s.startsWith("story_") && s.endsWith("_read")) {
-                    int idStory = (int) map.get(s);
-                    CompletableFuture<Story> future = getStoryByIdAsync(idStory);
-                    futures.add(future);
-                }
+        Map<String, ?> map = userPreferences.getAll();
+        Gson gson = new Gson();
+        for (String s : map.keySet()) {
+            Object value = map.get(s);
+            if (value instanceof String && s.startsWith("story_") && s.endsWith("_read")) {
+                storyListRead.add(gson.fromJson((String) value, Story.class));
             }
-
-            CompletableFuture<Void> allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
-            allFutures.thenApply(v -> futures.stream()
-                    .map(CompletableFuture::join)
-                    .filter(Objects::nonNull)
-                    .collect(Collectors.toList())
-            ).thenAccept(storyListNewStory -> {
-                // Thực hiện các thao tác tiếp theo với storyListNewStory, ví dụ:
-                storyAdapter = new StoryAdapter(storyListNewStory);
-                recyclerViewRead.setAdapter(storyAdapter);
-            });
-        });
-    }
-
-    private CompletableFuture<Story> getStoryByIdAsync(int idStory) {
-        // Gửi yêu cầu API và trả về danh sách câu chuyện cập nhật mới
-        // Ví dụ:
-        CompletableFuture<Story> future = new CompletableFuture<>();
-        Call<Story> call = ApiClient.getApiService().getStoryById(idStory);
-        call.enqueue(new Callback<Story>() {
-            @Override
-            public void onResponse(Call<Story> call, Response<Story> response) {
-                if (response.isSuccessful()) {
-                    future.complete(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Story> call, Throwable t) {
-                future.completeExceptionally(t);
-            }
-        });
-        return future;
+        }
+        storyAdapter = new StoryAdapter(storyListRead);
+        recyclerViewRead.setAdapter(storyAdapter);
     }
 
     public void setUpNewUpdate() {
