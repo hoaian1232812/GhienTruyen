@@ -4,6 +4,8 @@ import com.app.model.Chapter;
 import com.app.model.Story;
 import com.app.model.Topic;
 import com.app.model.User;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -50,7 +52,7 @@ public interface ApiService {
     @GET("/api/story/allStoryMostLiked")
     Call<List<Story>> getStoriesLikedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
 
-    @GET("/api/story/newUpdateById")
+    @GET("/api/story/newUpdateById") 
     Call<TimeStory> getTimeUpdateById(@Query("idStory") int idStory);
 
     @GET("/api/story/storyById")
