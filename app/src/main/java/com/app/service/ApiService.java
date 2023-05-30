@@ -122,4 +122,10 @@ public interface ApiService {
 
     @GET("/api/users/storyLiked")
     Call<List<Story>> getStoriesUserLiked(@Query("idUser") int idUser, @Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/users/storyLikeByUser")
+    Call<List<Story>> getStoryLikeByUser(@Query("idUser") int idUser);
+
+    @POST("/api/story/updateLike")
+    Call<JsonObject> updateLike(@Field("idUser") int idUser, @Field("idStory") int idStory);
 }

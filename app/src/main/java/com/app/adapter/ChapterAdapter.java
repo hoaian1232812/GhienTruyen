@@ -1,6 +1,8 @@
 package com.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.R;
 import com.app.model.Chapter;
+import com.app.user.ChapterDetailActivity;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -34,6 +38,14 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterV
     public void onBindViewHolder(@NonNull ChapterVH holder, int position) {
         Chapter chapter = chaps.get(position);
         holder.textView.setText("Chương " + chapter.getIndex() + ": " + chapter.getName());
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), ChapterDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("chapters", new Gson().toJson(chaps));
+            bundle.putInt("position", position);
+            intent.putExtra("data", bundle);
+            view.getContext().startActivity(intent);
+        });
     }
 
     @Override
