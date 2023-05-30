@@ -48,7 +48,7 @@ public class StoryListBoardAdapter extends RecyclerView.Adapter<StoryListBoardAd
         Story story = stories.get(position);
         holder.title.setText(story.getTitle());
         Glide.with(holder.img.getContext())
-                .load("http://139.180.129.238:8080/Untitled1.jpg")
+                .load(story.getImage())
                 .transform(new CircleCrop())
                 .into(holder.img);
 

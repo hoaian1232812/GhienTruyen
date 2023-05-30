@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -150,4 +151,8 @@ public interface ApiService {
     @POST("/api/story/updateLike")
     @FormUrlEncoded
     Call<JsonObject> updateLike(@Field("idUser") int idUser, @Field("idStory") int idStory);
+
+    @FormUrlEncoded
+    @POST("/api/upload/uploadImg")
+    Call<JsonObject> uploadImg(@Field("image") byte[] image, @Field("fileName") String fileName);
 }

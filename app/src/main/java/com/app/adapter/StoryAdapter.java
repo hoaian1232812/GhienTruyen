@@ -50,7 +50,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.TruyenVH> {
         Story story = storyList.get(position);
         holder.textView.setText(story.getTitle());
         Glide.with(holder.imageView.getContext())
-                .load("http://139.180.129.238:8080/Untitled1.jpg")
+                .load(story.getImage())
                 .into(holder.imageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -68,7 +68,7 @@ public class StoryTopicAdapter extends RecyclerView.Adapter<StoryTopicAdapter.St
 
         holder.listType.setText(story.getListNameTopic());
         Glide.with(holder.img.getContext())
-                .load("http://139.180.129.238:8080/Untitled1.jpg")
+                .load(story.getImage())
                 .transform(new CircleCrop())
                 .into(holder.img);
         holder.itemView.setOnClickListener(view -> {
