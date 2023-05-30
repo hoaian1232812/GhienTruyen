@@ -95,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                         return;
                     }
                     boolean checkpw = BCrypt.checkpw(passNoHash, user.getPassword());
+//                    boolean checkpw = passNoHash.equals(user.getPassword());
                     Log.e("z", BCrypt.hashpw(passNoHash, BCrypt.gensalt()));
                     if (!checkpw) {
                         error.setText("Sai email hoặc mật khẩu");

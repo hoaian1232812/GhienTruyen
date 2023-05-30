@@ -1,18 +1,14 @@
 package com.app.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.app.service.ApiClient;
-import com.google.gson.JsonObject;
+import com.app.service.ApiService;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -45,12 +41,12 @@ public class Story implements Serializable {
     @SerializedName("createDate")
     @Expose
     private String date;
+
     @SerializedName("topic")
     @Expose
     private List<Topic> topics;
-    @SerializedName("status")
-    @Expose
-    private int status;
+
+
 
 
     public int getId() {
@@ -125,20 +121,6 @@ public class Story implements Serializable {
         this.topics = topics;
     }
 
-    public String getStatus() {
-        switch (this.status) {
-            case 0:
-                return "Đang ra";
-            case 1:
-                return "Đã hoàn thành";
-            default:
-                return "Lỗi rồi mày";
-        }
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public CompletableFuture<List<Chapter>> getAllChapter() {
         CompletableFuture<List<Chapter>> future = new CompletableFuture<>();
@@ -163,13 +145,14 @@ public class Story implements Serializable {
         return future;
     }
 
-    public CompletableFuture<User> getNameAuthor() {
+    public CompletableFuture<User> getNamAuthor() {
         CompletableFuture<User> future = new CompletableFuture<>();
         Call<User> call = ApiClient.getApiService().getNameById(this.author_id);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
+                    Log.e("Lỗi", response.body().getName());
                     future.complete(response.body());
                 }
             }
@@ -181,48 +164,6 @@ public class Story implements Serializable {
         });
         return future;
     }
-
-    public CompletableFuture<TimeStory> getTime() {
-        CompletableFuture<TimeStory> future = new CompletableFuture<>();
-        Call<TimeStory> call = ApiClient.getApiService().getTimeUpdateById(this.id);
-        call.enqueue(new Callback<TimeStory>() {
-            @Override
-            public void onResponse(Call<TimeStory> call, Response<TimeStory> response) {
-                if (response.isSuccessful()) {
-                    future.complete(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TimeStory> call, Throwable t) {
-
-            }
-        });
-        return future;
-    }
-
-    public CompletableFuture<Double> getRating() {
-        CompletableFuture<Double> future = new CompletableFuture<>();
-        Call<JsonObject> call = ApiClient.getApiService().getRatingById(this.id);
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-
-                if (response.isSuccessful()) {
-                    JsonObject jsonObject = response.body();
-                    double rating = jsonObject.get("rating").getAsDouble();
-                    future.complete(rating);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.e("Lỗi", t.getMessage());
-            }
-        });
-        return future;
-    }
-
 
     public String getListNameTopic() {
         String result = "";

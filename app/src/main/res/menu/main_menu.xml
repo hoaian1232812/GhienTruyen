@@ -9,13 +9,13 @@
     <item android:title="Thể loại"
         android:iconTint="@color/black"
         android:id="@+id/topic"
-        android:icon="@drawable/baseline_format_list_bulleted_24"/>
+        android:icon="@drawable/list"/>
     <item android:title="Tìm truyện"
         android:iconTint="@color/black"
         android:id="@+id/search"
-        android:icon="@drawable/baseline_search_24"/>
+        android:icon="@drawable/search"/>
     <item android:title="Cá nhân"
         android:iconTint="@color/black"
         android:id="@+id/user"
-        android:icon="@drawable/baseline_manage_accounts_24"/>
+        android:icon="@drawable/user"/>
 </menu>

@@ -44,6 +44,7 @@ public class TopicFragment extends Fragment {
             public void onResponse(Call<List<Topic>> call, Response<List<Topic>> response) {
                 if(response.isSuccessful()){
                     adapter = new TopicAdapter(response.body());
+                    adapter.setFragmentManager(requireActivity().getSupportFragmentManager());
                     recyclerView.setAdapter(adapter);
                 }
             }

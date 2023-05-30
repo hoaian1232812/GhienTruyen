@@ -24,11 +24,15 @@ import java.util.List;
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicVH> {
     List<Topic> topics;
     Context context;
+    FragmentManager fragmentManager;
 
     public TopicAdapter(List<Topic> topics) {
         this.topics = topics;
     }
 
+    public void setFragmentManager(FragmentManager fm) {
+        this.fragmentManager = fm;
+    }
 
     @NonNull
     @Override

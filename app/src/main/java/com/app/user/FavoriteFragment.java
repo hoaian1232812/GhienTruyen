@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.app.R;
 import com.app.adapter.StoryTopicAdapter;
@@ -25,51 +24,31 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TypeStoryTopicFragment extends Fragment {
+
+public class FavoriteFragment extends Fragment {
     RecyclerView recyclerView;
     StoryTopicAdapter storyTopicAdapter;
-    Bundle bundle;
-    Call<List<Story>> call;
     ProgressBar pb_loading;
     boolean isLoading = false;
     int page = 1;
     int limit = 15;
-    View root;
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_full, container, false);
-        bundle = getArguments();
-        pb_loading = root.findViewById(R.id.pb_loading_full);
-        setRecyclerView();
+        View root = inflater.inflate(R.layout.fragment_favorite, container, false);
+        pb_loading = root.findViewById(R.id.pb_loading_favorite);
+        setRecyclerView(root);
         return root;
     }
 
-    public void setCallApi() {
-        int id = bundle.getInt("idTopic");
-        switch (bundle.getInt("type")) {
-            case 0:
-                call = ApiClient.getApiService().getNewStoriesByTopicOnPage(id, limit, page);
-                break;
-            case 1:
-                call = ApiClient.getApiService().getStoriesCompletedByTopicOnPage(id, limit, page);
-                break;
-            case 2:
-                call = ApiClient.getApiService().getStoriesMostViewedByTopicOnPage(id, limit, page);
-                break;
-            case 3:
-                call = ApiClient.getApiService().getStoriesLikedByTopicOnPage(id, limit, page);
-                break;
-        }
-    }
-
-    public void setRecyclerView() {
-        setCallApi();
+    public void setRecyclerView(View root) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView = root.findViewById(R.id.recyle_story_topic_full);
+        recyclerView = root.findViewById(R.id.recyle_story_topic_favorite);
         recyclerView.setLayoutManager(linearLayoutManager);
+        int idTopic = getArguments().getInt("idTopic");
+        Call<List<Story>> call = ApiClient.getApiService().getStoriesLikedByTopicOnPage(idTopic, limit, page);
         call.enqueue(new Callback<List<Story>>() {
             @Override
             public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
@@ -84,28 +63,31 @@ public class TypeStoryTopicFragment extends Fragment {
 
             }
         });
-        lazyLoading();
+        lazyLoading(idTopic);
     }
 
-    public void lazyLoading() {
+    public void lazyLoading(int idTopic) {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+
                 // Kiểm tra xem RecyclerView đã cuộn đến cuối danh sách và không có tác vụ tải dữ liệu đang chạy
                 if (!recyclerView.canScrollVertically(1) && !isLoading) {
                     isLoading = true;
                     pb_loading.setVisibility(View.VISIBLE);
                     page += 1;
-                    Toast.makeText(root.getContext(), "" + page, Toast.LENGTH_SHORT).show();
-                    prepareData(page, limit);
+                    prepareData(idTopic, page, limit);
                 }
             }
         });
     }
 
-    private void prepareData(int page, int count) {
+    private void prepareData(int idTopic, int page, int count) {
         pb_loading.setVisibility(View.VISIBLE);
+
+        Call<List<Story>> call = ApiClient.getApiService().getStoriesLikedByTopicOnPage(idTopic, count, page);
+
         call.enqueue(new Callback<List<Story>>() {
             @Override
             public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {

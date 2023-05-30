@@ -2,15 +2,12 @@ package com.app.user;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +33,6 @@ public class SearchFragment extends Fragment {
     StoryAdapter adapter;
     RecyclerView recyclerView;
     List<Story> stories;
-    List<Story> search;
     GridLayoutManager layout;
 
     @Override
@@ -82,7 +78,7 @@ public class SearchFragment extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String keywork = charSequence.toString();
                 if (!keywork.isEmpty()) {
-                    search = search(keywork);
+                    List<Story> search = search(keywork);
                     adapter.setTruyenList(search);
                 } else {
                     adapter.setTruyenList(stories);
@@ -104,10 +100,5 @@ public class SearchFragment extends Fragment {
                 searchs.add(s);
         }
         return searchs;
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 }
