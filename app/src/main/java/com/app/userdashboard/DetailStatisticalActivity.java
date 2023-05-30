@@ -1,13 +1,12 @@
-package com.app;
+package com.app.userdashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
-import com.app.adapter.MenuPagerAdapter;
+import com.app.R;
 import com.app.adapter.MenuStatisticalAdapter;
-import com.app.model.Topic;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
