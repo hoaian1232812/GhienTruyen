@@ -89,13 +89,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     user = response.body();
-                    Log.i("z", user.toString());
                     if (user.getId() == -1) {
                         error.setText("Sai email hoặc mật khẩu...");
                         return;
                     }
                     boolean checkpw = BCrypt.checkpw(passNoHash, user.getPassword());
-                    Log.e("z", BCrypt.hashpw(passNoHash, BCrypt.gensalt()));
                     if (!checkpw) {
                         error.setText("Sai email hoặc mật khẩu");
                         return;

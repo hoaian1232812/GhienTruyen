@@ -27,8 +27,10 @@
 
             <TextView
                 android:id="@+id/title"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/quick_sand"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -47,8 +49,10 @@
 
                 <TextView
                     android:id="@+id/author"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quick_sand"
                     android:textColor="#4295D5"
                     android:textSize="14dp" />
             </LinearLayout>
@@ -68,15 +72,19 @@
 
                 <TextView
                     android:id="@+id/status"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:fontFamily="@font/quick_sand"
                     android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/time"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quick_sand"
                     android:textSize="14dp" />
             </LinearLayout>
 
@@ -95,8 +103,10 @@
 
                 <TextView
                     android:id="@+id/chapter"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quick_sand"
                     android:textSize="14dp" />
             </LinearLayout>
 
@@ -115,9 +125,11 @@
 
                 <TextView
                     android:id="@+id/like"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    android:fontFamily="@font/quick_sand"
                     android:textSize="14dp" />
 
                 <ImageView
@@ -129,8 +141,10 @@
 
                 <TextView
                     android:id="@+id/eye"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quick_sand"
                     android:textSize="14dp"
                     tools:ignore="DuplicateIds" />
             </LinearLayout>
@@ -144,10 +158,10 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -195,7 +209,9 @@
 
     <TextView
         android:id="@+id/introduce"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/quick_sand"
         android:textSize="16dp" />
 </LinearLayout>

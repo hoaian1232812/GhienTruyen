@@ -115,6 +115,7 @@ public interface ApiService {
     @POST("/api/users/register")
     @FormUrlEncoded
     Call<JsonObject> register(@Field("email") String email, @Field("name") String name, @Field("password") String password);
+
     @GET("/api/comment/allCommentByStoryOnPage")
     Call<List<Comment>> getAllCommentByStoryOnPage(@Query("idStory") int idStory, @Query("limit") int limit, @Query("page") int page);
 
@@ -147,13 +148,21 @@ public interface ApiService {
 
     @GET("/api/statistical/allViewedOfUser")
     Call<JsonObject> getViewOfUser(@Query("idAuthor") int idUser);
+
     @GET("/api/statistical/allStoryOfUser")
     Call<JsonObject> getNumOfStoryUserWritten(@Query("idAuthor") int idUser);
+
     @GET("/api/statistical/allRatingOfUser")
     Call<JsonObject> getRateOfUser(@Query("idAuthor") int idUser);
+
     @GET("/api/users/storyLikeByUser")
     Call<List<Story>> getStoryLikeByUser(@Query("idUser") int idUser);
 
     @POST("/api/story/updateLike")
     Call<JsonObject> updateLike(@Field("idUser") int idUser, @Field("idStory") int idStory);
+
+    @POST("/api/story/createChapter")
+    @FormUrlEncoded
+    Call<JsonObject> createChapter(@Field("idStory") int idStory, @Field("name") String name, @Field("content") String content);
+
 }

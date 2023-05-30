@@ -115,7 +115,7 @@ public class ListFeatureDashBoardFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Story>> call, Throwable t) {
-                Toast.makeText(view.getContext(), "không thể truy cập dữ liệu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Không có truyện nào", Toast.LENGTH_SHORT).show();
             }
         });
     }
