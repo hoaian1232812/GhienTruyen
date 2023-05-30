@@ -37,7 +37,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     public void onBindViewHolder(@NonNull CommentVH holder, int position) {
         Comment comment = commentList.get(position);
         Glide.with(holder.img.getContext())
-                .load("http://139.180.129.238:8080/Untitled1.jpg")
+                .load("http://139.180.129.238:8080/images/OIP.jpg")
                 .transform(new CircleCrop())
                 .into(holder.img);
         holder.nameUser.setText("aaa");
