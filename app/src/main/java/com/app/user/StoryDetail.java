@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.R;
+import com.app.adapter.ChapterAdapter;
 import com.app.adapter.TopicStoryDetailAdapter;
 import com.app.model.Chapter;
 import com.app.model.Story;
@@ -135,6 +136,19 @@ public class StoryDetail extends AppCompatActivity {
             intent.putExtra("data", bundle);
             view.getContext().startActivity(intent);
         });
+
+        LinearLayout read = findViewById(R.id.read_story);
+        read.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), ChapterDetailActivity.class);
+            Bundle bundle = new Bundle();
+            story.getAllChapter().thenAccept(chapters -> {
+                bundle.putString("chapters", new Gson().toJson(chapters));
+                bundle.putInt("position", 0);
+                intent.putExtra("data", bundle);
+                startActivity(intent);
+            });
+
+        });
     }
 
     public void setComment() {
@@ -144,8 +158,12 @@ public class StoryDetail extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putInt("idStory", story.getId());
             bundle.putString("title", story.getTitle());
-            intent.putExtra("data", bundle);
-            view.getContext().startActivity(intent);
+            CompletableFuture<Double> futureRating = story.getRating();
+            futureRating.thenAccept(rate -> {
+                bundle.putDouble("rate", rate);
+                intent.putExtra("data", bundle);
+                view.getContext().startActivity(intent);
+            });
         });
 
     }
