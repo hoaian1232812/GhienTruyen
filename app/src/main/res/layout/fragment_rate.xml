@@ -4,28 +4,50 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Biểu đồ thống kê năm 2023 qua các tháng:" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Biểu đồ thống kê số lượng đánh giá năm: " />
+
+        <Spinner
+            android:id="@+id/spinner_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/line_chart_quantity"
+        android:id="@+id/line_chart_count"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="250dp" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="Biểu đồ thống kê qua các năm:" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Biểu đồ thống kê đánh giá trung bình năm: " />
+
+        <Spinner
+            android:id="@+id/spinner_avg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/line_chart_rate"
+        android:id="@+id/line_chart_avg"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="250dp" />
 
 </LinearLayout>
