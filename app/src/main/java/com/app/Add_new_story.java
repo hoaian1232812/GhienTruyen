@@ -18,10 +18,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.app.service.ApiClient;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.JsonObject;
+
+import java.io.ByteArrayOutputStream;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Add_new_story extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST_CODE = 1;
@@ -93,6 +106,7 @@ public class Add_new_story extends AppCompatActivity {
             cursor.close();
         }
         return path;
+    }
 
     private int convertDpToPixels(int dp) {
         float scale = getResources().getDisplayMetrics().density;
