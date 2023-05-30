@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.MenuItem;
 
+import com.app.model.User;
 import com.app.user.HomeFragment;
 import com.app.user.SearchFragment;
 import com.app.user.TopicFragment;
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     setTitle("Tìm Truyện");
                     break;
                 case R.id.user:
-                    user = User.getUserFromSharedPreferences(getSharedPreferences("MyPrefs", Context.MODE_PRIVATE));
+                    User user = User.getUserFromSharedPreferences(getSharedPreferences("MyPrefs", Context.MODE_PRIVATE));
                     Log.e("z", "troi oi");
                     if (user != null) {
                         Log.e("z", user.toString());

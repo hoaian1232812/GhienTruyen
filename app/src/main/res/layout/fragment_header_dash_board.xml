@@ -34,11 +34,12 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
+            android:id="@+id/my_name"
+            android:text="@string/my_name_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/quick_sand"
-            android:text="Thanh Phụng"
             android:textColor="#FFF"
             android:textSize="18sp" />
 
