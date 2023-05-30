@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.R;
@@ -42,6 +43,7 @@ public class StoryDetail extends AppCompatActivity {
         setUpView();
         setUpRecyclerView();
         setClickAuthor();
+        setComment();
     }
 
     private void setUpRecyclerView() {
@@ -101,6 +103,23 @@ public class StoryDetail extends AppCompatActivity {
             intent.putExtra("data", bundle);
             startActivity(intent);
         });
+    }
+
+    public void setChap() {
+
+    }
+
+    public void setComment() {
+        LinearLayout comment = findViewById(R.id.com);
+        comment.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), CommentActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("idStory", story.getId());
+            bundle.putString("title", story.getTitle());
+            intent.putExtra("data", bundle);
+            view.getContext().startActivity(intent);
+        });
+
     }
 
 

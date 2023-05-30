@@ -28,16 +28,20 @@ public class CommentActivity extends AppCompatActivity {
     CommentAdapter commentAdapter;
     RecyclerView recyclerView;
     Bundle bundle;
-    boolean isLoading = false;
+    boolean isLoading = false, empty = false;
     ProgressBar pb_loading;
     private int limit = 15;
     private int page = 1;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        pb_loading = findViewById(R.id.pb_loading_comment);
         bundle = getIntent().getBundleExtra("data");
+        setTitle(bundle.getString("title"));
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView = findViewById(R.id.recycle_comment);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -45,7 +49,7 @@ public class CommentActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     commentAdapter = new CommentAdapter(response.body());
                     recyclerView.setAdapter(commentAdapter);
                 }
@@ -58,6 +62,7 @@ public class CommentActivity extends AppCompatActivity {
         });
         lazyLoading();
     }
+
     public void lazyLoading() {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -65,26 +70,36 @@ public class CommentActivity extends AppCompatActivity {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 // Kiểm tra xem RecyclerView đã cuộn đến cuối danh sách và không có tác vụ tải dữ liệu đang chạy
-                if (!recyclerView.canScrollVertically(1) && !isLoading) {
+                if (!recyclerView.canScrollVertically(1) && !isLoading && !empty) {
                     isLoading = true;
                     pb_loading.setVisibility(View.VISIBLE);
                     page += 1;
-                    Toast.makeText(CommentActivity.this, "" + page, Toast.LENGTH_SHORT).show();
-                    prepareData(page, limit);
+                    prepareData();
                 }
             }
         });
     }
 
-    private void prepareData(int page, int limit) {
+    private void prepareData() {
+        if (empty) {
+            isLoading = false;
+            pb_loading.setVisibility(View.GONE);
+            return;
+        }
         pb_loading.setVisibility(View.VISIBLE);
-        Call<List<Comment>> call =  ApiClient.getApiService().getAllCommentByStoryOnPage(bundle.getInt("idStory"), limit, page);;
+        Call<List<Comment>> call = ApiClient.getApiService().getAllCommentByStoryOnPage(bundle.getInt("idStory"), limit, page);
 
         call.enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                 if (response.isSuccessful()) {
-                    commentAdapter.addNewData(response.body());
+                    if (response.body().isEmpty()) {
+                        empty = true;
+                        page -= 1;
+                    } else {
+                        commentAdapter.addNewData(response.body());
+                        Toast.makeText(CommentActivity.this, "" + page, Toast.LENGTH_SHORT).show();
+                    }
                     isLoading = false;
                     pb_loading.setVisibility(View.GONE);
                 } else {
@@ -95,7 +110,9 @@ public class CommentActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Comment>> call, Throwable t) {
+                page -= 1;
                 isLoading = false;
+                empty = false;
                 pb_loading.setVisibility(View.GONE);
             }
         });

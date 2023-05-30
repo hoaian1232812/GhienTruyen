@@ -1,5 +1,6 @@
 package com.app.model;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
@@ -83,7 +84,8 @@ public class User implements Serializable {
         editor.apply();
     }
 
-    public static User getUserFromSharedPreferences(SharedPreferences sharedPreferences) {
+    public static User getUserFromSharedPreferences(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         User user = null;
         String userJson = sharedPreferences.getString("user", null);
         if (userJson != null) {
@@ -95,13 +97,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", date='" + date + '\'' +
-                ", status=" + status +
-                '}';
+        return "User{" + "id=" + id + ", name='" + name + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", date='" + date + '\'' + ", status=" + status + '}';
     }
 }
