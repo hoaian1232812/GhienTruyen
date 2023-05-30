@@ -2,22 +2,19 @@ package com.app.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.app.R;
-import com.app.adapter.StoryGridAdapter;
+import com.app.adapter.StoryTopicAdapter;
 import com.app.model.Story;
 import com.app.service.ApiClient;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
@@ -25,34 +22,43 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TrendingStoryHomeActivity extends AppCompatActivity {
+public class StoryAuthorActivity extends AppCompatActivity {
+    LinearLayoutManager layout;
     RecyclerView recyclerView;
-    GridLayoutManager gridLayoutManager;
-    StoryGridAdapter adapter;
-    boolean isLoading = false;
+    StoryTopicAdapter storyTopicAdapter;
     ProgressBar pb_loading;
-    int limit = 21;
+    boolean isLoading = false;
     int page = 1;
+    int limit = 15;
     Bundle bundle;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_most_like_home);
+        setContentView(R.layout.activity_story_author);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        pb_loading = findViewById(R.id.pb_loading_author);
         bundle = getIntent().getBundleExtra("data");
-        setTitle(bundle.getString("title"));
-        List<Story> list = new Gson().fromJson((String) bundle.getString("listData"), new TypeToken<List<Story>>() {
-        }.getType());
-        Log.e("Like", list.size() + "");
-        pb_loading = findViewById(R.id.pb_loading_like_home);
-        recyclerView = findViewById(R.id.recyle_story_home_like);
-        gridLayoutManager = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new StoryGridAdapter(list);
-        recyclerView.setAdapter(adapter);
-        lazyLoading();
+        setTitle(bundle.getString("name"));
+        layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView = findViewById(R.id.recy_author);
+        recyclerView.setLayoutManager(layout);
+        Call<List<Story>> call = ApiClient.getApiService().getAllStoryAuthor(bundle.getInt("id"), limit, page);
+        call.enqueue(new Callback<List<Story>>() {
+            @Override
+            public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
+                if (response.isSuccessful()) {
+                    storyTopicAdapter = new StoryTopicAdapter(response.body());
+                    recyclerView.setAdapter(storyTopicAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Story>> call, Throwable t) {
+
+            }
+        });
     }
 
     public void lazyLoading() {
@@ -66,7 +72,7 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
                     isLoading = true;
                     pb_loading.setVisibility(View.VISIBLE);
                     page += 1;
-                    Toast.makeText(TrendingStoryHomeActivity.this, "" + page, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StoryAuthorActivity.this, "" + page, Toast.LENGTH_SHORT).show();
                     prepareData(page, limit);
                 }
             }
@@ -75,24 +81,14 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
 
     private void prepareData(int page, int limit) {
         pb_loading.setVisibility(View.VISIBLE);
-        Call<List<Story>> call = null;
-        switch (bundle.getInt("api")) {
-            case 0:
-                call = ApiClient.getApiService().getAllStoryAppreciation(limit, page);
-                break;
-            case 1:
-                call = ApiClient.getApiService().getAllStoryLiked(limit, page);
-                break;
-            case 2:
-                call = ApiClient.getApiService().getAllStoryViewed(limit, page);
-                break;
-        }
+        Call<List<Story>> call = ApiClient.getApiService().getAllStoryAuthor(bundle.getInt("id"), limit, page);
+        ;
 
         call.enqueue(new Callback<List<Story>>() {
             @Override
             public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
                 if (response.isSuccessful()) {
-                    adapter.addNewData(response.body());
+                    storyTopicAdapter.addNewData(response.body());
                     isLoading = false;
                     pb_loading.setVisibility(View.GONE);
                 } else {

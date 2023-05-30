@@ -25,6 +25,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class StoryDetail extends AppCompatActivity {
     Story story;
+    String name;
     TextView title, author, status, like, chapter, view, time, intro;
     ImageView img;
     RecyclerView recyclerView;
@@ -40,6 +41,7 @@ public class StoryDetail extends AppCompatActivity {
         story = (Story) getIntent().getBundleExtra("data").get("story");
         setUpView();
         setUpRecyclerView();
+        setClickAuthor();
     }
 
     private void setUpRecyclerView() {
@@ -56,6 +58,7 @@ public class StoryDetail extends AppCompatActivity {
         author = findViewById(R.id.author);
         CompletableFuture<User> futureName = story.getNameAuthor();
         futureName.thenAccept(user -> {
+            name = user.getName();
             author.setText(user.getName());
         }).exceptionally(e -> {
             return null;
@@ -91,7 +94,12 @@ public class StoryDetail extends AppCompatActivity {
 
     public void setClickAuthor() {
         author.setOnClickListener(view -> {
-            Intent intent = new Intent();
+            Intent intent = new Intent(this, StoryAuthorActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", story.getAuthor_id());
+            bundle.putString("name", name);
+            intent.putExtra("data", bundle);
+            startActivity(intent);
         });
     }
 
