@@ -24,6 +24,8 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import retrofit2.Call;
+
 public class StoryDetail extends AppCompatActivity {
     Story story;
     String name;
@@ -44,6 +46,7 @@ public class StoryDetail extends AppCompatActivity {
         setUpRecyclerView();
         setClickAuthor();
         setComment();
+        setChap();
     }
 
     private void setUpRecyclerView() {
@@ -106,7 +109,15 @@ public class StoryDetail extends AppCompatActivity {
     }
 
     public void setChap() {
-
+        LinearLayout chap = findViewById(R.id.chaps);
+        chap.setOnClickListener(view -> {
+            CompletableFuture<List<Chapter>> futureChapter = story.getAllChapter();
+            Intent intent = new Intent(view.getContext(), ChapterActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("story", story);
+            intent.putExtra("data", bundle);
+            view.getContext().startActivity(intent);
+        });
     }
 
     public void setComment() {

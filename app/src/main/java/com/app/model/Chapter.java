@@ -18,12 +18,16 @@ public class Chapter implements Serializable {
     @SerializedName("content")
     @Expose
     private String content;
+    @SerializedName("createDate")
+    @Expose
+    private String date;
 
-    public Chapter(int id, int index, String name, String content) {
-        this.id = id;
-        this.index = index;
-        this.name = name;
-        this.content = content;
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getId() {

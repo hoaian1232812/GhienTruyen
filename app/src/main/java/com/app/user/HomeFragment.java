@@ -89,6 +89,8 @@ public class HomeFragment extends Fragment {
     }
 
     public void setUpRead() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewRead.setLayoutManager(linearLayoutManager);
         storyListRead = new ArrayList<>();
         String deviceId = Settings.Secure.getString(root.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         String uniqueName = "user_preferences_" + deviceId;

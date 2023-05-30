@@ -70,12 +70,11 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(new Intent(MainActivity.this, UserDashBoardActivity.class));
                             return;
                         }
+
+                    } else {
                         fragment = new UserFragment();
                         setTitle("Danh mục của tôi");
                     }
-                    fragment = new UserFragment();
-                    setTitle("Danh mục của tôi");
-
                     break;
             }
             fragmentSparseArray.put(id, fragment);
