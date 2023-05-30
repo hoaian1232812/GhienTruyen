@@ -115,6 +115,7 @@ public interface ApiService {
     @POST("/api/users/register")
     @FormUrlEncoded
     Call<JsonObject> register(@Field("email") String email, @Field("name") String name, @Field("password") String password);
+
     @GET("/api/comment/allCommentByStoryOnPage")
     Call<List<Comment>> getAllCommentByStoryOnPage(@Query("idStory") int idStory, @Query("limit") int limit, @Query("page") int page);
 
@@ -145,6 +146,8 @@ public interface ApiService {
     @GET("/api/users/storyLiked")
     Call<List<Story>> getStoriesUserLiked(@Query("idUser") int idUser, @Query("limit") int limit, @Query("page") int page);
 
+    @GET("/api/statistical/countStoryByTopic")
+    Call<JsonArray> getCountStoryByTopic();
     @GET("/api/statistical/allViewedOfUser")
     Call<JsonObject> getViewOfUser(@Query("idAuthor") int idUser);
     @GET("/api/statistical/allStoryOfUser")
