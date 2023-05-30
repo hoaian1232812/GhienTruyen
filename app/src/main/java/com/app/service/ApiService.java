@@ -112,4 +112,26 @@ public interface ApiService {
 
     @GET("/api/comment/allCommentByStoryOnPage")
     Call<List<Comment>> getAllCommentByStoryOnPage(@Query("idStory") int idStory, @Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/story/allStoryOfAuthor")
+    Call<List<Story>> getAllStoryOfAuthor(@Query("idAuthor") int idAuthor, @Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/statistical/likeInMonthOfYearOfStory")
+    Call<JsonArray> getLikeInMonthOfYearOfStory(@Query("year") int year, @Query("idStory") int idStory);
+
+    @GET("/api/statistical/likeOfYearOfStory")
+    Call<JsonArray> getLikeOfYearOfStory(@Query("idStory") int idStory);
+
+    @GET("/api/statistical/viewInMonthOfYearOfStory")
+    Call<JsonArray> getViewInMonthOfYearOfStory(@Query("year") int year, @Query("idStory") int idStory);
+
+    @GET("/api/statistical/viewOfYearOfStory")
+    Call<JsonArray> getViewOfYearOfStory(@Query("idStory") int idStory);
+
+    @GET("/api/statistical/countRatingInMonthOfYearOfStory")
+    Call<JsonArray> getCountRatingInMonthOfYearOfStory(@Query("year") int year, @Query("idStory") int idStory);
+
+    @GET("/api/statistical/avgRatingInMonthOfYearOfStory")
+    Call<JsonArray> getAvgRatingInMonthOfYearOfStory(@Query("year") int year, @Query("idStory") int idStory);
+
 }

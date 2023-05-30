@@ -15,45 +15,61 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.R;
-import com.app.model.Chapter;
+import com.app.model.Comment;
 import com.app.model.Story;
-import com.app.model.TimeStory;
-import com.app.model.User;
+
 import com.app.user.StoryDetail;
+import com.app.userdashboard.StoryStatisticalActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.google.gson.Gson;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
-public class StoryListDashBoardAdapter extends RecyclerView.Adapter<StoryListDashBoardAdapter.StoryTopicVH> {
 
+public class StoryListBoardAdapter extends RecyclerView.Adapter<StoryListBoardAdapter.StoryTopicVH> {
     List<Story> stories;
     Context context;
 
-    public StoryListDashBoardAdapter(List<Story> stories) {
+    public StoryListBoardAdapter(List<Story> stories) {
         this.stories = stories;
     }
 
     @NonNull
     @Override
-    public StoryListDashBoardAdapter.StoryTopicVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StoryListBoardAdapter.StoryTopicVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.item_story_topic, parent, false);
-        return new StoryListDashBoardAdapter.StoryTopicVH(view);
+        return new StoryListBoardAdapter.StoryTopicVH(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StoryListDashBoardAdapter.StoryTopicVH holder, int position) {
+    public void onBindViewHolder(@NonNull StoryListBoardAdapter.StoryTopicVH holder, int position) {
         Story story = stories.get(position);
         holder.title.setText(story.getTitle());
+        Glide.with(holder.img.getContext())
+                .load("http://139.180.129.238:8080/Untitled1.jpg")
+                .transform(new CircleCrop())
+                .into(holder.img);
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), StoryStatisticalActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("story", story);
+            intent.putExtra("data", bundle);
+            view.getContext().startActivity(intent);
+        });
 
     }
 
     @Override
     public int getItemCount() {
         return stories.size();
+    }
+
+    public void addNewData(List<Story> body) {
+        this.stories.addAll(body);
+        notifyDataSetChanged();
     }
 
     class StoryTopicVH extends RecyclerView.ViewHolder {
