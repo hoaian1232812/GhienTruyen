@@ -9,17 +9,19 @@
     app:cardUseCompatPadding="true"
     tools:context=".userdashboard.MidleDashBoardFragment">
 
-    <LinearLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp">
+        android:layout_margin="20dp"
+        android:columnCount="2">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/btn_statistical_all"
-            android:layout_width="165dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="#3884e0"
-            app:cardCornerRadius="20dp">
+            app:cardCornerRadius="20dp"
+            android:layout_columnWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,12 +55,13 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/btn_statistical_detail"
-            android:layout_width="165dp"
+            android:id="@+id/btn_statistical_story"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             app:cardBackgroundColor="#3884e0"
-            app:cardCornerRadius="20dp">
+            app:cardCornerRadius="20dp"
+            android:layout_columnWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -91,7 +94,7 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-    </LinearLayout>
+    </GridLayout>
 
 
 </androidx.cardview.widget.CardView>
