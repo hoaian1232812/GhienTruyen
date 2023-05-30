@@ -49,7 +49,7 @@ public class StoryDetail extends AppCompatActivity {
     TopicStoryDetailAdapter adapter;
     LinearLayoutManager layout;
     User user;
-    ImageView imageView ;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public class StoryDetail extends AppCompatActivity {
         setClickAuthor();
         setComment();
         setChap();
+        setLike();
     }
 
     private void setUpRecyclerView() {
@@ -156,14 +157,15 @@ public class StoryDetail extends AppCompatActivity {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user != null) {
+                if (user != null) {
                     Call<JsonObject> call = ApiClient.getApiService().updateLike(user.getId(), story.getId());
                     call.enqueue(new Callback<JsonObject>() {
+                        @SuppressLint("UseCompatLoadingForDrawables")
                         @Override
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                            if(response.isSuccessful()) {
+                            if (response.isSuccessful()) {
                                 Toast.makeText(StoryDetail.this, response.body().get("message").getAsString(), Toast.LENGTH_SHORT).show();
-                                if(imageView.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.baseline_favorite_24).getConstantState())){
+                                if (response.body().get("status").getAsInt() == 0) {
                                     imageView.setImageDrawable(getDrawable(R.drawable.baseline_favorite_border_24));
                                 } else {
                                     imageView.setImageDrawable(getDrawable(R.drawable.baseline_favorite_24));
@@ -177,14 +179,35 @@ public class StoryDetail extends AppCompatActivity {
                         }
                     });
                 } else {
-
+                    String deviceId = Settings.Secure.getString(view.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+                    String uniqueName = "user_preferences_" + deviceId;
+                    SharedPreferences userPreferences = view.getContext().getSharedPreferences(uniqueName, Context.MODE_PRIVATE);
+                    Map<String, ?> map = userPreferences.getAll();
+                    SharedPreferences.Editor editor = userPreferences.edit();
+                    Gson gson = new Gson();
+                    for (String s : map.keySet()) {
+                        Object value = map.get(s);
+                        if (value instanceof String && s.startsWith("story_") && s.endsWith("_favorite")) {
+                            if (story.getId() == (gson.fromJson((String) value, Story.class).getId())) {
+                                editor.remove(s);
+                                imageView.setImageDrawable(getDrawable(R.drawable.baseline_favorite_border_24));
+                                Toast.makeText(StoryDetail.this, "Bỏ thích thành công", Toast.LENGTH_SHORT).show();
+                                editor.apply();
+                                return;
+                            }
+                        }
+                    }
+                    editor.putString("story_" + story.getId() + "_favorite", gson.toJson(story));
+                    imageView.setImageDrawable(getDrawable(R.drawable.baseline_favorite_24));
+                    Toast.makeText(StoryDetail.this, "Thích thành công", Toast.LENGTH_SHORT).show();
+                    editor.apply();
                 }
             }
         });
     }
 
     private void setUpFavorite() {
-        if((user = User.getUserFromSharedPreferences(StoryDetail.this)) != null) {
+        if ((user = User.getUserFromSharedPreferences(StoryDetail.this)) != null) {
 
             Call<List<Story>> call = ApiClient.getApiService().getStoryLikeByUser(user.getId());
 
@@ -234,8 +257,10 @@ public class StoryDetail extends AppCompatActivity {
         for (Story s : list) {
             if (s.getId() == story.getId()) {
                 imageView.setImageDrawable(getDrawable(R.drawable.baseline_favorite_24));
+                return;
             } else {
                 imageView.setImageDrawable(getDrawable(R.drawable.baseline_favorite_border_24));
+                return;
             }
 
         }

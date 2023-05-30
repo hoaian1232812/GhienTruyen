@@ -148,5 +148,6 @@ public interface ApiService {
     Call<List<Story>> getStoryLikeByUser(@Query("idUser") int idUser);
 
     @POST("/api/story/updateLike")
+    @FormUrlEncoded
     Call<JsonObject> updateLike(@Field("idUser") int idUser, @Field("idStory") int idStory);
 }
