@@ -6,15 +6,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.ClipData;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.app.model.User;
 import com.app.user.HomeFragment;
 import com.app.user.SearchFragment;
 import com.app.user.TopicFragment;
@@ -23,7 +19,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
-    User user;
     BottomNavigationView bnv;
 
     @Override
@@ -59,20 +54,8 @@ public class MainActivity extends AppCompatActivity {
                     setTitle("Tìm Truyện");
                     break;
                 case R.id.user:
-                    user = User.getUserFromSharedPreferences(getSharedPreferences("MyPrefs", Context.MODE_PRIVATE));
-                    Log.e("z", "troi oi");
-                    if (user != null) {
-                        Log.e("z", user.toString());
-                        if (user.getId() != -1) {
-                            startActivity(new Intent(MainActivity.this, UserDashBoardActivity.class));
-                            return;
-                        }
-                        fragment = new UserFragment();
-                        setTitle("Cáa nhân");
-                    }
                     fragment = new UserFragment();
-                    setTitle("Cáa nhân");
-
+                    setTitle("Cá nhân");
                     break;
             }
         }
@@ -81,6 +64,4 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.content, fragment, "" + id);
         ft.commit();
     }
-
-
 }

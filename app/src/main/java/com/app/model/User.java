@@ -1,9 +1,5 @@
 package com.app.model;
 
-import android.content.SharedPreferences;
-
-import com.google.gson.Gson;
-
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -21,10 +17,6 @@ public class User implements Serializable {
         this.password = password;
         this.date = date;
         this.status = status;
-    }
-
-    public User() {
-
     }
 
     public int getId() {
@@ -73,35 +65,5 @@ public class User implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public void putToSharedPreferences(SharedPreferences sharedPreferences) {
-        Gson gson = new Gson();
-        String userJson = gson.toJson(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("user", userJson);
-        editor.apply();
-    }
-
-    public static User getUserFromSharedPreferences(SharedPreferences sharedPreferences) {
-        User user = null;
-        String userJson = sharedPreferences.getString("user", null);
-        if (userJson != null) {
-            Gson gson = new Gson();
-            user = gson.fromJson(userJson, User.class);
-        }
-        return user;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", date='" + date + '\'' +
-                ", status=" + status +
-                '}';
     }
 }

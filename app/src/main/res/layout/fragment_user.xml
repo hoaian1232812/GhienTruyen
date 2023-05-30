@@ -27,7 +27,6 @@
             android:text="Dash Board"
             android:textColor="@color/white"
             />
-
     </LinearLayout>
 
 </FrameLayout>

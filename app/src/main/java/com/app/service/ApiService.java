@@ -11,8 +11,6 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -52,7 +50,7 @@ public interface ApiService {
     @GET("/api/story/allStoryMostLiked")
     Call<List<Story>> getStoriesLikedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
 
-    @GET("/api/story/newUpdateById") 
+    @GET("/api/story/newUpdateById")
     Call<TimeStory> getTimeUpdateById(@Query("idStory") int idStory);
 
     @GET("/api/story/storyById")
@@ -92,4 +90,6 @@ public interface ApiService {
     @POST("/api/users/login")
     @FormUrlEncoded
     Call<User> login(@Field("email") String email);
+=======
+>>>>>>> parent of 215e6d2 (dang nhap)
 }
