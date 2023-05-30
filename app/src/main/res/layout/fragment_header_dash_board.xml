@@ -34,11 +34,12 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
+            android:id="@+id/my_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/quick_sand"
-            android:text="Thanh Phụng"
+            android:text="@string/my_name_value"
             android:textColor="#FFF"
             android:textSize="18sp" />
 
@@ -61,13 +62,12 @@
                     android:text="Số lượt thích" />
 
                 <TextView
+                    android:id="@+id/my_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:layout_gravity="center_horizontal"
-
-
-                    android:fontFamily="@font/quick_sand"
-                    android:text="5000" />
+                    android:fontFamily="@font/quick_sand" />
             </LinearLayout>
 
             <LinearLayout
@@ -83,12 +83,12 @@
                     android:text="Số lượng truyện" />
 
                 <TextView
+                    android:id="@+id/my_num_of_story"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
 
-                    android:fontFamily="@font/quick_sand"
-                    android:text="12" />
+                    android:fontFamily="@font/quick_sand" />
             </LinearLayout>
 
             <LinearLayout
@@ -104,11 +104,12 @@
                     android:text="Đánh giá" />
 
                 <TextView
+                    android:id="@+id/my_rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/quick_sand"
-                    android:text="5" />
+                    />
             </LinearLayout>
         </com.google.android.flexbox.FlexboxLayout>
 

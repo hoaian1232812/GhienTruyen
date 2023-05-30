@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.app.R;
 import com.app.adapter.StoryAdapter;
 import com.app.adapter.StoryGridAdapter;
+import com.app.adapter.StoryTopicAdapter;
 import com.app.model.Story;
 import com.app.model.User;
 import com.app.service.ApiClient;
@@ -29,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ReadLikeStoriesActivity extends AppCompatActivity {
-    StoryAdapter storyAdapter;
+    StoryTopicAdapter storyAdapter;
     RecyclerView recyclerViewReadStories;
 
     boolean isLoading = false, emptyData = false;
@@ -46,6 +47,7 @@ public class ReadLikeStoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_stories);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        pb_loading = findViewById(R.id.pb_loading_read_user);
         bundle = getIntent().getBundleExtra("data");
         setUpReadStories();
     }
@@ -57,8 +59,8 @@ public class ReadLikeStoriesActivity extends AppCompatActivity {
         setTitle(bundle.getString("title"));
         List<Story> list = new Gson().fromJson((String) bundle.getString("listData"), new TypeToken<List<Story>>() {
         }.getType());
-        pb_loading = findViewById(R.id.pb_loading_like_home);
-        storyAdapter = new StoryAdapter(list);
+
+        storyAdapter = new StoryTopicAdapter(list);
         recyclerViewReadStories.setAdapter(storyAdapter);
         lazyLoading();
 
