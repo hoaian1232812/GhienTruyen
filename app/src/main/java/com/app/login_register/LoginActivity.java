@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.app.AdminActivity;
 import com.app.MainActivity;
 import com.app.R;
 import com.app.model.User;
@@ -100,7 +101,11 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                     user.putToSharedPreferences(sharedPreferences);
-                    startActivity(new Intent(view.getContext(), MainActivity.class));
+                    if (user.getStatus() == 0) {
+                        startActivity(new Intent(view.getContext(), MainActivity.class));
+                    } else if (user.getStatus() == 1) {
+                        startActivity(new Intent(view.getContext(), AdminActivity.class));
+                    }
                 }
             }
 

@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -146,6 +147,8 @@ public interface ApiService {
     @GET("/api/users/storyLiked")
     Call<List<Story>> getStoriesUserLiked(@Query("idUser") int idUser, @Query("limit") int limit, @Query("page") int page);
 
+    @GET("/api/statistical/countStoryByTopic")
+    Call<JsonArray> getCountStoryByTopic();
     @GET("/api/statistical/allViewedOfUser")
     Call<JsonObject> getViewOfUser(@Query("idAuthor") int idUser);
 
@@ -165,4 +168,7 @@ public interface ApiService {
     @FormUrlEncoded
     Call<JsonObject> createChapter(@Field("idStory") int idStory, @Field("name") String name, @Field("content") String content);
 
+    @FormUrlEncoded
+    @POST("/api/upload/uploadImg")
+    Call<JsonObject> uploadImg(@Field("image") byte[] image, @Field("fileName") String fileName);
 }

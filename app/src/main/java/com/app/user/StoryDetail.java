@@ -106,7 +106,7 @@ public class StoryDetail extends AppCompatActivity {
         view.setText("" + story.getViews());
         img = findViewById(R.id.img_story);
         Glide.with(img.getContext())
-                .load("http://139.180.129.238:8080/Untitled1.jpg")
+                .load(story.getImage())
                 .transform(new CircleCrop())
                 .into(img);
         intro = findViewById(R.id.introduce);

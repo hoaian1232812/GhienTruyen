@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Truyện"
+        android:iconTint="@color/black"
+        android:id="@+id/stories"
+        android:icon="@drawable/stories"/>
+    <item android:title="Tài khoản"
+        android:iconTint="@color/black"
+        android:id="@+id/ql_user"
+        android:icon="@drawable/ql_user"/>
+    <item android:title="Thông Báo"
+        android:iconTint="@color/black"
+        android:id="@+id/notifications"
+        android:icon="@drawable/notifications"/>
+    <item android:title="Cá nhân"
+        android:iconTint="@color/black"
+        android:id="@+id/manage_account"
+        android:icon="@drawable/baseline_manage_accounts_24"/>
+</menu>
