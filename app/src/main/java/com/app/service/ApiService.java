@@ -1,6 +1,7 @@
 package com.app.service;
 
 import com.app.model.Chapter;
+import com.app.model.Comment;
 import com.app.model.Story;
 import com.app.model.TimeStory;
 import com.app.model.Topic;
@@ -108,4 +109,7 @@ public interface ApiService {
     @POST("/api/users/login")
     @FormUrlEncoded
     Call<User> login(@Field("email") String email);
+
+    @GET("/api/comment/allCommentByStoryOnPage")
+    Call<List<Comment>> getAllCommentByStoryOnPage(@Query("idStory") int idStory, @Query("limit") int limit, @Query("page") int page);
 }
