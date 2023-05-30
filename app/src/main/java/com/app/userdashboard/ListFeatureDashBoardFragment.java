@@ -50,7 +50,7 @@ public class ListFeatureDashBoardFragment extends Fragment {
             Log.e("z", "logout");
             clearUserFromSharedPreferences();
             startActivity(new Intent(getActivity(), LoginActivity.class));
-//            getActivity().finish();
+            getActivity().finish();
             Toast.makeText(getContext(), "You have been logged out", Toast.LENGTH_SHORT).show();
         };
     }

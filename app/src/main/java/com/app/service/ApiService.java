@@ -1,4 +1,4 @@
-package com.app.service;
+    package com.app.service;
 
 import com.app.model.Chapter;
 import com.app.model.Comment;
@@ -90,6 +90,8 @@ public interface ApiService {
     @GET("/api/story/allStoryMostViewed")
     Call<List<Story>> getAllStoryViewed(@Query("limit") int limit, @Query("page") int page);
 
+    @GET("/api/users/checkExist?email=baotaolao981999@gmail.com")
+    Call<User> checkExistEmail(@Query("email") String email);
     @GET("/api/story/allStoryOfAuthor")
     Call<List<Story>> getAllStoryAuthor(@Query("idAuthor") int id, @Query("limit") int limit, @Query("page") int page);
 
@@ -109,6 +111,9 @@ public interface ApiService {
     @FormUrlEncoded
     Call<User> login(@Field("email") String email);
 
+    @POST("/api/users/register?name=aaa&email=abc@gmail.com&password=passHashed")
+    @FormUrlEncoded
+    Call<String> register(@Field("email") String email, @Field("name") String name, @Field("password") String password);
     @GET("/api/comment/allCommentByStoryOnPage")
     Call<List<Comment>> getAllCommentByStoryOnPage(@Query("idStory") int idStory, @Query("limit") int limit, @Query("page") int page);
 
