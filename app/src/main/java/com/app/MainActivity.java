@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     User user;
     BottomNavigationView bnv;
     Fragment currentFragment = null;
+    User user;
 
     SparseArray<Fragment> fragmentSparseArray;
 
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     setTitle("Tìm Truyện");
                     break;
                 case R.id.user:
-                     user = User.getUserFromSharedPreferences(getSharedPreferences("MyPrefs", Context.MODE_PRIVATE));
+                    user = User.getUserFromSharedPreferences(this);
                     Log.e("z", "troi oi");
                     if (user != null) {
                         Log.e("z", user.toString());
