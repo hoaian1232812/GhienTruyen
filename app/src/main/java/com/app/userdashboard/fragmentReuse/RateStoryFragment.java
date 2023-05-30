@@ -1,6 +1,9 @@
 package com.app.userdashboard.fragmentReuse;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.app.R;
+import com.app.model.Story;
 import com.app.model.support.MonthStatistical;
 import com.app.service.ApiClient;
 import com.app.userdashboard.ChartCustom;
@@ -30,19 +31,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RateFragment extends Fragment {
+public class RateStoryFragment extends Fragment {
     LineChart lineChartCount, lineChartAvg;
     List<Integer> listYear;
     Spinner spinnerCount, spinnerAvg;
-
+    Story story;
     boolean isFirstItemSelectedCount, isFirstItemSelectedAvg;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         listYear = Arrays.asList(2023, 2022);
-        View view = inflater.inflate(R.layout.fragment_rate, container, false);
+        story = (Story) getArguments().getSerializable("story");
+        View view = inflater.inflate(R.layout.fragment_rate_story, container, false);
 
         lineChartCount = view.findViewById(R.id.line_chart_count);
         lineChartAvg = view.findViewById(R.id.line_chart_avg);
@@ -62,12 +63,11 @@ public class RateFragment extends Fragment {
 
         callApiToGenerateLineChartCount();
         callApiToGenerateLineChartAvg();
-
         return view;
     }
 
     private void callApiToGenerateLineChartCount() {
-        Call<JsonArray> call = ApiClient.getApiService().getCountRatingInMonthOfYear(2023, 1);
+        Call<JsonArray> call = ApiClient.getApiService().getCountRatingInMonthOfYearOfStory(2023, story.getId());
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -92,7 +92,7 @@ public class RateFragment extends Fragment {
     }
 
     private void callApiToGenerateLineChartAvg() {
-        Call<JsonArray> call = ApiClient.getApiService().getAvgRatingInMonthOfYear(2023, 1);
+        Call<JsonArray> call = ApiClient.getApiService().getAvgRatingInMonthOfYear(2023, story.getId());
         call.enqueue(new Callback<JsonArray>() {
             @Override
             public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -125,7 +125,7 @@ public class RateFragment extends Fragment {
                     return;
                 }
                 Toast.makeText(getActivity().getApplication(), "Biểu đồ thống kê năm: " + listYear.get(arg2), Toast.LENGTH_SHORT).show();
-                Call<JsonArray> call = ApiClient.getApiService().getAvgRatingInMonthOfYear(listYear.get(arg2), 1);
+                Call<JsonArray> call = ApiClient.getApiService().getAvgRatingInMonthOfYearOfStory(listYear.get(arg2), story.getId());
                 call.enqueue(new Callback<JsonArray>() {
                     @Override
                     public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -163,7 +163,7 @@ public class RateFragment extends Fragment {
                     return;
                 }
                 Toast.makeText(getActivity().getApplication(), "Biểu đồ thống kê năm: " + listYear.get(arg2), Toast.LENGTH_SHORT).show();
-                Call<JsonArray> call = ApiClient.getApiService().getCountRatingInMonthOfYear(listYear.get(arg2), 1);
+                Call<JsonArray> call = ApiClient.getApiService().getCountRatingInMonthOfYearOfStory(listYear.get(arg2), story.getId());
                 call.enqueue(new Callback<JsonArray>() {
                     @Override
                     public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {

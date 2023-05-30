@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".userdashboard.fragmentReuse.LikeFragment">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,41 +16,30 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Biểu đồ thống kê số lượng đánh giá năm: " />
+            android:text="Biểu đồ thống kê năm: " />
 
         <Spinner
-            android:id="@+id/spinner_count"
+            android:id="@+id/spinner_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/line_chart_count"
+        android:id="@+id/line_chart"
         android:layout_width="match_parent"
-        android:layout_height="250dp" />
+        android:layout_height="300dp" />
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="10dp"
+        android:text="Biểu đồ thống kê qua các năm:" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Biểu đồ thống kê đánh giá trung bình năm: " />
-
-        <Spinner
-            android:id="@+id/spinner_avg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/line_chart_avg"
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart"
         android:layout_width="match_parent"
-        android:layout_height="250dp" />
+        android:layout_height="220dp" />
 
 </LinearLayout>

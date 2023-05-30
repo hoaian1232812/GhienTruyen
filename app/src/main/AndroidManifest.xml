@@ -64,6 +64,12 @@
             android:name=".user.TopicDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".userdashboard.detail.ListStoryDashBoard"
+            android:exported="false" />
+        <activity
+            android:name=".userdashboard.StoryStatisticalActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
