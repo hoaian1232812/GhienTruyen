@@ -85,9 +85,24 @@ public interface ApiService {
 
     @GET("/api/story/allStoryMostLiked")
     Call<List<Story>> getAllStoryLiked(@Query("limit") int limit, @Query("page") int page);
+
     @GET("/api/story/allStoryMostViewed")
     Call<List<Story>> getAllStoryViewed(@Query("limit") int limit, @Query("page") int page);
 
+    @GET("/api/story/allStoryOfAuthor")
+    Call<List<Story>> getAllStoryAuthor(@Query("idAuthor") int id, @Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/story/allNewUpdateFull")
+    Call<List<Story>> getAllStoryNewUpdateFull(@Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/story/allStoryAppreciationFull")
+    Call<List<Story>> getAllStoryAppreciationFull(@Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/story/allStoryMostLikedFull")
+    Call<List<Story>> getAllStoryLikedFull(@Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/story/allStoryMostViewedFull")
+    Call<List<Story>> getAllStoryViewedFull(@Query("limit") int limit, @Query("page") int page);
 
 
     @POST("/api/users/login")

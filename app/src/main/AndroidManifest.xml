@@ -18,6 +18,12 @@
         <!--            android:name=".ListStoryDashBoard"-->
         <!--            android:exported="false" />-->
         <activity
+            android:name=".user.FullStoryHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.StoryAuthorActivity"
+            android:exported="false" />
+        <activity
             android:name=".userdashboard.ReadStoriesActivity"
             android:exported="false" />
         <activity
@@ -30,16 +36,10 @@
         <!--            android:name=".RegisterActivity"-->
         <!--            android:exported="false" />-->
         <activity
-            android:name=".user.MostViewHomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".userdashboard.DetailStatisticalActivity"
             android:exported="false" />
         <activity
-            android:name=".user.MostLikeHomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".user.ReviewStoryHomeActivity"
+            android:name=".user.TrendingStoryHomeActivity"
             android:exported="false" />
         <activity
             android:name=".user.StoryDetail"
