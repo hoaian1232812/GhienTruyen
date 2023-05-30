@@ -18,6 +18,7 @@ import com.app.R;
 import com.app.model.Story;
 import com.app.user.StoryDetail;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -49,7 +50,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.TruyenVH> {
     public void onBindViewHolder(@NonNull TruyenVH holder, int position) {
         Story story = storyList.get(position);
         holder.textView.setText(story.getTitle());
-        Glide.with(holder.imageView.getContext()).load("http://139.180.129.238:8080/Untitled1.jpg").into(holder.imageView);
+        Glide.with(holder.imageView.getContext())
+                .load("http://139.180.129.238:8080/Untitled1.jpg")
+                .into(holder.imageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

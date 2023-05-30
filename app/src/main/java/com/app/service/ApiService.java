@@ -2,17 +2,18 @@ package com.app.service;
 
 import com.app.model.Chapter;
 import com.app.model.Story;
-import com.app.model.TimeStory;
 import com.app.model.Topic;
 import com.app.model.User;
-import com.app.model.support.MonthStatistical;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -43,10 +44,10 @@ public interface ApiService {
     @GET("/api/story/allCompletedByTopic")
     Call<List<Story>> getStoriesCompletedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
 
-    @GET("/api/story/allStoryMostViewedById")
+    @GET("/api/story/allStoryMostViewed")
     Call<List<Story>> getStoriesMostViewedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
 
-    @GET("/api/story/allStoryMostLikedById")
+    @GET("/api/story/allStoryMostLiked")
     Call<List<Story>> getStoriesLikedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
 
     @GET("/api/story/newUpdateById")
@@ -86,4 +87,7 @@ public interface ApiService {
 
 
 
+    @POST("/api/users/login")
+    @FormUrlEncoded
+    Call<User> login(@Field("email") String email);
 }

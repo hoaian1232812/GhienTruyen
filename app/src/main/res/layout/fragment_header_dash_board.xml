@@ -8,6 +8,7 @@
     app:cardBackgroundColor="#27366E"
     app:cardCornerRadius="20dp"
     app:cardUseCompatPadding="true"
+
     tools:context=".userdashboard.HeaderDashBoardFragment">
 
     <LinearLayout
@@ -16,6 +17,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center_horizontal"
+
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -35,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/quick_sand"
             android:text="Thanh Phụng"
             android:textColor="#FFF"
             android:textSize="18sp" />
@@ -47,51 +50,64 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quick_sand"
                     android:text="Số lượt thích" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+
+
+                    android:fontFamily="@font/quick_sand"
                     android:text="5000" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quick_sand"
                     android:text="Số lượng truyện" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+
+                    android:fontFamily="@font/quick_sand"
                     android:text="12" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quick_sand"
                     android:text="Đánh giá" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/quick_sand"
                     android:text="5" />
             </LinearLayout>
         </com.google.android.flexbox.FlexboxLayout>

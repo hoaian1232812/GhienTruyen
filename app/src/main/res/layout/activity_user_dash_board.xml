@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#154F6C"
+    android:background="@color/black"
+    android:orientation="vertical"
     tools:context=".UserDashBoardActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <fragment
             android:id="@+id/fragment_header_dash_board"
@@ -25,6 +27,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_midle_dash_board" />
+
+        <fragment
+            android:id="@+id/fragment_list_feature_dash_board"
+            class="com.app.userdashboard.ListFeatureDashBoardFragment"
+            android:layout_width="match_parent"
+            android:layout_height="330dp"
+            tools:layout="@layout/fragment_list_feature" />
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
