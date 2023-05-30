@@ -22,9 +22,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
+    User user;
     BottomNavigationView bnv;
     Fragment currentFragment = null;
-    User user;
 
     SparseArray<Fragment> fragmentSparseArray;
 
@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
                     user = User.getUserFromSharedPreferences(this);
                     Log.e("z", "troi oi");
                     if (user != null) {
-                        Log.e("z", user.toString());
                         if (user.getId() != -1) {
                             startActivity(new Intent(MainActivity.this, UserDashBoardActivity.class));
                             return;

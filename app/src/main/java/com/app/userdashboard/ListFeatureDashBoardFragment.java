@@ -1,6 +1,8 @@
 package com.app.userdashboard;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -39,19 +41,37 @@ public class ListFeatureDashBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_list_feature, container, false);
-        User.getUserFromSharedPreferences(getActivity());
+
+        user = User.getUserFromSharedPreferences(getActivity());
+        Log.e("d", user.toString());
+        setUpLikeUser();
+        setUpReadUser();
         btnLogout = view.findViewById(R.id.btn_log_out);
         btnLogout.setOnClickListener(logOut());
+
         return view;
     }
 
     private View.OnClickListener logOut() {
         return view -> {
-            Log.e("z", "logout");
-            clearUserFromSharedPreferences();
-            startActivity(new Intent(getActivity(), LoginActivity.class));
-            getActivity().finish();
-            Toast.makeText(getContext(), "You have been logged out", Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Bạn có muốn đăng xuất không")
+                    .setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            clearUserFromSharedPreferences();
+                            startActivity(new Intent(getActivity(), LoginActivity.class));
+                            getActivity().finish();
+                            Toast.makeText(getContext(), "Bạn đã đăng xuất", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
         };
     }
 

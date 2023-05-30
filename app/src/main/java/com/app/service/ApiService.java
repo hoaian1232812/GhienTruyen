@@ -90,7 +90,7 @@ public interface ApiService {
     @GET("/api/story/allStoryMostViewed")
     Call<List<Story>> getAllStoryViewed(@Query("limit") int limit, @Query("page") int page);
 
-    @GET("/api/users/checkExist?email=baotaolao981999@gmail.com")
+    @GET("/api/users/checkExist")
     Call<User> checkExistEmail(@Query("email") String email);
 
     @GET("/api/story/allStoryOfAuthor")
@@ -112,7 +112,7 @@ public interface ApiService {
     @FormUrlEncoded
     Call<User> login(@Field("email") String email);
 
-    @POST("/api/users/register?name=aaa&email=abc@gmail.com&password=passHashed")
+    @POST("/api/users/register")
     @FormUrlEncoded
     Call<JsonObject> register(@Field("email") String email, @Field("name") String name, @Field("password") String password);
 
@@ -148,4 +148,15 @@ public interface ApiService {
 
     @GET("/api/statistical/countStoryByTopic")
     Call<JsonArray> getCountStoryByTopic();
+    @GET("/api/statistical/allViewedOfUser")
+    Call<JsonObject> getViewOfUser(@Query("idAuthor") int idUser);
+    @GET("/api/statistical/allStoryOfUser")
+    Call<JsonObject> getNumOfStoryUserWritten(@Query("idAuthor") int idUser);
+    @GET("/api/statistical/allRatingOfUser")
+    Call<JsonObject> getRateOfUser(@Query("idAuthor") int idUser);
+    @GET("/api/users/storyLikeByUser")
+    Call<List<Story>> getStoryLikeByUser(@Query("idUser") int idUser);
+
+    @POST("/api/story/updateLike")
+    Call<JsonObject> updateLike(@Field("idUser") int idUser, @Field("idStory") int idStory);
 }
