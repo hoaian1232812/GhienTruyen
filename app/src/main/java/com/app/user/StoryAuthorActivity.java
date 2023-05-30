@@ -27,7 +27,7 @@ public class StoryAuthorActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     StoryTopicAdapter storyTopicAdapter;
     ProgressBar pb_loading;
-    boolean isLoading = false;
+    boolean isLoading = false, emptyData = false;
     int page = 1;
     int limit = 15;
     Bundle bundle;
@@ -68,27 +68,30 @@ public class StoryAuthorActivity extends AppCompatActivity {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 // Kiểm tra xem RecyclerView đã cuộn đến cuối danh sách và không có tác vụ tải dữ liệu đang chạy
-                if (!recyclerView.canScrollVertically(1) && !isLoading) {
+                if (!recyclerView.canScrollVertically(1) && !isLoading && !emptyData) {
                     isLoading = true;
                     pb_loading.setVisibility(View.VISIBLE);
                     page += 1;
-                    Toast.makeText(StoryAuthorActivity.this, "" + page, Toast.LENGTH_SHORT).show();
-                    prepareData(page, limit);
+                    prepareData();
                 }
             }
         });
     }
 
-    private void prepareData(int page, int limit) {
+    private void prepareData() {
         pb_loading.setVisibility(View.VISIBLE);
         Call<List<Story>> call = ApiClient.getApiService().getAllStoryAuthor(bundle.getInt("id"), limit, page);
-        ;
-
         call.enqueue(new Callback<List<Story>>() {
             @Override
             public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
                 if (response.isSuccessful()) {
-                    storyTopicAdapter.addNewData(response.body());
+                    if (response.body().isEmpty()) {
+                        page -= 1;
+                        emptyData = true;
+                    } else {
+                        storyTopicAdapter.addNewData(response.body());
+                        Toast.makeText(StoryAuthorActivity.this, "" + page, Toast.LENGTH_SHORT).show();
+                    }
                     isLoading = false;
                     pb_loading.setVisibility(View.GONE);
                 } else {
@@ -99,6 +102,8 @@ public class StoryAuthorActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Story>> call, Throwable t) {
+                page -= 1;
+                emptyData = false;
                 isLoading = false;
                 pb_loading.setVisibility(View.GONE);
             }

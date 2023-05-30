@@ -29,7 +29,7 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     GridLayoutManager gridLayoutManager;
     StoryGridAdapter adapter;
-    boolean isLoading = false;
+    boolean isLoading = false, emptyData = false;
     ProgressBar pb_loading;
     int limit = 21;
     int page = 1;
@@ -45,7 +45,6 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
         setTitle(bundle.getString("title"));
         List<Story> list = new Gson().fromJson((String) bundle.getString("listData"), new TypeToken<List<Story>>() {
         }.getType());
-        Log.e("Like", list.size() + "");
         pb_loading = findViewById(R.id.pb_loading_like_home);
         recyclerView = findViewById(R.id.recyle_story_home_like);
         gridLayoutManager = new GridLayoutManager(this, 3);
@@ -62,18 +61,17 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 // Kiểm tra xem RecyclerView đã cuộn đến cuối danh sách và không có tác vụ tải dữ liệu đang chạy
-                if (!recyclerView.canScrollVertically(1) && !isLoading) {
+                if (!recyclerView.canScrollVertically(1) && !isLoading && !emptyData) {
                     isLoading = true;
                     pb_loading.setVisibility(View.VISIBLE);
                     page += 1;
-                    Toast.makeText(TrendingStoryHomeActivity.this, "" + page, Toast.LENGTH_SHORT).show();
-                    prepareData(page, limit);
+                    prepareData();
                 }
             }
         });
     }
 
-    private void prepareData(int page, int limit) {
+    private void prepareData() {
         pb_loading.setVisibility(View.VISIBLE);
         Call<List<Story>> call = null;
         switch (bundle.getInt("api")) {
@@ -83,16 +81,19 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
             case 1:
                 call = ApiClient.getApiService().getAllStoryLiked(limit, page);
                 break;
-            case 2:
-                call = ApiClient.getApiService().getAllStoryViewed(limit, page);
-                break;
         }
 
         call.enqueue(new Callback<List<Story>>() {
             @Override
             public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
                 if (response.isSuccessful()) {
-                    adapter.addNewData(response.body());
+                    if (response.body().isEmpty()) {
+                        emptyData = true;
+                        page -= 1;
+                    } else {
+                        adapter.addNewData(response.body());
+                        Toast.makeText(TrendingStoryHomeActivity.this, "" + page, Toast.LENGTH_SHORT).show();
+                    }
                     isLoading = false;
                     pb_loading.setVisibility(View.GONE);
                 } else {
@@ -103,6 +104,8 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Story>> call, Throwable t) {
+                page -= 1;
+                emptyData = false;
                 isLoading = false;
                 pb_loading.setVisibility(View.GONE);
             }

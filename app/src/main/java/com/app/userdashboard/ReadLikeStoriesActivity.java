@@ -1,11 +1,11 @@
-package com.app.user;
+package com.app.userdashboard;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,9 +13,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.app.R;
+import com.app.adapter.StoryAdapter;
 import com.app.adapter.StoryGridAdapter;
 import com.app.model.Story;
+import com.app.model.User;
 import com.app.service.ApiClient;
+import com.app.user.TrendingStoryHomeActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -25,38 +28,44 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FullStoryHomeActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
-    GridLayoutManager gridLayoutManager;
-    StoryGridAdapter adapter;
+public class ReadLikeStoriesActivity extends AppCompatActivity {
+    StoryAdapter storyAdapter;
+    RecyclerView recyclerViewReadStories;
+
     boolean isLoading = false, emptyData = false;
+
     ProgressBar pb_loading;
-    int limit = 21;
-    int page = 1;
     Bundle bundle;
 
-    @SuppressLint("MissingInflatedId")
+    int limit = 15;
+
+    int page = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_full_story_home);
+        setContentView(R.layout.activity_read_stories);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         bundle = getIntent().getBundleExtra("data");
+        setUpReadStories();
+    }
+
+    public void setUpReadStories() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerViewReadStories = findViewById(R.id.recycleViewReadStories);
+        recyclerViewReadStories.setLayoutManager(linearLayoutManager);
         setTitle(bundle.getString("title"));
         List<Story> list = new Gson().fromJson((String) bundle.getString("listData"), new TypeToken<List<Story>>() {
         }.getType());
-        Log.e("Like", list.size() + "");
-        pb_loading = findViewById(R.id.pb_loading_full_home);
-        recyclerView = findViewById(R.id.recyle_story_full_home);
-        gridLayoutManager = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new StoryGridAdapter(list);
-        recyclerView.setAdapter(adapter);
+        pb_loading = findViewById(R.id.pb_loading_like_home);
+        storyAdapter = new StoryAdapter(list);
+        recyclerViewReadStories.setAdapter(storyAdapter);
         lazyLoading();
+
     }
 
     public void lazyLoading() {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerViewReadStories.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -77,16 +86,13 @@ public class FullStoryHomeActivity extends AppCompatActivity {
         Call<List<Story>> call = null;
         switch (bundle.getInt("api")) {
             case 0:
-                call = ApiClient.getApiService().getAllStoryNewUpdateFull(limit, page);
+                call = ApiClient.getApiService().getAllStoryAppreciation(limit, page);
                 break;
             case 1:
-                call = ApiClient.getApiService().getAllStoryAppreciationFull(limit, page);
+                call = ApiClient.getApiService().getAllStoryLiked(limit, page);
                 break;
             case 2:
-                call = ApiClient.getApiService().getAllStoryLikedFull(limit, page);
-                break;
-            case 3:
-                call = ApiClient.getApiService().getAllStoryViewedFull(limit, page);
+                call = ApiClient.getApiService().getAllStoryViewed(limit, page);
                 break;
         }
 
@@ -95,11 +101,11 @@ public class FullStoryHomeActivity extends AppCompatActivity {
             public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
                 if (response.isSuccessful()) {
                     if (response.body().isEmpty()) {
-                        page -= 1;
                         emptyData = true;
+                        page -= 1;
                     } else {
-                        adapter.addNewData(response.body());
-                        Toast.makeText(FullStoryHomeActivity.this, "" + page, Toast.LENGTH_SHORT).show();
+                        storyAdapter.addNewData(response.body());
+                        Toast.makeText(ReadLikeStoriesActivity.this, "" + page, Toast.LENGTH_SHORT).show();
                     }
                     isLoading = false;
                     pb_loading.setVisibility(View.GONE);
@@ -118,6 +124,7 @@ public class FullStoryHomeActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public void onBackPressed() {

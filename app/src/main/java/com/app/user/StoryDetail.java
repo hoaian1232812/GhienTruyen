@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.R;
@@ -22,6 +23,8 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
+import retrofit2.Call;
 
 public class StoryDetail extends AppCompatActivity {
     Story story;
@@ -42,6 +45,8 @@ public class StoryDetail extends AppCompatActivity {
         setUpView();
         setUpRecyclerView();
         setClickAuthor();
+        setComment();
+        setChap();
     }
 
     private void setUpRecyclerView() {
@@ -101,6 +106,31 @@ public class StoryDetail extends AppCompatActivity {
             intent.putExtra("data", bundle);
             startActivity(intent);
         });
+    }
+
+    public void setChap() {
+        LinearLayout chap = findViewById(R.id.chaps);
+        chap.setOnClickListener(view -> {
+            CompletableFuture<List<Chapter>> futureChapter = story.getAllChapter();
+            Intent intent = new Intent(view.getContext(), ChapterActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("story", story);
+            intent.putExtra("data", bundle);
+            view.getContext().startActivity(intent);
+        });
+    }
+
+    public void setComment() {
+        LinearLayout comment = findViewById(R.id.com);
+        comment.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), CommentActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("idStory", story.getId());
+            bundle.putString("title", story.getTitle());
+            intent.putExtra("data", bundle);
+            view.getContext().startActivity(intent);
+        });
+
     }
 
 

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.R;
 import com.app.adapter.StoryAdapter;
 import com.app.model.Story;
+import com.app.model.User;
 import com.app.service.ApiClient;
 import com.google.gson.Gson;
 

@@ -5,26 +5,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MenuItem;
-import android.view.View;
 
+import com.app.model.User;
 import com.app.user.HomeFragment;
 import com.app.user.SearchFragment;
 import com.app.user.TopicFragment;
-import com.app.user.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bnv;
     Fragment currentFragment = null;
+    User user;
 
     SparseArray<Fragment> fragmentSparseArray;
 
@@ -62,8 +62,19 @@ public class MainActivity extends AppCompatActivity {
                     setTitle("Tìm Truyện");
                     break;
                 case R.id.user:
-                    fragment = new UserFragment();
-                    setTitle("Cá nhân");
+                    user = User.getUserFromSharedPreferences(this);
+                    Log.e("z", "troi oi");
+                    if (user != null) {
+                        Log.e("z", user.toString());
+                        if (user.getId() != -1) {
+                            startActivity(new Intent(MainActivity.this, UserDashBoardActivity.class));
+                            return;
+                        }
+
+                    } else {
+                        fragment = new UserFragment();
+                        setTitle("Danh mục của tôi");
+                    }
                     break;
             }
             fragmentSparseArray.put(id, fragment);

@@ -12,25 +12,34 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.app.R;
+import com.app.adapter.StoryAdapter;
 import com.app.login_register.LoginActivity;
-import com.app.login_register.RegisterActivity;
-import com.app.user.UserFragment;
+import com.app.model.Story;
+import com.app.model.User;
+import com.app.service.ApiClient;
+import com.app.user.TrendingStoryHomeActivity;
+import com.google.gson.Gson;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ListFeatureDashBoardFragment extends Fragment {
     CardView btnLogout;
+    View view;
+    User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_list_feature, container, false);
-        CardView btn_go_to_read_stories = view.findViewById(R.id.go_to_list_read_story);
-        btn_go_to_read_stories.setOnClickListener(onGoToReadStoriesClicked());
-
+        view = inflater.inflate(R.layout.fragment_list_feature, container, false);
+        User.getUserFromSharedPreferences(getActivity());
         btnLogout = view.findViewById(R.id.btn_log_out);
         btnLogout.setOnClickListener(logOut());
         return view;
@@ -41,7 +50,7 @@ public class ListFeatureDashBoardFragment extends Fragment {
             Log.e("z", "logout");
             clearUserFromSharedPreferences();
             startActivity(new Intent(getActivity(), LoginActivity.class));
-//            getActivity().finish();
+            getActivity().finish();
             Toast.makeText(getContext(), "You have been logged out", Toast.LENGTH_SHORT).show();
         };
     }
@@ -53,10 +62,42 @@ public class ListFeatureDashBoardFragment extends Fragment {
         editor.apply();
     }
 
-    private View.OnClickListener onGoToReadStoriesClicked() {
-        return view -> {
-            startActivity(new Intent(getActivity(), ReadStoriesActivity.class));
-        };
+    private void setUpReadUser() {
+        CardView cardView = view.findViewById(R.id.go_to_list_read_story);
+        cardView.setOnClickListener(view -> {
+            Call<List<Story>> call = ApiClient.getApiService().getStoriesUserRead(user.getId(), 15, 1);
+            moveActivity(view, call, 0, "Truyện đã đọc");
+        });
+    }
+
+    private void setUpLikeUser() {
+        CardView cardView = view.findViewById(R.id.go_to_favorite);
+        cardView.setOnClickListener(view -> {
+            Call<List<Story>> call = ApiClient.getApiService().getStoriesUserLiked(user.getId(), 15, 1);
+            moveActivity(view, call, 1, "Danh sách yêu thích");
+        });
+    }
+
+    private void moveActivity(View view, Call<List<Story>> call, int position, String title) {
+        Intent intent = new Intent(view.getContext(), ReadLikeStoriesActivity.class);
+        call.enqueue(new Callback<List<Story>>() {
+            @Override
+            public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
+                if (response.isSuccessful()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("listData", new Gson().toJson(response.body()));
+                    bundle.putString("title", title);
+                    bundle.putInt("api", position);
+                    intent.putExtra("data", bundle);
+                    view.getContext().startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Story>> call, Throwable t) {
+                Toast.makeText(view.getContext(), "không thể truy cập dữ liệu", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
