@@ -68,12 +68,6 @@ public class HomeFragment extends Fragment {
             storyAdapter = new StoryAdapter(storyListNewStory);
             recyclerViewNewStory.setAdapter(storyAdapter);
         }
-        if (storyListRead != null) {
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.HORIZONTAL, false);
-            recyclerViewNewStory.setLayoutManager(linearLayoutManager);
-            storyAdapter = new StoryAdapter(storyListRead);
-            recyclerViewNewStory.setAdapter(storyAdapter);
-        }
     }
 
     public void setUpNewStory() {
@@ -95,23 +89,16 @@ public class HomeFragment extends Fragment {
     }
 
     public void setUpRead() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewRead.setLayoutManager(linearLayoutManager);
-        if (User.getUserFromSharedPreferences(root.getContext()) == null) {
-            Call<List<Story>> call ;
-
-        } else {
-            storyListRead = new ArrayList<>();
-            String deviceId = Settings.Secure.getString(root.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-            String uniqueName = "user_preferences_" + deviceId;
-            SharedPreferences userPreferences = root.getContext().getSharedPreferences(uniqueName, Context.MODE_PRIVATE);
-            Map<String, ?> map = userPreferences.getAll();
-            Gson gson = new Gson();
-            for (String s : map.keySet()) {
-                Object value = map.get(s);
-                if (value instanceof String && s.startsWith("story_") && s.endsWith("_read")) {
-                    storyListRead.add(gson.fromJson((String) value, Story.class));
-                }
+        storyListRead = new ArrayList<>();
+        String deviceId = Settings.Secure.getString(root.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        String uniqueName = "user_preferences_" + deviceId;
+        SharedPreferences userPreferences = root.getContext().getSharedPreferences(uniqueName, Context.MODE_PRIVATE);
+        Map<String, ?> map = userPreferences.getAll();
+        Gson gson = new Gson();
+        for (String s : map.keySet()) {
+            Object value = map.get(s);
+            if (value instanceof String && s.startsWith("story_") && s.endsWith("_read")) {
+                storyListRead.add(gson.fromJson((String) value, Story.class));
             }
         }
         storyAdapter = new StoryAdapter(storyListRead);

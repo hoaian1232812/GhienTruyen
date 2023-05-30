@@ -77,6 +77,11 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.TruyenVH> {
         return storyList.size();
     }
 
+    public void addNewData(List<Story> body) {
+        this.storyList.addAll(body);
+        notifyDataSetChanged();
+    }
+
     class TruyenVH extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;

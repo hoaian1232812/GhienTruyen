@@ -105,11 +105,16 @@ public interface ApiService {
     @GET("/api/story/allStoryMostViewedFull")
     Call<List<Story>> getAllStoryViewedFull(@Query("limit") int limit, @Query("page") int page);
 
-
     @POST("/api/users/login")
     @FormUrlEncoded
     Call<User> login(@Field("email") String email);
 
     @GET("/api/comment/allCommentByStoryOnPage")
     Call<List<Comment>> getAllCommentByStoryOnPage(@Query("idStory") int idStory, @Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/users/storyRead")
+    Call<List<Story>> getStoriesUserRead(@Query("idUser") int idUser, @Query("limit") int limit, @Query("page") int page);
+
+    @GET("/api/users/storyLiked")
+    Call<List<Story>> getStoriesUserLiked(@Query("idUser") int idUser, @Query("limit") int limit, @Query("page") int page);
 }

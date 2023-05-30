@@ -5,33 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".userdashboard.ReadStoriesActivity">
+    tools:context=".userdashboard.ReadLikeStoriesActivity">
 
-    <LinearLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleViewReadStories"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarThumbVertical="@drawable/scrollbar_custom"
+        android:scrollbars="vertical" />
+
+    <ProgressBar
+        android:id="@+id/pb_loading_read_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="335dp"
-            android:text="Xoá tất cả"
-
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold"></TextView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleViewReadStories"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </LinearLayout>
 </RelativeLayout>
