@@ -2,17 +2,18 @@ package com.app.service;
 
 import com.app.model.Chapter;
 import com.app.model.Story;
-import com.app.model.TimeStory;
 import com.app.model.Topic;
 import com.app.model.User;
-import com.app.model.support.MonthStatistical;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -43,10 +44,10 @@ public interface ApiService {
     @GET("/api/story/allCompletedByTopic")
     Call<List<Story>> getStoriesCompletedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
 
-    @GET("/api/story/allStoryMostViewedById")
+    @GET("/api/story/allStoryMostViewed")
     Call<List<Story>> getStoriesMostViewedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
 
-    @GET("/api/story/allStoryMostLikedById")
+    @GET("/api/story/allStoryMostLiked")
     Call<List<Story>> getStoriesLikedByTopicOnPage(@Query("idTopic") int idTopic, @Query("limit") int limit, @Query("page") int page);
 
     @GET("/api/story/newUpdateById")
@@ -56,10 +57,22 @@ public interface ApiService {
     Call<Story> getStoryById(@Query("idStory") int idStory);
 
     @GET("/api/statistical/likeInMonthOfYear")
-    Call<List<MonthStatistical>> getMonthStatisticalLikeInYear(@Query("year") int year, @Query("author") int idAuthor);
+    Call<JsonArray> getMonthStatisticalLikeInYear(@Query("year") int year, @Query("author") int idAuthor);
 
     @GET("/api/statistical/likeOfYear")
     Call<JsonArray> getStatisticalLikeOfYear(@Query("author") int idAuthor);
+
+    @GET("/api/statistical/viewInMonthOfYear")
+    Call<JsonArray> getViewInMonthOfYear(@Query("year") int year, @Query("author") int idAuthor);
+
+    @GET("/api/statistical/viewOfYear")
+    Call<JsonArray> getViewOfYear(@Query("author") int idAuthor);
+
+    @GET("/api/statistical/countRatingInMonthOfYear")
+    Call<JsonArray> getCountRatingInMonthOfYear(@Query("year") int year, @Query("author") int idAuthor);
+
+    @GET("/api/statistical/avgRatingInMonthOfYear")
+    Call<JsonArray> getAvgRatingInMonthOfYear(@Query("year") int year, @Query("author") int idAuthor);
 
     @GET("/api/story/avgRatingOfStory")
     Call<JsonObject> getRatingById(@Query("idStory") int idStory);
@@ -87,4 +100,9 @@ public interface ApiService {
 
     @GET("/api/story/allStoryMostViewedFull")
     Call<List<Story>> getAllStoryViewedFull(@Query("limit") int limit, @Query("page") int page);
+
+
+    @POST("/api/users/login")
+    @FormUrlEncoded
+    Call<User> login(@Field("email") String email);
 }

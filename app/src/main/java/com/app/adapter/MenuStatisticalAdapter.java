@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.app.userdashboard.LikeFragment;
+import com.app.userdashboard.fragmentReuse.LikeFragment;
+import com.app.userdashboard.fragmentReuse.RateFragment;
+import com.app.userdashboard.fragmentReuse.ReadFragment;
+
 
 public class MenuStatisticalAdapter extends FragmentStateAdapter {
 
@@ -21,11 +24,11 @@ public class MenuStatisticalAdapter extends FragmentStateAdapter {
             case 0:
                 return new LikeFragment();
             case 1:
-                return new Fragment();
+                return new ReadFragment();
             case 2:
-                return new Fragment();
+                return new RateFragment();
             default:
-                return new Fragment();
+                return new LikeFragment();
         }
     }
 

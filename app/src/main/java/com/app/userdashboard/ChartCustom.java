@@ -14,22 +14,39 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChartCustome {
+public class ChartCustom {
+
+
+    public static void updateLineChart(LineChart lineChart, List<MonthStatistical> monthStatisticalList) {
+        ArrayList<Entry> newEntries = new ArrayList<>();
+        for (MonthStatistical monthStatistical : monthStatisticalList) {
+            newEntries.add(new Entry(monthStatistical.getMonth() - 1, monthStatistical.getCount()));
+        }
+        LineData lineData = lineChart.getLineData();
+        List<ILineDataSet> dataSets = lineData.getDataSets();
+        if (dataSets.size() > 0) {
+            LineDataSet dataSet = (LineDataSet) dataSets.get(0);
+            dataSet.setValues(newEntries);
+        }
+        lineChart.animateY(800);
+        lineChart.invalidate();
+    }
 
     public static void setUpLineChart(LineChart lineChart, List<MonthStatistical> monthStatisticalList) {
         List<String> months = new ArrayList<>();
 
         ArrayList<Entry> entries = new ArrayList<>();
         for (MonthStatistical monthStatistical : monthStatisticalList) {
-            entries.add(new Entry(monthStatistical.getMonth() - 1, monthStatistical.getLikes()));
-            months.add("Tháng " + monthStatistical.getMonth());
+            entries.add(new Entry(monthStatistical.getMonth() - 1, monthStatistical.getCount()));
+            months.add("Tháng " + (monthStatistical.getMonth()));
         }
-        LineDataSet dataSet = new LineDataSet(entries, "2023");
+        LineDataSet dataSet = new LineDataSet(entries, "");
         dataSet.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
         dataSet.setCircleColor(Color.RED);
         dataSet.setCircleRadius(5f);
@@ -65,7 +82,7 @@ public class ChartCustome {
         yAxisLeft.setAxisMinimum(0);
 
         lineChart.getAxisRight().setEnabled(false);
-        lineChart.getLegend().setTextColor(Color.WHITE);
+        lineChart.getLegend().setEnabled(false);
         lineChart.getDescription().setEnabled(false);
 
         lineChart.invalidate();
