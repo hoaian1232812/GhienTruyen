@@ -85,12 +85,18 @@ public interface ApiService {
 
     @GET("/api/story/allStoryMostLiked")
     Call<List<Story>> getAllStoryLiked(@Query("limit") int limit, @Query("page") int page);
+
     @GET("/api/story/allStoryMostViewed")
     Call<List<Story>> getAllStoryViewed(@Query("limit") int limit, @Query("page") int page);
 
-
+    @GET("/api/users/checkExist?email=baotaolao981999@gmail.com")
+    Call<User> checkExistEmail(@Query("email") String email);
 
     @POST("/api/users/login")
     @FormUrlEncoded
     Call<User> login(@Field("email") String email);
+
+    @POST("/api/users/register?name=aaa&email=abc@gmail.com&password=passHashed")
+    @FormUrlEncoded
+    Call<String> register(@Field("email") String email, @Field("name") String name, @Field("password") String password);
 }

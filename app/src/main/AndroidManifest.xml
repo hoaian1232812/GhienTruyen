@@ -30,6 +30,10 @@
         <!--            android:name=".RegisterActivity"-->
         <!--            android:exported="false" />-->
         <activity
+            android:name=".login_register.RegisterActivity"
+            android:exported="false"></activity>
+
+        <activity
             android:name=".user.MostViewHomeActivity"
             android:exported="false" />
         <activity
