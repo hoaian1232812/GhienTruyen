@@ -3,10 +3,14 @@ package com.app.userdashboard;
 import android.graphics.Color;
 
 import com.app.model.support.MonthStatistical;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -21,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChartCustom {
-
 
     public static void updateLineChart(LineChart lineChart, List<MonthStatistical> monthStatisticalList) {
         ArrayList<Entry> newEntries = new ArrayList<>();
@@ -111,4 +114,33 @@ public class ChartCustom {
         pieChart.invalidate();
         pieChart.animate();
     }
+
+    public static void setUpBarChart(BarChart barChart, List<BarEntry> entries, ArrayList<String> listTopic) {
+        BarDataSet dataSet = new BarDataSet(entries, "");
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        dataSet.setValueTextColor(Color.WHITE);
+        dataSet.setValueTextSize(13);
+
+        BarData data = new BarData(dataSet);
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setTextColor(Color.WHITE);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(listTopic));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        YAxis yAxisLeft = barChart.getAxisLeft();
+        yAxisLeft.setTextColor(Color.WHITE);
+        yAxisLeft.setAxisMinimum(0);
+
+        barChart.getAxisRight().setEnabled(false);
+        barChart.getLegend().setEnabled(false);
+        barChart.getDescription().setEnabled(false);
+
+        barChart.setFitBars(true);
+        barChart.setData(data);
+        barChart.invalidate();
+        barChart.animateY(800);
+
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.app;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -11,34 +12,24 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.app.service.ApiClient;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.google.gson.JsonObject;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class Add_new_story extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST_CODE = 1;
     private ImageView imageView;
     private Button selectImageButton;
+    TextInputEditText nameStory, introduce;
+    TextView nameStoryTV, popupTitleIntroduce;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +37,43 @@ public class Add_new_story extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         selectImageButton = findViewById(R.id.selectImageButton);
         imageView = findViewById(R.id.imageView);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        nameStory = findViewById(R.id.nameStory);
+        nameStoryTV = findViewById(R.id.popupTitle);
+
+        nameStory.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus || nameStory.length() != 0) {
+                    int translationY = -convertDpToPixels(25); // Convert dp to pixels
+                    nameStoryTV.animate().translationY(translationY).setDuration(200).start();
+                } else {
+                    // Handle the case when EditText loses focus (optional)
+                    int translationY = 0; // Move back to the original position
+                    nameStoryTV.animate().translationY(translationY).setDuration(200).start();
+                }
+            }
+        });
+
+        introduce = findViewById(R.id.introduce);
+        popupTitleIntroduce = findViewById(R.id.popupTitleIntroduce);
+        introduce.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus || introduce.length() != 0) {
+                    int translationY = -convertDpToPixels(25); // Convert dp to pixels
+                    popupTitleIntroduce.animate().translationY(translationY).setDuration(200).start();
+                } else {
+                    // Handle the case when EditText loses focus (optional)
+                    int translationY = 0; // Move back to the original position
+                    popupTitleIntroduce.animate().translationY(translationY).setDuration(200).start();
+                }
+            }
+        });
+
+
         selectImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +93,10 @@ public class Add_new_story extends AppCompatActivity {
             cursor.close();
         }
         return path;
+
+    private int convertDpToPixels(int dp) {
+        float scale = getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
     }
 
     @Override
@@ -106,6 +138,7 @@ public class Add_new_story extends AppCompatActivity {
                         }
                     });
             imageView.setImageURI(selectedImageUri);
+            selectImageButton.setVisibility(View.GONE);
         }
     }
     private Bitmap compressBitmap(Bitmap bitmap, int quality) {
@@ -124,5 +157,16 @@ public class Add_new_story extends AppCompatActivity {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length, options);
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 
 }
