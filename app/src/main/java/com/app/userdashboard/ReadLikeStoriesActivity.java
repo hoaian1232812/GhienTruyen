@@ -1,11 +1,11 @@
-package com.app.user;
+package com.app.userdashboard;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,9 +13,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.app.R;
+import com.app.adapter.StoryAdapter;
 import com.app.adapter.StoryGridAdapter;
 import com.app.model.Story;
+import com.app.model.User;
 import com.app.service.ApiClient;
+import com.app.user.TrendingStoryHomeActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -25,37 +28,44 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TrendingStoryHomeActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
-    GridLayoutManager gridLayoutManager;
-    StoryGridAdapter adapter;
+public class ReadLikeStoriesActivity extends AppCompatActivity {
+    StoryAdapter storyAdapter;
+    RecyclerView recyclerViewReadStories;
+
     boolean isLoading = false, emptyData = false;
+
     ProgressBar pb_loading;
-    int limit = 21;
-    int page = 1;
     Bundle bundle;
 
-    @SuppressLint("MissingInflatedId")
+    int limit = 15;
+
+    int page = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_most_like_home);
+        setContentView(R.layout.activity_read_stories);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         bundle = getIntent().getBundleExtra("data");
+        setUpReadStories();
+    }
+
+    public void setUpReadStories() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerViewReadStories = findViewById(R.id.recycleViewReadStories);
+        recyclerViewReadStories.setLayoutManager(linearLayoutManager);
         setTitle(bundle.getString("title"));
         List<Story> list = new Gson().fromJson((String) bundle.getString("listData"), new TypeToken<List<Story>>() {
         }.getType());
         pb_loading = findViewById(R.id.pb_loading_like_home);
-        recyclerView = findViewById(R.id.recyle_story_home_like);
-        gridLayoutManager = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new StoryGridAdapter(list);
-        recyclerView.setAdapter(adapter);
+        storyAdapter = new StoryAdapter(list);
+        recyclerViewReadStories.setAdapter(storyAdapter);
         lazyLoading();
+
     }
 
     public void lazyLoading() {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerViewReadStories.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -81,6 +91,9 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
             case 1:
                 call = ApiClient.getApiService().getAllStoryLiked(limit, page);
                 break;
+            case 2:
+                call = ApiClient.getApiService().getAllStoryViewed(limit, page);
+                break;
         }
 
         call.enqueue(new Callback<List<Story>>() {
@@ -91,8 +104,8 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
                         emptyData = true;
                         page -= 1;
                     } else {
-                        adapter.addNewData(response.body());
-                        Toast.makeText(TrendingStoryHomeActivity.this, "" + page, Toast.LENGTH_SHORT).show();
+                        storyAdapter.addNewData(response.body());
+                        Toast.makeText(ReadLikeStoriesActivity.this, "" + page, Toast.LENGTH_SHORT).show();
                     }
                     isLoading = false;
                     pb_loading.setVisibility(View.GONE);
@@ -111,6 +124,7 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public void onBackPressed() {

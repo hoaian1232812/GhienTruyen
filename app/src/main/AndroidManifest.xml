@@ -27,7 +27,7 @@
             android:name=".user.StoryAuthorActivity"
             android:exported="false" />
         <activity
-            android:name=".userdashboard.ReadStoriesActivity"
+            android:name=".userdashboard.ReadLikeStoriesActivity"
             android:exported="false" />
         <activity
             android:name=".login_register.ForgotPassActivity"
