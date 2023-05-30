@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.app.DetailStatisticalActivity;
 import com.app.R;
 import com.app.login_register.LoginActivity;
 import com.app.login_register.RegisterActivity;
