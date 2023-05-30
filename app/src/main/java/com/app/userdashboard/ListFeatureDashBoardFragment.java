@@ -39,9 +39,14 @@ public class ListFeatureDashBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_list_feature, container, false);
-        User.getUserFromSharedPreferences(getActivity());
+
+        user = User.getUserFromSharedPreferences(getActivity());
+        Log.e("d", user.toString());
+        setUpLikeUser();
+        setUpReadUser();
         btnLogout = view.findViewById(R.id.btn_log_out);
         btnLogout.setOnClickListener(logOut());
+
         return view;
     }
 

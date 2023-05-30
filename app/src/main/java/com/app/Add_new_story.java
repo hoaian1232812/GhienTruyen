@@ -15,6 +15,7 @@ public class Add_new_story extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST_CODE = 1;
     private ImageView imageView;
     private Button selectImageButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class Add_new_story extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -37,6 +39,7 @@ public class Add_new_story extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri selectedImageUri = data.getData();
             imageView.setImageURI(selectedImageUri);
+            selectImageButton.setVisibility(View.GONE);
         }
     }
 

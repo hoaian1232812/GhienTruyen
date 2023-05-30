@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     User user;
     BottomNavigationView bnv;
     Fragment currentFragment = null;
-    User user;
 
     SparseArray<Fragment> fragmentSparseArray;
 

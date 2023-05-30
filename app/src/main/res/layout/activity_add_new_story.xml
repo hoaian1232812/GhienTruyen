@@ -7,47 +7,71 @@
     android:orientation="vertical"
     tools:context=".Add_new_story">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nhập tên truyện">
-    </TextView>
+        android:layout_marginBottom="20dp">
 
-    <EditText
-        android:id="@+id/nameStory"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"></EditText>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameStory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quick_sand"
+            android:hint="Nhập tên truyện"
+            android:maxHeight="100dp"
+            android:padding="15dp"
+            android:textColorHint="#C0C0C0"></com.google.android.material.textfield.TextInputEditText>
+    </ScrollView>
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:adjustViewBounds="true"
+        android:maxHeight="350dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/avatar_cute_meo"/>
+        android:src="@drawable/ic_heart_border" />
 
     <Button
         android:id="@+id/selectImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:backgroundTint="#2680BD"
+        android:fontFamily="@font/quick_sand"
         android:text="Chọn ảnh"
-        android:layout_centerHorizontal="true"/>
-    <TextView
+
+        android:textColor="@color/black"
+        android:visibility="visible" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nhập giới thiệu tổng quan cho truyện">
-    </TextView>
-    <EditText
-        android:id="@+id/introduce"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </EditText>
+        android:layout_marginBottom="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/introduce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quick_sand"
+            android:hint="Giới thiệu tổng quan"
+            android:maxHeight="300dp"
+            android:padding="15dp"
+            android:textColorHint="#C0C0C0"></com.google.android.material.textfield.TextInputEditText>
+    </ScrollView>
+
+
     <Button
         android:id="@+id/addStory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thêm truyện"
-        android:layout_gravity="right">
-    </Button>
+        android:layout_gravity="center"
+        android:backgroundTint="#2680BD"
+        android:fontFamily="@font/quick_sand"
+        android:text="Đăng truyện"></Button>
 </LinearLayout>
