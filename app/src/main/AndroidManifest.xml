@@ -20,16 +20,26 @@
         <activity
             android:name=".user.CommentActivity"
             android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".ListStoryDashBoard" -->
-        <!-- android:exported="false" /> -->
         <activity
             android:name=".user.FullStoryHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.ChapterDetailActivity"
             android:exported="false" />
         <activity
             android:name=".user.StoryAuthorActivity"
             android:exported="false" />
         <activity
+            android:name=".Add_new_chapter"
+            android:exported="false" />
+        <activity
             android:name=".userdashboard.ReadLikeStoriesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".userdashboard.detail.ListChapterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Add_new_story"
             android:exported="false" />
         <activity
             android:name=".login_register.ForgotPassActivity"

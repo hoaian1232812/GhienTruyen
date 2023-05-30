@@ -24,8 +24,8 @@ public class Add_new_story extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST_CODE = 1;
     private ImageView imageView;
     private Button selectImageButton;
-    TextInputEditText nameStory;
-    TextView nameStoryTV;
+    TextInputEditText nameStory, introduce;
+    TextView nameStoryTV, popupTitleIntroduce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +38,36 @@ public class Add_new_story extends AppCompatActivity {
         nameStory = findViewById(R.id.nameStory);
         nameStoryTV = findViewById(R.id.popupTitle);
 
-        nameStoryTV.setOnClickListener(new View.OnClickListener() {
+        nameStory.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                nameStoryTV.animate().translationY(-nameStoryTV.getHeight()).setDuration(200).start();
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus || nameStory.length() != 0) {
+                    int translationY = -convertDpToPixels(25); // Convert dp to pixels
+                    nameStoryTV.animate().translationY(translationY).setDuration(200).start();
+                } else {
+                    // Handle the case when EditText loses focus (optional)
+                    int translationY = 0; // Move back to the original position
+                    nameStoryTV.animate().translationY(translationY).setDuration(200).start();
+                }
             }
         });
+
+        introduce = findViewById(R.id.introduce);
+        popupTitleIntroduce = findViewById(R.id.popupTitleIntroduce);
+        introduce.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus || introduce.length() != 0) {
+                    int translationY = -convertDpToPixels(25); // Convert dp to pixels
+                    popupTitleIntroduce.animate().translationY(translationY).setDuration(200).start();
+                } else {
+                    // Handle the case when EditText loses focus (optional)
+                    int translationY = 0; // Move back to the original position
+                    popupTitleIntroduce.animate().translationY(translationY).setDuration(200).start();
+                }
+            }
+        });
+
 
         selectImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +76,11 @@ public class Add_new_story extends AppCompatActivity {
                 startActivityForResult(intent, PICK_IMAGE_REQUEST_CODE);
             }
         });
+    }
+
+    private int convertDpToPixels(int dp) {
+        float scale = getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
     }
 
     @Override

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+
+
     tools:context=".Add_new_story">
 
-    <AbsoluteLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
 
         <TextView
             android:id="@+id/popupTitle"
@@ -18,69 +21,86 @@
             android:layout_marginStart="10dp"
             android:fontFamily="@font/quick_sand"
             android:padding="20dp"
+            android:paddingTop="10dp"
             android:text="Tên truyện"
-            android:textSize="24dp"></TextView>
+            android:textSize="20dp"
+            android:textStyle="bold"></TextView>
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameStory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="-55dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="25dp"
             android:fontFamily="@font/quick_sand"
             android:maxHeight="100dp"
-            android:padding="15dp"
-            android:textColor="@color/white"></com.google.android.material.textfield.TextInputEditText>
-    </AbsoluteLayout>
+            android:padding="20dp"
+            android:textColor="@color/white"
+            android:textSize="16dp"></com.google.android.material.textfield.TextInputEditText>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:adjustViewBounds="true"
-        android:maxHeight="350dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_heart_border" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="350dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:scaleType="centerCrop" />
 
-    <Button
-        android:id="@+id/selectImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:backgroundTint="#2680BD"
-        android:fontFamily="@font/quick_sand"
-        android:text="Chọn ảnh"
+        <Button
+            android:id="@+id/selectImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:backgroundTint="#2680BD"
+            android:fontFamily="@font/quick_sand"
+            android:text="Chọn ảnh"
 
-        android:textColor="@color/black"
-        android:visibility="visible" />
+            android:textColor="@color/black"
+            android:visibility="visible" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/popupTitleIntroduce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/quick_sand"
+            android:padding="20dp"
+            android:paddingTop="10dp"
+            android:text="Giới thiệu tổng quan"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:textStyle="bold"></TextView>
+
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/introduce"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="-35dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/quick_sand"
-            android:hint="Giới thiệu tổng quan"
-            android:maxHeight="300dp"
             android:padding="15dp"
-            android:textColorHint="#C0C0C0"></com.google.android.material.textfield.TextInputEditText>
-    </ScrollView>
+            android:textColor="@color/white"
+            android:textSize="16dp"></com.google.android.material.textfield.TextInputEditText>
 
 
-    <Button
-        android:id="@+id/addStory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:backgroundTint="#2680BD"
-        android:fontFamily="@font/quick_sand"
-        android:text="Đăng truyện"></Button>
-</LinearLayout>
+        <Button
+            android:id="@+id/addStory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#2680BD"
+            android:fontFamily="@font/quick_sand"
+            android:text="Đăng truyện"></Button>
+    </LinearLayout>
+</ScrollView>
