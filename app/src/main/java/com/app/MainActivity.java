@@ -5,20 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.app.model.User;
 import com.app.user.HomeFragment;
 import com.app.user.SearchFragment;
 import com.app.user.TopicFragment;
-import com.app.user.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -68,10 +64,10 @@ public class MainActivity extends AppCompatActivity {
                             return;
                         }
                         fragment = new UserFragment();
-                        setTitle("Cáa nhân");
+                        setTitle("Danh mục của tôi");
                     }
                     fragment = new UserFragment();
-                    setTitle("Cáa nhân");
+                    setTitle("Danh mục của tôi");
 
                     break;
             }
