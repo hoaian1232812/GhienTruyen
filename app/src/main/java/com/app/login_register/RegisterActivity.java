@@ -138,15 +138,18 @@ public class RegisterActivity extends AppCompatActivity {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-
+                if (response.isSuccessful()) {
+                    Toast.makeText(RegisterActivity.this, response.body(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-
+                Toast.makeText(RegisterActivity.this, "Không thể đăng ký vui lòng thử lại", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
