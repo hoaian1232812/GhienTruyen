@@ -7,7 +7,6 @@
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,7 +15,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".userdashboard.detail.ListStoryDashBoard"
+            android:name=".userdashboard.ReadStoriesActivity"
             android:exported="false" />
         <activity
             android:name=".login_register.ForgotPassActivity"
@@ -28,10 +27,7 @@
             android:name=".login_register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".user.TrendingStoryHomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".user.StoryDetail"
+            android:name=".DetailStatisticalActivity"
             android:exported="false" />
         <activity
             android:name=".login_register.LoginActivity"
