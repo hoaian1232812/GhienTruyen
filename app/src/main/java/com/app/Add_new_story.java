@@ -34,6 +34,8 @@ public class Add_new_story extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         selectImageButton = findViewById(R.id.selectImageButton);
         imageView = findViewById(R.id.imageView);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         nameStory = findViewById(R.id.nameStory);
         nameStoryTV = findViewById(R.id.popupTitle);
@@ -94,5 +96,15 @@ public class Add_new_story extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 
 }

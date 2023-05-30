@@ -59,6 +59,7 @@ public class ReadLikeStoriesActivity extends AppCompatActivity {
         setTitle(bundle.getString("title"));
         List<Story> list = new Gson().fromJson((String) bundle.getString("listData"), new TypeToken<List<Story>>() {
         }.getType());
+
         storyAdapter = new StoryTopicAdapter(list);
         recyclerViewReadStories.setAdapter(storyAdapter);
         lazyLoading();
