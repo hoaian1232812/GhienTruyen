@@ -5,17 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".user.TrendingStoryHomeActivity">
+    tools:context=".user.FullStoryHomeActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyle_story_home_like"
+        android:id="@+id/recyle_story_full_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbarThumbVertical="@drawable/scrollbar_custom"
         android:scrollbars="vertical" />
 
     <ProgressBar
-        android:id="@+id/pb_loading_like_home"
+        android:id="@+id/pb_loading_full_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

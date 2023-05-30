@@ -24,7 +24,7 @@ import retrofit2.Response;
 
 public class TrendingFragmemt extends Fragment {
     View root;
-    CardView appreciation;
+    CardView cardView;
 
     int limit = 21;
     int page = 1;
@@ -40,31 +40,31 @@ public class TrendingFragmemt extends Fragment {
     }
 
     public void setUpAppreciation() {
-        appreciation = root.findViewById(R.id.appreciation);
-        appreciation.setOnClickListener(view -> {
+        cardView = root.findViewById(R.id.appreciation);
+        cardView.setOnClickListener(view -> {
             Call<List<Story>> call = ApiClient.getApiService().getAllStoryAppreciation(limit, page);
-            moveActivity(view, call, 0);
+            moveActivity(view, call, 0, "Đánh giá");
         });
     }
 
     public void setUpLike() {
-        appreciation = root.findViewById(R.id.like);
-        appreciation.setOnClickListener(view -> {
+        cardView = root.findViewById(R.id.like);
+        cardView.setOnClickListener(view -> {
             Call<List<Story>> call = ApiClient.getApiService().getAllStoryLiked(limit, page);
-            moveActivity(view, call, 1);
+            moveActivity(view, call, 1, "Yêu thích");
         });
     }
 
 
     public void setUpView() {
-        appreciation = root.findViewById(R.id.view);
-        appreciation.setOnClickListener(view -> {
+        cardView = root.findViewById(R.id.view);
+        cardView.setOnClickListener(view -> {
             Call<List<Story>> call = ApiClient.getApiService().getAllStoryViewed(limit, page);
-            moveActivity(view, call, 2);
+            moveActivity(view, call, 2, "Xem nhiều");
         });
     }
 
-    public void moveActivity(View view, Call<List<Story>> call, int position) {
+    public void moveActivity(View view, Call<List<Story>> call, int position, String title) {
         Intent intent = new Intent(view.getContext(), TrendingStoryHomeActivity.class);
         call.enqueue(new Callback<List<Story>>() {
             @Override
@@ -72,6 +72,7 @@ public class TrendingFragmemt extends Fragment {
                 if (response.isSuccessful()) {
                     Bundle bundle = new Bundle();
                     bundle.putString("listData", new Gson().toJson(response.body()));
+                    bundle.putString("title", title);
                     bundle.putInt("api", position);
                     intent.putExtra("data", bundle);
                     view.getContext().startActivity(intent);

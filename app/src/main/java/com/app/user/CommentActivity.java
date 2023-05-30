@@ -2,22 +2,20 @@ package com.app.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.app.R;
-import com.app.adapter.StoryGridAdapter;
+import com.app.adapter.CommentAdapter;
+import com.app.model.Comment;
 import com.app.model.Story;
 import com.app.service.ApiClient;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
@@ -25,36 +23,41 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TrendingStoryHomeActivity extends AppCompatActivity {
+public class CommentActivity extends AppCompatActivity {
+    LinearLayoutManager linearLayoutManager;
+    CommentAdapter commentAdapter;
     RecyclerView recyclerView;
-    GridLayoutManager gridLayoutManager;
-    StoryGridAdapter adapter;
+    Bundle bundle;
     boolean isLoading = false;
     ProgressBar pb_loading;
-    int limit = 21;
-    int page = 1;
-    Bundle bundle;
-
+    private int limit = 15;
+    private int page = 1;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_most_like_home);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_comment);
         bundle = getIntent().getBundleExtra("data");
-        setTitle(bundle.getString("title"));
-        List<Story> list = new Gson().fromJson((String) bundle.getString("listData"), new TypeToken<List<Story>>() {
-        }.getType());
-        Log.e("Like", list.size() + "");
-        pb_loading = findViewById(R.id.pb_loading_like_home);
-        recyclerView = findViewById(R.id.recyle_story_home_like);
-        gridLayoutManager = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new StoryGridAdapter(list);
-        recyclerView.setAdapter(adapter);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView = findViewById(R.id.recycle_comment);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        Call<List<Comment>> call = ApiClient.getApiService().getAllCommentByStoryOnPage(bundle.getInt("idStory"), limit, page);
+        call.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                if(response.isSuccessful()) {
+                    commentAdapter = new CommentAdapter(response.body());
+                    recyclerView.setAdapter(commentAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+
+            }
+        });
         lazyLoading();
     }
-
     public void lazyLoading() {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -66,7 +69,7 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
                     isLoading = true;
                     pb_loading.setVisibility(View.VISIBLE);
                     page += 1;
-                    Toast.makeText(TrendingStoryHomeActivity.this, "" + page, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CommentActivity.this, "" + page, Toast.LENGTH_SHORT).show();
                     prepareData(page, limit);
                 }
             }
@@ -75,24 +78,13 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
 
     private void prepareData(int page, int limit) {
         pb_loading.setVisibility(View.VISIBLE);
-        Call<List<Story>> call = null;
-        switch (bundle.getInt("api")) {
-            case 0:
-                call = ApiClient.getApiService().getAllStoryAppreciation(limit, page);
-                break;
-            case 1:
-                call = ApiClient.getApiService().getAllStoryLiked(limit, page);
-                break;
-            case 2:
-                call = ApiClient.getApiService().getAllStoryViewed(limit, page);
-                break;
-        }
+        Call<List<Comment>> call =  ApiClient.getApiService().getAllCommentByStoryOnPage(bundle.getInt("idStory"), limit, page);;
 
-        call.enqueue(new Callback<List<Story>>() {
+        call.enqueue(new Callback<List<Comment>>() {
             @Override
-            public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                 if (response.isSuccessful()) {
-                    adapter.addNewData(response.body());
+                    commentAdapter.addNewData(response.body());
                     isLoading = false;
                     pb_loading.setVisibility(View.GONE);
                 } else {
@@ -102,7 +94,7 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Story>> call, Throwable t) {
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
                 isLoading = false;
                 pb_loading.setVisibility(View.GONE);
             }
@@ -119,4 +111,5 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
         onBackPressed();
         return super.onSupportNavigateUp();
     }
+
 }

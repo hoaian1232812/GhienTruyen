@@ -1,6 +1,8 @@
 package com.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.R;
 import com.app.model.Topic;
+import com.app.user.TopicDetailActivity;
 
 import java.util.List;
 
@@ -34,6 +37,13 @@ public class TopicStoryDetailAdapter extends RecyclerView.Adapter<TopicStoryDeta
     public void onBindViewHolder(@NonNull TopicStoryDetailVH holder, int position) {
         Topic topic = topics.get(position);
         holder.text.setText(topic.getName());
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), TopicDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("topic", topic);
+            intent.putExtra("data", bundle);
+            view.getContext().startActivity(intent);
+        });
     }
 
     @Override

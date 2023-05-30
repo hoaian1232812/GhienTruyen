@@ -25,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TrendingStoryHomeActivity extends AppCompatActivity {
+public class FullStoryHomeActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     GridLayoutManager gridLayoutManager;
     StoryGridAdapter adapter;
@@ -39,15 +39,15 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_most_like_home);
+        setContentView(R.layout.activity_full_story_home);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         bundle = getIntent().getBundleExtra("data");
         setTitle(bundle.getString("title"));
         List<Story> list = new Gson().fromJson((String) bundle.getString("listData"), new TypeToken<List<Story>>() {
         }.getType());
         Log.e("Like", list.size() + "");
-        pb_loading = findViewById(R.id.pb_loading_like_home);
-        recyclerView = findViewById(R.id.recyle_story_home_like);
+        pb_loading = findViewById(R.id.pb_loading_full_home);
+        recyclerView = findViewById(R.id.recyle_story_full_home);
         gridLayoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
         adapter = new StoryGridAdapter(list);
@@ -66,7 +66,7 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
                     isLoading = true;
                     pb_loading.setVisibility(View.VISIBLE);
                     page += 1;
-                    Toast.makeText(TrendingStoryHomeActivity.this, "" + page, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FullStoryHomeActivity.this, "" + page, Toast.LENGTH_SHORT).show();
                     prepareData(page, limit);
                 }
             }
@@ -78,13 +78,16 @@ public class TrendingStoryHomeActivity extends AppCompatActivity {
         Call<List<Story>> call = null;
         switch (bundle.getInt("api")) {
             case 0:
-                call = ApiClient.getApiService().getAllStoryAppreciation(limit, page);
+                call = ApiClient.getApiService().getAllStoryNewUpdateFull(limit, page);
                 break;
             case 1:
-                call = ApiClient.getApiService().getAllStoryLiked(limit, page);
+                call = ApiClient.getApiService().getAllStoryAppreciationFull(limit, page);
                 break;
             case 2:
-                call = ApiClient.getApiService().getAllStoryViewed(limit, page);
+                call = ApiClient.getApiService().getAllStoryLikedFull(limit, page);
+                break;
+            case 3:
+                call = ApiClient.getApiService().getAllStoryViewedFull(limit, page);
                 break;
         }
 

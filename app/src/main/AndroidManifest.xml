@@ -14,9 +14,18 @@
         android:theme="@style/Theme.GhienTruyen"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <!--        <activity-->
-        <!--            android:name=".ListStoryDashBoard"-->
-        <!--            android:exported="false" />-->
+        <activity
+            android:name=".user.CommentActivity"
+            android:exported="false" />
+        <!-- <activity -->
+        <!-- android:name=".ListStoryDashBoard" -->
+        <!-- android:exported="false" /> -->
+        <activity
+            android:name=".user.FullStoryHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.StoryAuthorActivity"
+            android:exported="false" />
         <activity
             android:name=".userdashboard.ReadStoriesActivity"
             android:exported="false" />
@@ -40,10 +49,7 @@
             android:name=".userdashboard.DetailStatisticalActivity"
             android:exported="false" />
         <activity
-            android:name=".user.MostLikeHomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".user.ReviewStoryHomeActivity"
+            android:name=".user.TrendingStoryHomeActivity"
             android:exported="false" />
         <activity
             android:name=".user.StoryDetail"
