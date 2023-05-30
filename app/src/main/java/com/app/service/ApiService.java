@@ -151,4 +151,9 @@ public interface ApiService {
     Call<JsonObject> getNumOfStoryUserWritten(@Query("idAuthor") int idUser);
     @GET("/api/statistical/allRatingOfUser")
     Call<JsonObject> getRateOfUser(@Query("idAuthor") int idUser);
+    @GET("/api/users/storyLikeByUser")
+    Call<List<Story>> getStoryLikeByUser(@Query("idUser") int idUser);
+
+    @POST("/api/story/updateLike")
+    Call<JsonObject> updateLike(@Field("idUser") int idUser, @Field("idStory") int idStory);
 }

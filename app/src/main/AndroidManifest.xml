@@ -15,6 +15,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".user.ChapterDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".user.ChapterActivity"
             android:exported="false" />
         <activity
@@ -51,9 +54,6 @@
         <!-- android:exported="false" /> -->
         <activity
             android:name=".login_register.RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".user.MostViewHomeActivity"
             android:exported="false" />
         <activity
             android:name=".userdashboard.DetailStatisticalActivity"
