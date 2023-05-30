@@ -18,6 +18,7 @@ import com.app.R;
 import com.app.model.User;
 import com.app.service.ApiClient;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.JsonObject;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -68,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
             checkExistEmail = false;
             String p = BCrypt.hashpw(inputPassword.getText().toString(), BCrypt.gensalt());
             register(inputEmail.getText().toString(), inputName.getText().toString(), p);
-            Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
 
         };
 
@@ -134,17 +135,18 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void register(String email, String name, String password) {
-        Call<String> call = ApiClient.getApiService().register(email, name, password);
-        call.enqueue(new Callback<String>() {
+        Call<JsonObject> call = ApiClient.getApiService().register(email, name, password);
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(RegisterActivity.this, response.body(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, response.body().get("message").getAsString(), Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
                 Toast.makeText(RegisterActivity.this, "Không thể đăng ký vui lòng thử lại", Toast.LENGTH_SHORT).show();
             }
         });
