@@ -114,8 +114,7 @@ public interface ApiService {
 
     @POST("/api/users/register")
     @FormUrlEncoded
-    Call<String> register(@Field("email") String email, @Field("name") String name, @Field("password") String password);
-
+    Call<JsonObject> register(@Field("email") String email, @Field("name") String name, @Field("password") String password);
     @GET("/api/comment/allCommentByStoryOnPage")
     Call<List<Comment>> getAllCommentByStoryOnPage(@Query("idStory") int idStory, @Query("limit") int limit, @Query("page") int page);
 
