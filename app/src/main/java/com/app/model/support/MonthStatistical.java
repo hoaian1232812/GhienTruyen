@@ -1,23 +1,14 @@
 package com.app.model.support;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+public class MonthStatistical {
 
-import java.io.Serializable;
-
-public class MonthStatistical implements Serializable {
-
-    @SerializedName("month")
-    @Expose
     int month;
 
-    @SerializedName("likes")
-    @Expose
-    int likes;
+    int count;
 
-    public MonthStatistical(int month, int likes) {
+    public MonthStatistical(int month, int count) {
         this.month = month;
-        this.likes = likes;
+        this.count = count;
     }
 
     public int getMonth() {
@@ -28,11 +19,11 @@ public class MonthStatistical implements Serializable {
         this.month = month;
     }
 
-    public int getLikes() {
-        return likes;
+    public int getCount() {
+        return count;
     }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
+    public void setCount(int count) {
+        this.count = count;
     }
 }

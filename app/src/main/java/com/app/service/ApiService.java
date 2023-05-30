@@ -56,10 +56,22 @@ public interface ApiService {
     Call<Story> getStoryById(@Query("idStory") int idStory);
 
     @GET("/api/statistical/likeInMonthOfYear")
-    Call<List<MonthStatistical>> getMonthStatisticalLikeInYear(@Query("year") int year, @Query("author") int idAuthor);
+    Call<JsonArray> getMonthStatisticalLikeInYear(@Query("year") int year, @Query("author") int idAuthor);
 
     @GET("/api/statistical/likeOfYear")
     Call<JsonArray> getStatisticalLikeOfYear(@Query("author") int idAuthor);
+
+    @GET("/api/statistical/viewInMonthOfYear")
+    Call<JsonArray> getViewInMonthOfYear(@Query("year") int year, @Query("author") int idAuthor);
+
+    @GET("/api/statistical/viewOfYear")
+    Call<JsonArray> getViewOfYear(@Query("author") int idAuthor);
+
+    @GET("/api/statistical/countRatingInMonthOfYear")
+    Call<JsonArray> getCountRatingInMonthOfYear(@Query("year") int year, @Query("author") int idAuthor);
+
+    @GET("/api/statistical/avgRatingInMonthOfYear")
+    Call<JsonArray> getAvgRatingInMonthOfYear(@Query("year") int year, @Query("author") int idAuthor);
 
     @GET("/api/story/avgRatingOfStory")
     Call<JsonObject> getRatingById(@Query("idStory") int idStory);
@@ -71,4 +83,7 @@ public interface ApiService {
     Call<List<Story>> getAllStoryLiked(@Query("limit") int limit, @Query("page") int page);
     @GET("/api/story/allStoryMostViewed")
     Call<List<Story>> getAllStoryViewed(@Query("limit") int limit, @Query("page") int page);
+
+
+
 }
