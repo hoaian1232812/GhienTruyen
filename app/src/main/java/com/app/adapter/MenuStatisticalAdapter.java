@@ -19,7 +19,6 @@ public class MenuStatisticalAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        Fragment fragment = null;
         switch (position) {
             case 0:
                 return new LikeFragment();
