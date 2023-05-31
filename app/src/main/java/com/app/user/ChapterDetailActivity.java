@@ -18,8 +18,19 @@ public class ChapterDetailActivity extends AppCompatActivity {
         chapter = (Chapter) getIntent().getBundleExtra("data").getSerializable("chapter");
         setTitle(chapter.getName());
         setContentView(R.layout.activity_chapter_detail);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         content = findViewById(R.id.content);
         content.setText(chapter.getContent());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }
