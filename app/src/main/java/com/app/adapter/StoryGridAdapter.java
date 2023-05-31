@@ -51,7 +51,7 @@ public class StoryGridAdapter extends RecyclerView.Adapter<StoryGridAdapter.Stor
     public void onBindViewHolder(@NonNull StoryGridAdapterVH holder, int position) {
         Story story = stories.get(position);
         Glide.with(holder.img.getContext())
-                .load("http://139.180.129.238:8080/Untitled1.jpg")
+                .load(story.getImage())
                 .into(holder.img);
         holder.title.setText(story.getTitle());
         CompletableFuture<List<Chapter>> futureChapter = story.getAllChapter();

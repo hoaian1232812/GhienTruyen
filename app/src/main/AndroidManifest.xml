@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -21,6 +23,12 @@
             android:theme="@style/Theme.GhienTruyen.NoActionBar" />
         <activity
             android:name=".AdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.ReadLikeDeviceActivity"
+            android:exported="false" />
+             <activity
+            android:name=".user.ChapterReadDetailActivity"
             android:exported="false" />
         <activity
             android:name=".user.ChapterActivity"

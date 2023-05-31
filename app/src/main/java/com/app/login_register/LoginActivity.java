@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnRegister = findViewById(R.id.go_to_register);
         btnRegister.setOnClickListener(onGoToRegisterClicked());
@@ -90,13 +91,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     user = response.body();
-                    Log.i("z", user.toString());
                     if (user.getId() == -1) {
                         error.setText("Sai email hoặc mật khẩu...");
                         return;
                     }
                     boolean checkpw = BCrypt.checkpw(passNoHash, user.getPassword());
-                    Log.e("z", BCrypt.hashpw(passNoHash, BCrypt.gensalt()));
                     if (!checkpw) {
                         error.setText("Sai email hoặc mật khẩu");
                         return;

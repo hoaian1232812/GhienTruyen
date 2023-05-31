@@ -61,7 +61,7 @@
         android:textColor="@color/white"
         android:textSize="16dp"></com.google.android.material.textfield.TextInputEditText>
     <Button
-        android:id="@+id/addStory"
+        android:id="@+id/addChapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
