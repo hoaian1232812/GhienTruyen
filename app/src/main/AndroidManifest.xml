@@ -20,7 +20,7 @@
             android:name=".user.ReadLikeDeviceActivity"
             android:exported="false" />
         <activity
-            android:name=".user.ChapterDetailActivity"
+            android:name=".user.ChapterReadDetailActivity"
             android:exported="false" />
         <activity
             android:name=".user.ChapterActivity"

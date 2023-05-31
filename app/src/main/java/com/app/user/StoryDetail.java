@@ -1,7 +1,6 @@
 package com.app.user;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,10 +8,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.R;
-import com.app.adapter.ChapterAdapter;
 import com.app.adapter.TopicStoryDetailAdapter;
 import com.app.model.Chapter;
 import com.app.model.Story;
@@ -139,7 +135,7 @@ public class StoryDetail extends AppCompatActivity {
 
         LinearLayout read = findViewById(R.id.read_story);
         read.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), ChapterDetailActivity.class);
+            Intent intent = new Intent(view.getContext(), ChapterReadDetailActivity.class);
             Bundle bundle = new Bundle();
             story.getAllChapter().thenAccept(chapters -> {
                 bundle.putString("chapters", new Gson().toJson(chapters));

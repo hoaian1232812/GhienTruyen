@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.R;
 import com.app.model.Chapter;
-import com.app.user.ChapterDetailActivity;
+import com.app.user.ChapterReadDetailActivity;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterV
         Chapter chapter = chaps.get(position);
         holder.textView.setText("Chương " + chapter.getIndex() + ": " + chapter.getName());
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), ChapterDetailActivity.class);
+            Intent intent = new Intent(view.getContext(), ChapterReadDetailActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("chapters", new Gson().toJson(chaps));
             bundle.putInt("position", position);

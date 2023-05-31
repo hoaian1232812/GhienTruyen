@@ -5,11 +5,12 @@
     android:id="@+id/linear_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.ChapterDetailActivity"
+    tools:context=".user.ChapterReadDetailActivity"
     android:orientation="vertical">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager_chapter"
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
