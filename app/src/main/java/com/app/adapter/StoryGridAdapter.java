@@ -67,7 +67,7 @@ public class StoryGridAdapter extends RecyclerView.Adapter<StoryGridAdapter.Stor
         });
         CompletableFuture<Double> futureRating = story.getRating();
         futureRating.thenAccept(rate -> {
-            holder.rate.setText(rate + "");
+            holder.rate.setText((Math.round(rate * 10) / 10.0) + "");
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
