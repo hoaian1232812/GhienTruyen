@@ -5,10 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".admins.ManageAccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Danh sách tài khoản" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/line_chart"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
 
 </FrameLayout>

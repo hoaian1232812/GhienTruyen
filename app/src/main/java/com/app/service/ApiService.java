@@ -148,15 +148,31 @@ public interface ApiService {
 
     @GET("/api/statistical/countStoryByTopic")
     Call<JsonArray> getCountStoryByTopic();
+
     @GET("/api/statistical/allViewedOfUser")
     Call<JsonObject> getViewOfUser(@Query("idAuthor") int idUser);
+
     @GET("/api/statistical/allStoryOfUser")
     Call<JsonObject> getNumOfStoryUserWritten(@Query("idAuthor") int idUser);
+
     @GET("/api/statistical/allRatingOfUser")
     Call<JsonObject> getRateOfUser(@Query("idAuthor") int idUser);
+
     @GET("/api/users/storyLikeByUser")
     Call<List<Story>> getStoryLikeByUser(@Query("idUser") int idUser);
 
     @POST("/api/story/updateLike")
     Call<JsonObject> updateLike(@Field("idUser") int idUser, @Field("idStory") int idStory);
+
+    @GET("/api/statistical/countChapterInMonthOfYear")
+    Call<JsonArray> getCountChapterInMonthOfYear(@Query("year") int year);
+
+    @GET("/api/statistical/countStoryOfYear")
+    Call<JsonArray> getCountStoryOfYear();
+
+    @GET("/api/statistical/countChapterOfYear")
+    Call<JsonArray> getCountChapterOfYear();
+
+    @GET("/api/statistical/countUserByMonthOfYear")
+    Call<JsonArray> getCountUserByMonthOfYear(@Query("year") int year);
 }

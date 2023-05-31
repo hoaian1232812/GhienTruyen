@@ -1,23 +1,25 @@
-package com.app.userdashboard.detail;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.app.admins;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.app.Add_new_story;
-import com.app.R;
 import com.app.adapter.StoryListBoardAdapter;
 import com.app.model.Story;
 import com.app.service.ApiClient;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+
+import com.app.R;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListStoryDashBoard extends AppCompatActivity {
+public class ListStoriesAdminActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     StoryListBoardAdapter adapter;
     RecyclerView recyclerView;
@@ -35,14 +37,14 @@ public class ListStoryDashBoard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_story_dash_board);
+        setContentView(R.layout.activity_list_stories_admin);
         setTitle("Truyện của bạn");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView = findViewById(R.id.recyle_list_story_dash_board);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        Call<List<Story>> call = ApiClient.getApiService().getAllStoryOfAuthor(1, limit, page);
+        Call<List<Story>> call = ApiClient.getApiService().getAllStory();
 
         call.enqueue(new Callback<List<Story>>() {
             @Override
@@ -62,29 +64,6 @@ public class ListStoryDashBoard extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_action_bar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            case R.id.menu_add:
-                //code xử lý khi bấm menu1
-                startActivity(new Intent(this, Add_new_story.class));
-                break;
-            default:
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -96,5 +75,4 @@ public class ListStoryDashBoard extends AppCompatActivity {
         onBackPressed();
         return super.onSupportNavigateUp();
     }
-
 }

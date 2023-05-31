@@ -11,6 +11,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.MenuItem;
 
+import com.app.admins.ManageAccountFragment;
 import com.app.admins.NotificationsAdminFragment;
 import com.app.admins.StoryAdminFragment;
 import com.app.admins.UserAdminFragment;
@@ -51,7 +52,7 @@ public class AdminActivity extends AppCompatActivity {
                     setTitle("Quản lí truyện");
                     break;
                 case R.id.ql_user:
-                    fragment = new UserAdminFragment();
+                    fragment = new ManageAccountFragment();
                     setTitle("Quản lí tài khoản");
                     break;
                 case R.id.notifications:
