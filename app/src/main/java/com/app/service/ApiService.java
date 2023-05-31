@@ -155,4 +155,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/api/upload/uploadImg")
     Call<JsonObject> uploadImg(@Field("image") byte[] image, @Field("fileName") String fileName);
+
+    @GET("api/story/updateView")
+    Call<JsonObject> updateView(@Query("idUser") int idUser, @Query("idStory") int idStory);
 }
