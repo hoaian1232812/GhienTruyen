@@ -18,13 +18,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.R;
 import com.app.model.Chapter;
 import com.app.model.Story;
+import com.app.model.User;
+import com.app.service.ApiClient;
 import com.app.user.StoryDetail;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class StoryGridAdapter extends RecyclerView.Adapter<StoryGridAdapter.StoryGridAdapterVH> {
     List<Story> stories;
@@ -65,13 +72,29 @@ public class StoryGridAdapter extends RecyclerView.Adapter<StoryGridAdapter.Stor
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String deviceId = Settings.Secure.getString(view.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-                String uniqueName = "user_preferences_" + deviceId;
-                SharedPreferences userPreferences = view.getContext().getSharedPreferences(uniqueName, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = userPreferences.edit();
-                Gson gson = new Gson();
-                editor.putString("story_" + story.getId() + "_read", gson.toJson(story));
-                editor.apply();
+                User user = User.getUserFromSharedPreferences(view.getContext());
+                if (user != null) {
+                    Call<JsonObject> call = ApiClient.getApiService().updateView(user.getId(), story.getId());
+                    call.enqueue(new Callback<JsonObject>() {
+                        @Override
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                        }
+                    });
+                } else {
+                    String deviceId = Settings.Secure.getString(view.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+                    String uniqueName = "user_preferences_" + deviceId;
+                    SharedPreferences userPreferences = view.getContext().getSharedPreferences(uniqueName, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = userPreferences.edit();
+                    Gson gson = new Gson();
+                    editor.putString("story_" + story.getId() + "_read", gson.toJson(story));
+                    editor.apply();
+                }
                 Intent intent = new Intent(view.getContext(), StoryDetail.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("story", story);

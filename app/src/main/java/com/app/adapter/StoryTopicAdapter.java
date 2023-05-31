@@ -84,7 +84,7 @@ public class StoryTopicAdapter extends RecyclerView.Adapter<StoryTopicAdapter.St
                 call.enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        
+
                     }
 
                     @Override

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".user.ReviewActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Chọn từ 1 đến 5 sao"/>
+    <LinearLayout
+        android:id="@+id/review_start"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="0"
+            android:src="@drawable/outline_star_rate_24_blue"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="1"
+            android:src="@drawable/outline_star_rate_24_blue"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="2"
+            android:src="@drawable/outline_star_rate_24_blue"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="3"
+            android:src="@drawable/outline_star_rate_24_blue"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="4"
+            android:src="@drawable/outline_star_rate_24_blue"/>
+    </LinearLayout>
+    <EditText
+        android:id="@+id/content_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_radius"
+        android:hint="Viết cảm nhận"
+        android:textColor="@color/white"/>
+<TextView
+    android:id="@+id/gui"
+    android:layout_marginTop="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:text="GỬI"
+    android:background="#4295D5"
+    android:paddingVertical="2dp"
+    android:paddingHorizontal="15dp"
+    android:textColor="@color/black"/>
+</LinearLayout>

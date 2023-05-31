@@ -177,6 +177,7 @@ public interface ApiService {
 
     @GET("/api/statistical/countUserByMonthOfYear")
     Call<JsonArray> getCountUserByMonthOfYear(@Query("year") int year);
+
     @POST("/api/story/createChapter")
     @FormUrlEncoded
     Call<JsonObject> createChapter(@Field("idStory") int idStory, @Field("name") String name, @Field("content") String content);
@@ -187,4 +188,9 @@ public interface ApiService {
 
     @GET("api/story/updateView")
     Call<JsonObject> updateView(@Query("idUser") int idUser, @Query("idStory") int idStory);
+
+    @FormUrlEncoded
+    @POST("/api/story/comment")
+    Call<JsonObject> review(@Field("idStory") int idStory, @Field("idUser") int idUser, @Field("content") String content, @Field("rating") int rating);
+
 }
