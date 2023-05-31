@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.app.AdminActivity;
 import com.app.MainActivity;
 import com.app.R;
 import com.app.model.User;
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnRegister = findViewById(R.id.go_to_register);
         btnRegister.setOnClickListener(onGoToRegisterClicked());
@@ -89,20 +91,22 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     user = response.body();
-                    Log.i("z", user.toString());
                     if (user.getId() == -1) {
                         error.setText("Sai email hoặc mật khẩu...");
                         return;
                     }
                     boolean checkpw = BCrypt.checkpw(passNoHash, user.getPassword());
-                    Log.e("z", BCrypt.hashpw(passNoHash, BCrypt.gensalt()));
                     if (!checkpw) {
                         error.setText("Sai email hoặc mật khẩu");
                         return;
                     }
                     SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                     user.putToSharedPreferences(sharedPreferences);
-                    startActivity(new Intent(view.getContext(), MainActivity.class));
+                    if (user.getStatus() == 0) {
+                        startActivity(new Intent(view.getContext(), MainActivity.class));
+                    } else if (user.getStatus() == 1) {
+                        startActivity(new Intent(view.getContext(), AdminActivity.class));
+                    }
                 }
             }
 

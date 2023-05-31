@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.app.Add_new_story;
 import com.app.R;
 import com.app.adapter.StoryListBoardAdapter;
 import com.app.model.Story;
@@ -27,9 +29,6 @@ public class ListStoryDashBoard extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     StoryListBoardAdapter adapter;
     RecyclerView recyclerView;
-    Bundle bundle;
-    boolean isLoading = false;
-    ProgressBar pb_loading;
     private int limit = 15;
     private int page = 1;
 
@@ -61,7 +60,6 @@ public class ListStoryDashBoard extends AppCompatActivity {
 
             }
         });
-        lazyLoading();
     }
 
     @Override
@@ -78,12 +76,7 @@ public class ListStoryDashBoard extends AppCompatActivity {
                 return true;
             case R.id.menu_add:
                 //code xử lý khi bấm menu1
-                break;
-            case R.id.menu_edit:
-                //code xử lý khi bấm menu2
-                break;
-            case R.id.menu_remove:
-                //code xử lý khi bấm menu3
+                startActivity(new Intent(this, Add_new_story.class));
                 break;
             default:
                 break;
@@ -92,48 +85,6 @@ public class ListStoryDashBoard extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void lazyLoading() {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-                // Kiểm tra xem RecyclerView đã cuộn đến cuối danh sách và không có tác vụ tải dữ liệu đang chạy
-                if (!recyclerView.canScrollVertically(1) && !isLoading) {
-                    isLoading = true;
-                    pb_loading.setVisibility(View.VISIBLE);
-                    page += 1;
-                    Toast.makeText(getApplicationContext(), "Đã load", Toast.LENGTH_SHORT).show();
-                    prepareData(page, limit);
-                }
-            }
-        });
-    }
-
-    private void prepareData(int page, int limit) {
-        pb_loading.setVisibility(View.VISIBLE);
-        Call<List<Story>> call = ApiClient.getApiService().getAllStoryOfAuthor(1, limit, page);
-
-        call.enqueue(new Callback<List<Story>>() {
-            @Override
-            public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
-                if (response.isSuccessful()) {
-                    adapter.addNewData(response.body());
-                    isLoading = false;
-                    pb_loading.setVisibility(View.GONE);
-                } else {
-                    isLoading = false;
-                    pb_loading.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Story>> call, Throwable t) {
-                isLoading = false;
-                pb_loading.setVisibility(View.GONE);
-            }
-        });
-    }
 
     @Override
     public void onBackPressed() {

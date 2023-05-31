@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.widget.TextView;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -32,16 +33,7 @@ public class ChapterReadDetailActivity extends AppCompatActivity {
         viewPager2.setCurrentItem(getIntent().getBundleExtra("data").getInt("position"));
     }
 
-    @Override
-    public void onBackPressed() {
-            super.onBackPressed();
-    }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return super.onSupportNavigateUp();
-    }
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -52,5 +44,14 @@ public class ChapterReadDetailActivity extends AppCompatActivity {
                     View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 }

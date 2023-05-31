@@ -231,4 +231,20 @@ public class Story implements Serializable {
         }
         return result.replaceFirst(" • ", "");
     }
+
+    @Override
+    public String toString() {
+        return "Story{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", image='" + image + '\'' +
+                ", author_id=" + author_id +
+                ", introduce='" + introduce + '\'' +
+                ", views=" + views +
+                ", likes=" + likes +
+                ", date='" + date + '\'' +
+                ", topics=" + topics +
+                ", status=" + status +
+                '}';
+    }
 }

@@ -20,9 +20,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
+    User user;
     BottomNavigationView bnv;
     Fragment currentFragment = null;
-    User user;
 
     SparseArray<Fragment> fragmentSparseArray;
 

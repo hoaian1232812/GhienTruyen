@@ -119,7 +119,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     user = response.body();
-                    Log.i("z", user.toString());
                     if (user.getId() == -1) {
                         checkExistEmail = false;
                         return;
@@ -141,6 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this, response.body().get("message").getAsString(), Toast.LENGTH_SHORT).show();
+
                     finish();
                 }
             }

@@ -28,8 +28,10 @@
 
                 <TextView
                     android:layout_width="wrap_content"
+
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
+                    android:fontFamily="@font/quick_sand"
                     android:text="Mới đăng"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -47,8 +49,10 @@
 
                 <TextView
                     android:layout_width="wrap_content"
+
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
+                    android:fontFamily="@font/quick_sand"
                     android:text="Mới cập nhật"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -73,8 +77,10 @@
 
                 <TextView
                     android:layout_width="wrap_content"
+
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
+                    android:fontFamily="@font/quick_sand"
                     android:text="Đã Đọc Gần Đây"
                     android:textSize="20dp"
                     android:textStyle="bold" />

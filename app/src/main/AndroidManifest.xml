@@ -17,9 +17,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".user.ReadLikeDeviceActivity"
+            android:name=".ListStoriesAdminActivity"
+            android:exported="false"
+            android:label="@string/title_activity_list_stories_admin"
+            android:theme="@style/Theme.GhienTruyen.NoActionBar" />
+        <activity
+            android:name=".AdminActivity"
             android:exported="false" />
         <activity
+            android:name=".user.ReadLikeDeviceActivity"
+            android:exported="false" />
+             <activity
             android:name=".user.ChapterReadDetailActivity"
             android:exported="false" />
         <activity
@@ -28,16 +36,26 @@
         <activity
             android:name=".user.CommentActivity"
             android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".ListStoryDashBoard" -->
-        <!-- android:exported="false" /> -->
         <activity
             android:name=".user.FullStoryHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.ChapterDetailActivity"
             android:exported="false" />
         <activity
             android:name=".user.StoryAuthorActivity"
             android:exported="false" />
         <activity
+            android:name=".Add_new_chapter"
+            android:exported="false" />
+        <activity
             android:name=".userdashboard.ReadLikeStoriesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".userdashboard.detail.ListChapterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Add_new_story"
             android:exported="false" />
         <activity
             android:name=".login_register.ForgotPassActivity"
@@ -73,6 +91,9 @@
             android:exported="false" />
         <activity
             android:name=".userdashboard.StoryStatisticalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admins.ListStoriesAdminActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

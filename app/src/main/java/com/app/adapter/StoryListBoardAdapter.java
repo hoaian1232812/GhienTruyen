@@ -20,6 +20,7 @@ import com.app.model.Story;
 
 import com.app.user.StoryDetail;
 import com.app.userdashboard.StoryStatisticalActivity;
+import com.app.userdashboard.detail.ListChapterActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.google.gson.Gson;
@@ -53,7 +54,7 @@ public class StoryListBoardAdapter extends RecyclerView.Adapter<StoryListBoardAd
                 .into(holder.img);
 
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), StoryStatisticalActivity.class);
+            Intent intent = new Intent(view.getContext(), ListChapterActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("story", story);
             intent.putExtra("data", bundle);

@@ -7,16 +7,5 @@
         android:icon="@android:drawable/ic_lock_silent_mode"
         android:title="Thêm truyện mới"
         app:showAsAction="collapseActionView" />
-    <item
-        android:id="@+id/menu_edit"
-        android:checkable="false"
-        android:icon="@android:drawable/ic_lock_silent_mode"
-        android:title="Sửa truyện"
-        app:showAsAction="collapseActionView" />
-    <item
-        android:id="@+id/menu_remove"
-        android:checkable="false"
-        android:icon="@android:drawable/ic_lock_silent_mode"
-        android:title="Xóa truyện"
-        app:showAsAction="collapseActionView" />
+   
 </menu>

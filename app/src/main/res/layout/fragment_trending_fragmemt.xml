@@ -36,7 +36,9 @@
 
                 <TextView
                     android:layout_width="match_parent"
+
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quick_sand"
                     android:text="Đánh giá"
                     android:textAlignment="center"></TextView>
             </LinearLayout>
@@ -66,7 +68,9 @@
 
                 <TextView
                     android:layout_width="match_parent"
+
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quick_sand"
                     android:text="Yêu thích"
                     android:textAlignment="center"></TextView>
             </LinearLayout>
@@ -96,7 +100,9 @@
 
                 <TextView
                     android:layout_width="match_parent"
+
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/quick_sand"
                     android:text="Xem nhiều"
                     android:textAlignment="center"></TextView>
             </LinearLayout>

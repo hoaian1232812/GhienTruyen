@@ -41,9 +41,14 @@ public class ListFeatureDashBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_list_feature, container, false);
-        User.getUserFromSharedPreferences(getActivity());
+
+        user = User.getUserFromSharedPreferences(getActivity());
+        Log.e("d", user.toString());
+        setUpLikeUser();
+        setUpReadUser();
         btnLogout = view.findViewById(R.id.btn_log_out);
         btnLogout.setOnClickListener(logOut());
+
         return view;
     }
 
@@ -110,7 +115,7 @@ public class ListFeatureDashBoardFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Story>> call, Throwable t) {
-                Toast.makeText(view.getContext(), "không thể truy cập dữ liệu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Không có truyện nào", Toast.LENGTH_SHORT).show();
             }
         });
     }
