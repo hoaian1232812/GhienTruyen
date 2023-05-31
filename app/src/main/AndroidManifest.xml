@@ -20,6 +20,9 @@
             android:name=".AdminActivity"
             android:exported="false" />
         <activity
+            android:name=".user.ReadLikeDeviceActivity"
+            android:exported="false" />
+        <activity
             android:name=".user.ChapterActivity"
             android:exported="false" />
         <activity

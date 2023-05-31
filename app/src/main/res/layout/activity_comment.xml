@@ -18,13 +18,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/start_totle"
+                android:textSize="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/quick_sand"
-
                 android:text="5.0" />
-
+                <TextView
+                    android:id="@+id/review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:text="NHẬN XÉT"
+                    android:textColor="@color/black"
+                    android:background="#4295D5"
+                    android:textSize="16dp"/>
             <LinearLayout
                 android:id="@+id/star"
                 android:layout_width="wrap_content"
@@ -32,12 +40,6 @@
                 android:layout_gravity="center"
                 android:orientation="horizontal" />
 
-            <TextView
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/quick_sand" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

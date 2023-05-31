@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,12 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.R;
 import com.app.model.Comment;
+import com.app.model.User;
+import com.app.service.ApiClient;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 
 import java.util.List;
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentVH>{
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentVH> {
     List<Comment> commentList;
     Context context;
 
@@ -40,9 +47,32 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                 .load("http://139.180.129.238:8080/images/OIP.jpg")
                 .transform(new CircleCrop())
                 .into(holder.img);
-        holder.nameUser.setText("aaa");
+        Call<User> call = ApiClient.getApiService().getNameById(comment.getIdUser());
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    holder.nameUser.setText(response.body().getName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
+
         holder.content.setText(comment.getContent());
         holder.date.setText(comment.getDate());
+        for (int i = 0; i < 5; i++) {
+            ImageView img = new ImageView(holder.itemView.getContext());
+            if (i < comment.getStar()) {
+                img.setImageDrawable(context.getDrawable(R.drawable.baseline_star_24));
+            } else {
+                img.setImageDrawable(context.getDrawable(R.drawable.outline_star_rate_24_blue));
+            }
+            holder.layoutStar.addView(img);
+        }
     }
 
     @Override
@@ -58,12 +88,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     class CommentVH extends RecyclerView.ViewHolder {
         ImageView img;
         TextView nameUser, content, date;
+        LinearLayout layoutStar;
+
         public CommentVH(@NonNull View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.img_user);
             nameUser = itemView.findViewById(R.id.nameUser);
             content = itemView.findViewById(R.id.content);
             date = itemView.findViewById(R.id.date);
+            layoutStar = itemView.findViewById(R.id.star_comment);
         }
     }
 }

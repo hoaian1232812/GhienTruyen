@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.R;
@@ -29,6 +32,7 @@ public class CommentActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Bundle bundle;
     boolean isLoading = false, empty = false;
+    TextView totle;
     ProgressBar pb_loading;
     private int limit = 15;
     private int page = 1;
@@ -42,6 +46,19 @@ public class CommentActivity extends AppCompatActivity {
         pb_loading = findViewById(R.id.pb_loading_comment);
         bundle = getIntent().getBundleExtra("data");
         setTitle(bundle.getString("title"));
+        int rate = (int) Math.round(bundle.getDouble("rate"));
+        totle = findViewById(R.id.start_totle);
+        totle.setText("" + rate);
+        LinearLayout linearLayout = findViewById(R.id.star);
+        for (int i = 0; i < 5; i++) {
+            ImageView img = new ImageView(this);
+            if (i < rate) {
+                img.setImageDrawable(getDrawable(R.drawable.baseline_star_24));
+            } else {
+                img.setImageDrawable(getDrawable(R.drawable.outline_star_rate_24_blue));
+            }
+            linearLayout.addView(img);
+        }
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView = findViewById(R.id.recycle_comment);
         recyclerView.setLayoutManager(linearLayoutManager);
