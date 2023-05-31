@@ -86,7 +86,7 @@ public class ListFeatureDashBoardFragment extends Fragment {
         CardView cardView = view.findViewById(R.id.go_to_list_read_story);
         cardView.setOnClickListener(view -> {
             Call<List<Story>> call = ApiClient.getApiService().getStoriesUserRead(user.getId(), 15, 1);
-            moveActivity(view, call, 0, "Truyện đã đọc");
+            moveActivity(view, call, 0, "Truyện đã xem");
         });
     }
 
