@@ -62,7 +62,9 @@ public class Comment implements Serializable {
         if (daysBetween == 0) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
             LocalTime timeNow = LocalTime.now();
-            String time = date.substring(date.indexOf("T") + 1, date.length());
+            Log.e("Lỗi time", date);
+            String time = date.substring(date.indexOf("T") + 1, date.indexOf("."));
+            Log.e("Lỗi time", time);
             LocalTime timeLastUpdate = LocalTime.parse(time, formatter);
             Duration duration = Duration.between(timeLastUpdate, timeNow);
             long hours = duration.toHours();

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.app.R;
 import com.app.adapter.CommentAdapter;
 import com.app.model.Comment;
 import com.app.model.Story;
+import com.app.model.User;
 import com.app.service.ApiClient;
 
 import java.util.List;
@@ -49,6 +51,18 @@ public class CommentActivity extends AppCompatActivity {
         int rate = (int) Math.round(bundle.getDouble("rate"));
         totle = findViewById(R.id.start_totle);
         totle.setText("" + rate);
+        User user = User.getUserFromSharedPreferences(this);
+        if (user != null) {
+            TextView review = findViewById(R.id.review);
+            review.setOnClickListener(view -> {
+                Intent intent = new Intent(this, ReviewActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("idUser", user.getId());
+                bundle1.putInt("idStory", bundle.getInt("idStory"));
+                intent.putExtra("data", bundle1);
+                startActivity(intent);
+            });
+        }
         LinearLayout linearLayout = findViewById(R.id.star);
         for (int i = 0; i < 5; i++) {
             ImageView img = new ImageView(this);

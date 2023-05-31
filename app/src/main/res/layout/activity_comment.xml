@@ -19,20 +19,12 @@
 
             <TextView
                 android:id="@+id/start_totle"
-                android:textSize="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="5.0" />
-                <TextView
-                    android:id="@+id/review"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="20dp"
-                    android:text="NHẬN XÉT"
-                    android:textColor="@color/black"
-                    android:background="#4295D5"
-                    android:textSize="16dp"/>
+                android:text="5.0"
+                android:textSize="18dp" />
+
             <LinearLayout
                 android:id="@+id/star"
                 android:layout_width="wrap_content"
@@ -40,7 +32,17 @@
                 android:layout_gravity="center"
                 android:orientation="horizontal" />
 
+            <TextView
+                android:id="@+id/review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#4295D5"
+                android:paddingHorizontal="20dp"
+                android:text="NHẬN XÉT"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
         </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycle_comment"
